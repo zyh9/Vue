@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+		  	<h2>颜色列表</h2>
+		  	<ul>
+		    	<li v-for="color in colors">
+		      		{{color}}
+		    	</li>
+		  	</ul>
+		 
+		  	<h2>各个家庭的父亲</h2>
+		  	<ul>
+		    	<li v-for="home in homes">
+		      		{{home.father}}
+		    	</li>
+		  	</ul>
+		</div>
+  	<script src="https://unpkg.com/vue"></script>
+  	<script type="text/javascript">
+  		
+  		/*
+  			v-for 循环
+  		*/
+  		var app = new Vue({
+		  	el:'#app',
+		  	data: {
+		    	colors : ['blue','red','black'],
+		    	homes:[
+		      		{father:'tom'},
+		      		{father:'bob'},
+		      		{father:'john'}
+		    	]
+		  	}
+		})
+  		
+  	</script>
+	</body>
+</html>
