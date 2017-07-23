@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			年龄：
+			{{age/2}}
+			<div class="hi">{{message}}</div>
+		</div>
+		<script src="https://unpkg.com/vue"></script>
+		<script type="text/javascript">
+			
+			// 感受数据与页面绑定的威力
+
+			//  el - 哪个范围需要有vue 的功能
+			//  data - 资料绑定
+		
+		   	var app = new Vue({
+		        el:'#app',
+		        data: {
+		        	message : '张燕辉',
+		       		age:18
+		     	}
+		   	})
+		   	
+		</script>
+	</body>
+</html>
