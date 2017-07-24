@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+    		{{price}}元
+    		<input type="button" value="点击减10元" v-on:click="sell">
+  		</div>
+  		<script src="https://unpkg.com/vue"></script>
+  		<script type="text/javascript">
+  			var app = new Vue({
+			  	el:'#app',
+			  	data:{
+			    	price: 100
+			  	},
+			  	methods:{
+			    	sell: function(){
+			      		this.price-=10;
+			    	}
+			  	}
+			})
+  		</script>
+	</body>
+</html>
