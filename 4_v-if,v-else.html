@@ -6,15 +6,13 @@
 </head>
 <body>
   <div class="app">
-
-
+		<ul>
       <li v-if="key == 2" v-for="(val,key) in arr">
         {{val.name}}
       </li>
       <li v-else-if="key == 3">
            {{'hehe'}}
       </li>
-      <li></li>
       <li style="color:red" v-else>
            {{key}}  ==  {{val.name}}
       </li>
