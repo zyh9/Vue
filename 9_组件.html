@@ -13,20 +13,19 @@
 <script type="text/javascript">
     
     /*
-      创建一个子组件使用Vue.component(name,{})
+	    	创建一个子组件使用Vue.component(name,{})
+	      
+	     	注意name的格式：
+	    			要么使用全小写
+	        	要么使用烤串命名  my-class
+	       		如果说你使用了myClass（有大写），那么在调用组件的时候大写变成
+	        	小写并且大写前加-   my-class
+	      
+	      		组件调用就在html结构中使用双标签即可。
       
-      注意name的格式：
-        要么使用全小写
-        要么使用烤串命名  my-class
-        如果说你使用了myClass（有大写），那么在调用组件的时候大写变成
-        小写并且大写前加-   my-class
+      	template中只能有一个顶层标签
       
-      组件调用就在html结构中使用双标签即可。
-      
-      template中只能有一个顶层标签
-      
-      
-      
+
     */
     
     // Vue.component('my-class',{
@@ -67,12 +66,10 @@
         }
       }
     }
-  
-    
-    
+
     /*
-      还可以在父组件上使用
-      components:{key(子组件的名字):val(要使用哪个组件)}
+      	还可以在父组件上使用
+      	components:{key(子组件的名字):val(要使用哪个组件)}
     */
     new Vue({
       el:'#app',
