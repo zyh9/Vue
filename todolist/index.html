@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="index.css"/>
+</head>
+<body>
+  <section class="todoapp">
+    <header class="header">
+      <h1>todos</h1>
+      <input class="new-todo" 
+        placeholder="请输入内容" 
+        v-model="val" 
+        @keyup.enter="addTodo"/>
+    </header>
+    <section class="main">
+      <input class="toggle-all" 
+        type="checkbox" 
+        v-model="all" 
+        @click="checkAll" 
+        v-show="todos.length"/>
+      <ul class="todo-list">
+        <li v-for="(item,key) in changeView" 
+          :class="{completed:item.checked,editing:item.editing}">
+          <div class="view">
+              <input class="toggle" 
+                type="checkbox" 
+                v-model="item.checked"
+                @click="check"/>
+              <label @dblclick="dblLi(item,$event)">{{item.name}}</label>
+              <button class="destroy" @click="removeTodo"></button>
+          </div>
+          <input class ="edit" :value="item.name"
+          @blur="blurLi(item,$event)"
+          @keyup.enter="blurLi(item,$event)"
+          @keyup.esc="escLi(item,$event)"
+          />
+        </li>
+      </ul>
+    </section>
+    <footer class="footer" v-show="todos.length">
+      <span class="todo-count">
+        <strong>{{num}}</strong><span>条未选中</span>
+      </span>
+      <ul class="filters">
+        <li v-for="(item,key) in arr">
+          <a :href="item.hash" 
+            :class="{selected:hash == item.hash}"
+            @click="hash=item.hash"
+            >{{item.txt}}</a>
+        </li>
+      </ul>
+      <button class="clear-completed" 
+        @click="clear" 
+        v-show="clearIetm">清除完成项</button>
+    </footer>
+    <!--<pre>{{this.todos}}</pre>-->
+  </section>
+  <script src="vue.js"></script>
+  <script type="text/javascript">
+  	var app = new Vue({
+  		el:'.todoapp',
+  		data:{
+  			val:'',
+  			all:false,
+  			todos:[{name:'今天的太阳好圆啊',id:1,checked:false,editing:false}],
+        arr:[{txt:'全部',hash:'#/all'},
+              {txt:'未完成',hash:'#/active'},
+              {txt:'已完成',hash:'#/completed'}
+              ],
+        hash:'#/all'
+  		},
+  		computed:{
+  			num:function(){
+  				return this.todos.filter(e=>!e.checked).length;
+  			},
+  			clearIetm:function(){
+  				return this.todos.filter(e=>e.checked).length;
+  			},
+        changeView(){
+          let data2 = Object.assign(this.todos);
+          return data2.filter(e=>{
+            switch(this.hash){
+              case '#/all':
+                return Object.assign(this.todos);
+              break;
+              case '#/active':
+                return !e.checked;
+              break;
+              case '#/completed':
+                return e.checked;
+              break;
+            }
+          })
+        }
+  		},
+  		methods:{
+  			addTodo(){
+  				if(this.val!=''){
+	  				this.todos.push({
+              name:this.val,
+              id:+new Date,
+              checked:false,
+              editing:false});
+	  				this.val = '';
+  				}
+  			},
+				removeTodo(){
+					this.todos.splice(this.todos.indexOf(this.val),1)
+				},
+				checkAll(){
+					this.todos.forEach(e=>e.checked=this.all);
+				},
+				check(){
+					this.all = this.todos.every(e=>e.checked);
+				},
+				clear(){
+					this.todos = this.todos.filter(e=>!e.checked);
+				},
+				dblLi(item,ev){
+          this.todos.forEach(e=>{
+            if(e.id==item.id){
+              item.editing = true;
+            }
+          })
+          let inputs = ev.target.parentNode.nextElementSibling;
+					Vue.nextTick(function(){
+						inputs.focus()
+					})
+				},
+        blurLi(item,ev){
+          this.todos.forEach(e=>{
+            if(e.id==item.id){
+              item.editing = false;
+              item.name = ev.target.value;
+            }
+          })
+          ev.target.blur();
+        },
+        escLi(item,ev){
+          ev.target.value = item.name;
+          ev.target.blur();
+        }
+  		}
+  	})
+  </script>
+</body>
+</html>
