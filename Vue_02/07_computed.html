@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		p{
+			width:100px;
+			height:100px;
+			background:red;
+		}
+	</style>
+	<script src="js/vue.min.js"></script>
+</head>
+<body>
+<div id="box">
+<button @click="add()">测试</button>
+	{{sum}}
+</div>
+	<script>
+
+	new Vue({
+		el:"#box",
+		data:{
+			num1:0,
+			num2:0,
+			num3:2
+		},
+		methods:{
+			add:function(){
+				this.num2++;
+			}
+		},
+		computed:{
+			//view视图只是为了显示
+			//推荐使用computed 计算属性值
+			//返回值里面用的参数,一定是改变,只要变量改变,驱动sum函数
+			sum:function(){
+				var rel=this.num1*this.num3;
+				return rel;
+			},
+		}
+	})
+	</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/vue.min.js"></script>
+</head>
+<body>
+<div id="box">
+	<button @click="add()">测试</button>
+	{{a}}
+	<hr>
+	<button @click="add2()">测试</button>
+	年龄{{json.year}}
+
+</div>
+<!-- watch -->
+	<script>
+
+	var vm=new Vue({
+		el:"#box",
+		data:{
+			// 传递类型
+			a:1,
+			// 引用类型
+			json:{name:"Msea",year:18}
+		},
+		methods:{
+			add:function(){
+				this.a++;
+			},
+			add2:function(){
+				this.json.year++;
+			}
+		}
+	})
+	// console.dir(vm);
+	vm.$watch("a",function(){
+		console.log("数据变化了");
+	});
+	vm.$watch("json",function(){
+		console.log("json数据变化了");
+	},{deep:true});
+	</script>
+</body>
+</html>
