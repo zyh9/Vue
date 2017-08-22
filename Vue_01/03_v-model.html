@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/vue.min.js"></script>
+</head>
+<body>
+<!-- 视图有的变量,组件里面一定要定义 -->
+<div id="box">
+	<input type="text" v-model="msg">
+	{{msg}}
+</div>
+	<script>
+		new Vue({
+			el:"#box",
+			data:{
+				msg:""
+			}
+		})
+	</script>
+</body>
+</html>

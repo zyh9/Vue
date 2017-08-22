@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/vue.min.js"></script>
+	<style>
+		.box1{
+			width:100px;
+			height:100px;
+			background: pink;
+		}
+		.box2{
+			width:100px;
+			height:100px;
+			background: cyan;
+		}
+		.box3{
+			background:red;
+		}
+	</style>
+</head>
+<body>
+<!-- 双引号内容,要注意值类型 -->
+<!-- class -->
+<div id="box">
+	<!-- <div :class="['box1','box3']"></div> -->
+	<!-- <div :class="{'box1':true,'box3':true}"></div> -->
+	<div :class="test"></div>
+	<!-- <div :style="{width:'100px',height:'100px',background:'blue'}"></div> -->
+	<div :style="json"></div>
+</div>
+	<script>
+	new Vue({
+		el:"#box",
+		data:{
+			test:{'box1':true,'box3':true},
+			json:{width:'100px',height:'100px',background:'blue'}
+		}
+	})
+	</script>
+</body>
+</html>

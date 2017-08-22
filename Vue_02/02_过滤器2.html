@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/vue.min.js"></script>
+</head>
+<body>
+<div id="box">
+	<span>{{num|number(5,'￥')}}</span>
+	<span>{{str1|upCase}}</span>
+	<span>{{str2|loCase}}</span>
+	<span>{{str1|fqCase}}</span>
+	<span>{{time|data}}</span>
+
+	<ul>
+		<li v-for="val in data">
+			{{val|test}}
+		</li>
+	</ul>
+
+</div>
+	<script>
+
+	Vue.filter("test",function(val){
+		console.log(val);
+	})
+
+	Vue.filter("number",function(val,length,mark){
+		// console.log(str+val.toFixed(2));
+		var lenght=length||2;
+		return mark+val.toFixed(length);
+	})
+	Vue.filter("upCase",function(val){
+		var result=val.toUpperCase();
+		return result;
+	})
+	Vue.filter("loCase",function(val){
+		var result=val.toLowerCase();
+		return result;
+	})
+	Vue.filter("fqCase",function(val){
+		var result=val.toUpperCase().slice(0,1)+val.slice(1);
+		console.log(result);
+		return result;
+	})
+
+	Vue.filter("data",function(val){
+		var d=new Date(val);
+		//年
+		var year=d.getFullYear();
+		//月
+		var month=d.getMonth()+1;//老外的习惯
+		//日
+		var day= d.getDate();
+		//时 
+		var hour=d.getHours();
+		//分
+		var minute=d.getMinutes();
+		//秒
+		var second=d.getSeconds();
+
+		return year+"/"+month+"/"+day+" "+hour+":"+minute+" "+second;
+	})
+
+	new Vue({
+		el:"#box",
+		data:{
+			num:123.986833223782,
+			str1:'msea',
+			str2:"MSEA",
+			time:new Date(),
+			data:['one','tow','three'],
+		}
+	})
+	</script>
+</body>
+</html>
