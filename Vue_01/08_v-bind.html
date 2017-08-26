@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/vue.min.js"></script>
+</head>
+<body>
+<!-- v-bind在Vue里面就是绑定属性值 -->
+<div id="box">
+<!-- v-bind在Vue里面的简写,推荐使用简写 -->
+	<a :href="info.hre">
+		<img v-bind:src="info.src" v-bind:title="info.title">
+	</a>
+</div>
+	<script>
+	new Vue({
+		el:"#box",
+		data:{
+			info:{
+				hre:"http://www.baidu.com",
+				src:"https://i.loli.net/2017/08/20/599867a0374d6.jpg",
+				title:"小西瓜"
+			}
+		}
+	})
+	</script>
+</body>
+</html>

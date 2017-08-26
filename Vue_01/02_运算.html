@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/vue.min.js"></script>
+</head>
+<body>
+	<div id="box">
+		{{"运算"+(val1+val2)}}
+		<h1>你的秀发</h1>
+		<p>{{true?"唱的真好":"呵呵"}}</p>
+		<p>{{val3[0]}}</p>
+		<!-- 这里面可以使用字符串之类操作 -->
+		<!-- 视图里面只负责显示 -->
+		<p>{{val3[0].indexOf("lielie")}}</p>
+
+	</div>
+	<script>
+	new Vue({
+		el:"#box",
+		data:{
+			val1:1,
+			val2:2,
+			val3:["你好Vue"]
+		}
+	})
+	</script>
+</body>
+</html>
+<!-- 总结 -->
+<!-- 运算符,逻辑运算符,布尔值,可以进行字符串之类的操作 -->

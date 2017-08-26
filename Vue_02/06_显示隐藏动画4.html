@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		p{
+			width:100px;
+			height:100px;
+			background:red;
+		}
+	</style>
+	<link rel="stylesheet" href="css/animate.css">
+	<script src="js/vue.min.js"></script>
+</head>
+<body>
+<!-- 多个节点动画 -->
+<div id="box">
+	<button @click="show=!show">点击</button>
+	<transition-group enter-active-class="bounceInLeft" leave-active-class="bounceOutRight">	
+	<!--多个元素要加key,分开动key值要不一样-->
+		<p v-show="show" class="animated" :key="1"></p>
+		<p v-show="show" class="animated" :key="1"></p>
+	</transition-group>
+</div>
+	<script>
+
+	new Vue({
+		el:"#box",
+		data:{
+			show:false
+		}
+	})
+	</script>
+</body>
+</html>

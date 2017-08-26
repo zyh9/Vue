@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		p{
+			width:100px;
+			height:100px;
+			background:red;
+		}
+		.fade-enter-active{
+			animation: donghua_in 0.5s;
+		}
+		.fade-leave-active{
+			animation: donghua_out 0.5s;
+		}
+		@keyframes donghua_in{
+			0%{
+				transform: scale(0);
+			}
+			50%{
+				transform: scale(1.5);
+			}
+			100%{
+				transform: scale(1);
+			}
+		}
+		@keyframes donghua_out{
+			0%{
+				transform: scale(1);
+			}
+			50%{
+				transform: scale(1.5);
+			}
+			100%{
+				transform: scale(0);
+			}
+		}
+	</style>
+	<script src="js/vue.min.js"></script>
+</head>
+<body>
+<!-- 控制动画过程 -->
+<div id="box">
+	<button @click="show=!show">点击</button>
+	<transition name="fade"
+		@before-enter="beforeEnter"
+		@enter="enter"
+		@after-enter="afterEnter"
+		@before-leave="beforeLeave"
+		@leave="leave"
+		@after-leave="afterLeave"
+	>	
+		<p v-show="show"></p>
+	</transition>
+</div>
+	<script>
+
+	new Vue({
+		el:"#box",
+		data:{
+			show:false
+		},
+		methods:{
+			beforeEnter:function(el){
+				console.log('动画进入之前');
+				// el就是当前节点
+				console.log(el);
+			},
+			enter:function(el){
+				el.style.background="cyan";
+				console.log("动画进入");
+			},
+			afterEnter:function(){
+				console.log("动画进入之后");
+			},
+			beforeLeave:function(el){
+				el.style.background="red";
+				console.log('动画离开之前');
+			},
+			leave:function(){
+				console.log("动画离开");
+			},
+			afterLeave:function(){
+				console.log("动画离开之后");
+			}
+
+		}
+	})
+	</script>
+</body>
+</html>
