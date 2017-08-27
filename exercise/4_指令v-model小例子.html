@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+	  		<h2>你考几分呢？</h2>
+		  	<input type="text" v-model="score">
+		  	<div v-if="score>=60&&score<101">很棒，你及格了！</div>
+		  	<div v-else-if="score<60">不及格！</div>
+		  	<div v-else="score>100">超出分数值！</div>
+		</div>
+		<script src="https://unpkg.com/vue"></script>
+	  	<script type="text/javascript">
+	  		
+	  		//  v-model
+			//  为页面输入框进行数据绑定
+			//  v-if  v-else-if  v-else  条件判断
+			
+			var app = new Vue({
+			  	el:'#app',
+			  	data: {
+			    	message : 'Hello World！',
+			    	score: 0
+			  	}
+			})
+			
+	  	</script>
+	</body>
+</html>

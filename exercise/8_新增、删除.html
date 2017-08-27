@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			li.active{
+			  	text-decoration: line-through;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="app">
+		  	<input type="text" placeholder="请输入待办事项" 
+		        @keyup.enter="addTodo(newTodo)" v-model="newTodo">
+		  	<h2>事项列表</h2>
+		  	<ul>
+			    <li v-for="todo in todos" v-bind:class="{ active: todo.completed }">
+			      	<input  type="checkbox" v-model="todo.completed">
+			      	{{todo.content}}
+			      	<a href="#" @click.prevent="removeTodo(todo)">删除</a>
+			    </li>
+		  	</ul>
+			<pre>{{this.todos}}</pre>
+		</div>
+	<script src="https://unpkg.com/vue"></script>
+	<script type="text/javascript">
+		/*
+			新增、删除数据
+			
+			@keyup.enter
+				键盘事件
+		*/
+		var app = new Vue({
+		  	el: '.app',
+		  	data:{
+		    	todos:[],
+		    	newTodo:''
+		  	},
+		  	methods:{
+		    	addTodo: function(todo){
+		      		this.todos.push({content:todo,completed: false})
+		    	},
+		    	removeTodo: function(todo){
+		      		this.todos.splice(this.todos.indexOf(todo), 1);
+		    	}
+		  	}
+		})
+	</script>
+	</body>
+</html>
