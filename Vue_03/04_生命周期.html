@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/vue.min.js"></script>
+</head>
+<body>
+<div id="box">
+	{{test}}
+</div>
+	<script>
+
+		new Vue({
+			el:"#box",
+			data:{
+				test:"哎呀我去"
+			},
+			methods:{
+				show:function(){
+				}
+			},
+			beforeCreate(){
+				console.log("组件刚刚被创建");
+			},
+			created(){
+				console.log("实例已经创建完成");
+			},
+			beforeMount(){
+				console.log("模板编译之前");
+			},
+			mounted(){
+				// console.log("模板编译完成");
+				console.log(this.test);
+			}
+		
+	})
+		
+	</script>
+</body>
+</html>

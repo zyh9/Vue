@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/vue.min.js"></script>
+</head>
+<body>
+<div id="box">
+<button @click="show">测试</button>
+	{{num}}
+	<br>
+<button @click="del">销毁</button>
+</div>
+	<script>
+
+		new Vue({
+			el:"#box",
+			data:{
+				num:0
+			},
+			methods:{
+				show:function(){
+					this.num++;
+				},
+				del:function(){
+					this.$destroy();
+				}
+			},
+			beforeDestroy(){
+				console.log("销毁之前");
+			},
+			destroyed:function(){
+				console.log("销毁之后");
+			}
+		
+	})
+		
+	</script>
+</body>
+</html>

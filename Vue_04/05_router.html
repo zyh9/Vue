@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/vue.min.js"></script>
+	<script src="js/vue-router.min.js"></script>
+</head>
+<body>
+<template id="list">
+<div>
+	<h3>我是列表页1</h3>
+	<router-link to="/list/haiyang1/age/1">用户1</router-link>
+	<router-link to="/list/haiyang2/age/2">用户2</router-link>
+	<router-link to="/list/haiyang3/age/3">用户3</router-link>
+	<router-view></router-view>	
+</div>
+	
+</template>
+<template id="test">
+	<div>
+		{{$route.params}}
+		<button @click="show($route)">测试</button>
+	</div>
+</template>
+	<!-- 路由创建需要引入 vue-router -->
+	<div id="box">
+		<!-- a标签怎么写 ?router-link标签会自动转化a-->
+		<router-link to="/">首页</router-link>	
+		<router-link to="/list">列表页</router-link>	
+		<router-link to="/show">show页面</router-link>	
+		<router-link to="/haiyang">show页面</router-link>	
+		<!-- 电视机 -->
+		<router-view></router-view>
+
+	</div>
+	<script>
+	    var heade={
+	    	template:`<div>
+	    				<h1>{{msg}}</h1>
+	    				<button>测试</button>
+	    			  </div>`,
+
+	    	data:function(){
+	    		return {
+	    			msg:"我是首页"
+	    		}
+	    	},
+	    	methods:{
+	    		show:function(){
+	    			alert(this.msg);
+	    		}
+	    	}
+	    }
+	    var list={
+	    	template:"#list"
+	    }
+	    var show={
+	    	template:"<h1>我是show页</h1>"
+	    }
+	    var userd={
+	    	template:"#test",
+	    	methods:{
+	    		show:function(route){
+	    			console.log(route.params)
+	    		}
+	    	}
+	    }
+
+	    // 路由配置(一个路由对应一个组件(麻雀理论))
+	    var routes=[
+	    	{path:"/",component:heade},
+	    	{
+	    		path:"/list",
+	    		component:list,
+	    		children:[
+	    		// 冒号后面放的是变量的路由
+	    			{path:":usernamed/age/:num",component:userd},
+	    		]
+	    	},
+	    	{path:"/show",component:show},
+	    	// 上面匹配不到的路由拦截
+	    	{path:"*",component:heade},
+	    ];
+	    // 初始化路由实例
+	    var router=new VueRouter({
+	    	routes:routes
+	    });
+	    new Vue({
+	    	router:router,
+	    	el:"#box"
+	    })
+	</script>
+</body>
+</html>

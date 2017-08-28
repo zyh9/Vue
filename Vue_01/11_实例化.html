@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/vue.min.js"></script>
+</head>
+<body>
+<div id="box">
+	{{msg}}
+	<button v-on:click="show()">测试</button>
+</div>
+	<script>
+	// console.log(Vue);   //没有被实例化
+		new Vue({
+			el:"#box",
+			// 放属性
+			data:{
+				msg:"你好Vue!"
+			},
+			//放方法
+			methods:{
+				show:function(){
+					alert(this.msg);
+				}
+			}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		p{
+			width:100px;
+			height:100px;
+			background:red;
+		}
+	</style>
+	<link rel="stylesheet" href="css/animate.css">
+	<script src="js/vue.min.js"></script>
+</head>
+<body>
+<div id="box">
+	<input type="text" v-model="show">
+	<ul>
+		<li v-for="val in lists">
+			<h1>{{val}}</h1>
+		</li>
+	</ul>
+</div>
+	<script>
+
+	new Vue({
+		el:"#box",
+
+		data:{
+			show:"",
+			list:["赵添","张杰","张飞","赵云","Msea","悟空传","关羽"]
+		},
+		computed:{
+			lists:function(){
+				// var fn_this=this;
+				
+				// 注意this指向
+				// console.log(this.show==="");
+				// this.show默认是空字符串
+				var arr=[];
+				// console.log(this.list);
+				this.list.forEach(function(val){
+					// console.log(val);
+					// 默认""空字符串 返回0
+					// 表单输入赵添,匹配到了返回0
+					// console.log(this.show);
+					if(val.indexOf(this.show)!=-1){
+						arr.push(val);
+					}
+					// 强制改变this的指向
+				}.bind(this))
+				console.log(arr);
+				return arr;
+
+			}
+		}
+	})
+	</script>
+</body>
+</html>

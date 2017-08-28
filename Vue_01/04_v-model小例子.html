@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/vue.min.js"></script>
+</head>
+<body>
+<div id="box">
+	{{"苹果:"+apple}}
+	<input type="number" v-model="price[0]">
+	{{"总价:"+apple*price[0]}}
+	<hr>
+	{{"橘子:"+orange}}
+	<input type="number" v-model="price[1]">
+	{{"总价:"+orange*price[1]}}
+
+</div>
+	<script>
+		new Vue({
+			el:"#box",
+			data:{
+				apple:18,
+				orange:20,
+				price:[0,0]
+			}
+		})
+	</script>
+</body>
+</html>

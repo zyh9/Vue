@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/vue.min.js"></script>
+</head>
+<body>
+<div id="box">
+	<div>
+	<!-- w键位87 -->
+		<h1>键盘事件</h1>
+		<input type="text" placeholder="判断触发" @keydown="test1($event)">
+		<!-- vue封装了一部分常用的键位 -->
+		<!-- <input type="text" placeholder="判断触发" @keydown.up="test1($event)"> -->
+	<!-- 	<input type="text" placeholder="判断触发" @keydown.ctrl="test1($event)"> -->
+	<!-- 	<input type="text" placeholder="判断触发" @keydown.enter="test1($event)"> -->
+
+	<input type="text" placeholder="判断触发" @keydown.w="test1($event)">
+	</div>
+</div>
+	<script>
+	// 自定义键位设置
+	Vue.config.keyCodes.w=87;
+
+		new Vue({
+			el:"#box",
+			// 放属性
+			data:{
+				msg:"你好Vue!"
+			},
+			//放方法
+			methods:{
+			
+				test1:function(e){
+					console.log(e.keyCode);
+				},
+				test2:function(){
+					alert(2);
+				},
+				test3:function(){
+					alert(3);
+				}
+			}
+		})
+	</script>
+</body>
+</html>

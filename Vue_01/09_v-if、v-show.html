@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/vue.min.js"></script>
+	<style>
+		.box1{
+			width:100px;
+			height:100px;
+			background: pink;
+		}
+		.box2{
+			width:100px;
+			height:100px;
+			background: cyan;
+		}
+	</style>
+</head>
+<body>
+<div id="box">
+	<div class="box1" v-show="val1"></div>
+	<div class="box2" v-if="val2"></div>
+	<!-- v-show相当于 display:none-->
+	<!-- v-if 相当于删除这个节点-->
+	<!-- 使用v-if来进行切换,消耗大 -->
+</div>
+	<script>
+	new Vue({
+		el:"#box",
+		data:{
+			val1:true,
+			val2:true
+		}
+	})
+	</script>
+</body>
+</html>

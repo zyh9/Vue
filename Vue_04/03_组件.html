@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/vue.min.js"></script>
+</head>
+<body>
+<template id="test">
+	<h1>{{msg}}</h1>
+</template>	
+<div id="box">
+	<com-h></com-h>
+	<com-m></com-m>
+	<com-f></com-f>
+</div>
+	<script>
+		var Event=new Vue(); 
+		var header={
+			template:'<h1>{{msg}}<button @click="send()">测试</button></h1>',
+			data:function(){
+				return{
+					msg:"我是头部"
+				}
+			},
+			methods:{
+				send:function(){
+				Event.$emit("getVal",this.msg);
+					// console.log(this.msg);
+				}
+			},
+		
+		}
+		var main={
+			template:"<h1>我是主要部分</h1>"
+		}
+		var footer={
+			template:"#test",
+			data:function(){
+				return{
+					msg:"我是尾部"
+				}
+			},
+			methods:{},
+			mounted:function(){
+				// console.log("OK");
+				 Event.$on("getVal",function(msg){
+				// 	//拿到头部组件传入的参数
+				// 	// console.log(msg);//OK
+				// 	//拿到了当前组件参数,
+				// 	// console.log(this.msg);ok
+				// 	console.log("OKK");
+					this.msg=msg;
+				 }.bind(this))
+			}
+		}
+
+		new Vue({
+			el:"#box",
+			components:{
+				// 模板名称:键值对
+				"com-h":header,
+				"com-m":main,
+				"com-f":footer,
+			}
+		})
+	</script>
+</body>
+</html>
