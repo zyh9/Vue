@@ -2,8 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <link rel="stylesheet" type="text/css" href="index.css"/>
 </head>
@@ -31,7 +29,7 @@
                 v-model="item.checked"
                 @click="check"/>
               <label @dblclick="dblLi(item,$event)">{{item.name}}</label>
-              <button class="destroy" @click="removeTodo"></button>
+              <button class="destroy" @click="removeTodo(item)"></button>
           </div>
           <input class ="edit" :value="item.name"
           @blur="blurLi(item,$event)"
@@ -108,8 +106,8 @@
 	  				this.val = '';
   				}
   			},
-				removeTodo(){
-					this.todos.splice(this.todos.indexOf(this.val),1)
+				removeTodo(item){
+					this.todos.splice(this.todos.indexOf(item.name),1)
 				},
 				checkAll(){
 					this.todos.forEach(e=>e.checked=this.all);
