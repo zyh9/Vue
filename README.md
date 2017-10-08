@@ -1,12 +1,12 @@
-﻿## vue
+﻿## Vue.js
 
-### vue
+### Vue简介
 
 		一个mvvm框架(库)、和angular类似
 		
 		比较容易上手、小巧
 
-### vue和angular区别
+### Vue和Angular区别
 
 		vue——简单、易学
 		
@@ -22,7 +22,7 @@
 		
 		共同点: 不兼容低版本IE
 
-### vue基本雏形
+### Vue基本雏形
 
 		angular
 		
@@ -354,7 +354,7 @@
 		});
 
 
-### 自定义指令:
+### 自定义指令
 
 		Vue.directive('指令名称',function(参数){
 			this.el	-> 原生DOM元素
