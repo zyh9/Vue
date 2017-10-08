@@ -151,6 +151,7 @@
 						json:{red:true, blue:false}
 					}
 		
+		
 		:style=""		v-bind:style=""
 		
 			注意:  复合样式，采用驼峰命名法
@@ -159,22 +160,22 @@
 			
 			:style="[c]"
 				data:{
-	                    c:{color:'red'}
-	                }
+					c:{color:'red'}
+				}
 	        
 			:style="[c,d]"
 			data:{
-                    c:{color:'red'},
-                    b:{backgroundColor:'blue'}
-                }
+				c:{color:'red'},
+				b:{backgroundColor:'blue'}
+			}
 				
 			:style="json"
 				data:{
-	                    json:{
-	                        color:'red',
-	                        backgroundColor:'gray'
-	                    }
-	                }
+					json:{
+						color:'red',
+						backgroundColor:'gray'
+					}
+				}
 
 ###模板
 
