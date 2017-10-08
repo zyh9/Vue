@@ -235,13 +235,15 @@
 			    a:1,
 			    b:20
 			},{
-			    emulateJSON:true		//传输数据
+			    emulateJSON:true
 			}).then(res=>{
 			    alert(res.data);
 			},err=>{
 			    alert(err.status);
 			});
 			
+		或者直接写：Vue.http.options.emulateJSON = true;
+		
 		jsonp:
 			
 			this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',{
