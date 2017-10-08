@@ -1,14 +1,12 @@
 ﻿## vue
 
-![生命周期](https://i.loli.net/2017/08/20/5998646ed3e04.png)
-
-### vue:
+### vue
 
 		一个mvvm框架(库)、和angular类似
 		
 		比较容易上手、小巧
 
-### vue和angular区别?
+### vue和angular区别
 
 		vue——简单、易学
 		
@@ -57,9 +55,9 @@
 		
 		v-show		显示隐藏
 		
-			v-for="(v,i) in arr"		简单类型track by="$index"
+			v-for="(value,index) in arr"		简单类型track by="$index"
 			
-			v-for="(v,k) in json"
+			v-for="(value,key,index) in json"
 		
 		v-on:click/dblclick/mouseover/mouseout...
 			简写：
@@ -137,18 +135,23 @@
 					
 				:class="[red,blue]"		可传入多个数据
 			
-			2)	:class="{red:true,blue:true}"	class名
+			2)
+				:class="{red:true,blue:true}"	class名
 				
+			3)
 				:class="{red:a, blue:b}"	布尔值控制
 					data:{
 						a:true,
 						b:false
 					}
 					
+			4)
 				:class="json"		直接传入一个json
-					
 					data:{
-						json:{red:true, blue:false}
+						json:{
+							red:true, 
+							blue:false
+						}
 					}
 		
 		
@@ -156,26 +159,29 @@
 		
 			注意:  复合样式，采用驼峰命名法
 			
-			:style="{color:'red'}
-			
-			:style="[c]"
-				data:{
-					c:{color:'red'}
-				}
-	        
-			:style="[c,d]"
-			data:{
-				c:{color:'red'},
-				b:{backgroundColor:'blue'}
-			}
+			1)
+				:style="{color:'red'}
 				
-			:style="json"
-				data:{
-					json:{
-						color:'red',
-						backgroundColor:'gray'
+				:style="[c]"
+					data:{
+						c:{color:'red'}
 					}
-				}
+	        
+			2)
+				:style="[c,d]"
+					data:{
+						c:{color:'red'},
+						b:{backgroundColor:'blue'}
+					}
+				
+			3)
+				:style="json"
+					data:{
+						json:{
+							color:'red',
+							backgroundColor:'gray'
+						}
+					}
 
 ###模板
 
@@ -183,7 +189,7 @@
 		
 		{{*msg}}	数据只绑定一次
 		
-		{{{msg}}}	HTML转义输出（可识别html标签）
+		{{{msg}}}	HTML转义输出（可识别html标签）	注意{{{ }}}在Vue2.0被丢弃
 
 ### 过滤器（过滤模板数据）
 
@@ -256,3 +262,115 @@
 			},err=>{
 			    alert(err.status);
 			});
+
+### vue生命周期
+
+		created	->	实例已经创建
+		
+		beforeCompile	->	编译之前
+		
+		compiled	->	编译之后
+		
+		ready	->	插入到文档中
+		
+		beforeDestroy	->	销毁之前
+		
+		destroyed	->	销毁之后
+
+### v-cloak
+
+		v-cloak		防止闪烁，比较大段落
+		
+		<span>{{msg}}</span>		->		v-text
+		
+		{{{msg}}}		->		v-html		注意{{{ }}}在Vue2.0被丢弃
+
+### 计算属性的使用
+
+		computed:{
+			b:function(){		//默认调用get
+				return 值
+			}
+		}
+		
+		computed:{
+			b:{
+				get:
+				set:
+			}
+		}
+		
+		* computed里面可以放置一些业务逻辑代码，一定记得return
+
+### vue实例简单方法
+
+	vm.$el	->	就是元素
+	
+	vm.$data	->	就是data
+	
+	vm.$mount	->	手动挂在vue程序
+	
+	vm.$options	->	获取自定义属性
+	
+	vm.$destroy	->	销毁对象
+	
+	vm.$log()	->	查看现在数据的状态
+
+### 循环
+
+		v-for="(value,index) in data"
+		
+		会有重复数据？
+		
+		track-by='$index'	提高循环性能
+
+### 过滤器
+
+		vue提供过滤器
+		
+			capitalize	uppercase	currency...
+		
+		debounce	配合事件，延迟执行
+			"fn|debounce 2000"		延迟2s执行函数
+		
+		数据配合使用过滤器
+		
+			limitBy 限制几个		=>limitBy 2		=>取数组前两个
+			
+			limitBy 取几个 从哪开始		=>limitBy 2 0		=>从第0个开始取2个（第二个参数为数字下标）
+			
+			filterBy 过滤数据		=>filterBy 可以是某个变量或者确定字符
+			
+			orderBy 排序
+				1  -> 正序
+				-1  -> 倒序
+
+### 自定义过滤器
+
+		model ->过滤 -> view
+		
+		Vue.filter(name,function(input){
+			return 代码...
+		});
+
+
+### 自定义指令:
+
+		Vue.directive('指令名称',function(参数){
+			this.el	-> 原生DOM元素
+		});
+		
+		<div v-red="参数"></div>
+		
+		指令名称: 	v-red  ->  red
+		
+		* 注意: 必须以 v-开头
+
+### 自定义键盘信息
+
+		Vue.directive('on').keyCodes.ctrl=17;
+
+### 监听数据变化
+
+		vm.$watch(name,callback);	//浅度监视
+		vm.$watch(name,callback,{deep:true});	//深度监视 
