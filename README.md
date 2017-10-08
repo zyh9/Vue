@@ -99,10 +99,13 @@
 			常用键
 			
 				回车
+				
 					a). @keyup.13
 					
 					b). @keyup.enter
+					
 				上、下、左、右
+				
 					@keyup/keydown.up
 					
 					@keyup/keydown.down
@@ -119,6 +122,7 @@
 			:src=""		推荐
 	
 		<img src="{{url}}" alt="">	效果能出来，会报错
+		
 		<img v-bind:src="url" alt="">	效果可以出来，不会报错
 
 ### class和style
@@ -156,7 +160,7 @@
 			:style="[c]"
 				data:{
 	                    c:{color:'red'}
-	               }
+	                }
 	        
 			:style="[c,d]"
 			data:{
@@ -170,7 +174,7 @@
 	                        color:'red',
 	                        backgroundColor:'gray'
 	                    }
-	               }
+	                }
 
 ###模板
 
@@ -231,7 +235,7 @@
 			    a:1,
 			    b:20
 			},{
-			    emulateJSON:true
+			    emulateJSON:true		//传输数据
 			}).then(res=>{
 			    alert(res.data);
 			},err=>{
@@ -243,7 +247,7 @@
 			this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',{
 			    wd:'a'
 			},{
-			    jsonp:'cb'	//callback名字，默认名字就是"callback"
+			    jsonp:'cb'		//callback名字，默认名字就是"callback"
 			}).then(res=>{
 			    alert(res.data.s);
 			},err=>{
