@@ -288,7 +288,7 @@
 ### 计算属性的使用
 
 		computed:{
-			b:function(){		//默认调用get
+			b:function(){	//默认调用get
 				return 值
 			}
 		}
@@ -320,9 +320,9 @@
 
 		v-for="(value,index) in data"
 		
-		会有重复数据？
+		出现重复数据：
 		
-		track-by='$index'	提高循环性能
+			track-by='$index'	提高循环性能
 
 ### 过滤器
 
@@ -335,11 +335,11 @@
 		
 		数据配合使用过滤器
 		
-			limitBy 限制几个		=>limitBy 2		=>取数组前两个
+			limitBy 限制几个	=>limitBy 2	=>取数组前两个
 			
-			limitBy 取几个 从哪开始		=>limitBy 2 0		=>从第0个开始取2个（第二个参数为数字下标）
+			limitBy 取几个 从哪开始	=>limitBy 2 0	=>从第0个开始取2个（第二个参数为数字下标）
 			
-			filterBy 过滤数据		=>filterBy 可以是某个变量或者确定字符
+			filterBy 过滤数据	=>filterBy 可以是某个变量或者确定字符
 			
 			orderBy 排序
 				1  -> 正序
@@ -362,7 +362,7 @@
 		
 		<div v-red="参数"></div>
 		
-		指令名称: 	v-red  ->  red
+		指令名称: 	v-red	->	red
 		
 		* 注意: 必须以 v-开头
 
