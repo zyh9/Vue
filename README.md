@@ -51,13 +51,14 @@
 
 		v-model		双向数据绑定（一般用于表单元素）
 		
-		v-for		循环
+		v-for		循环		:key='index'提高循环性能
+		
+			Vue2.0:
+				v-for="(value,index) in arr"
+				
+				v-for="(value,key,index) in json"
 		
 		v-show		显示隐藏
-		
-			v-for="(value,index) in arr"		简单类型track by="$index"
-			
-			v-for="(value,key,index) in json"
 		
 		v-on:click/dblclick/mouseover/mouseout...
 			简写：
@@ -183,13 +184,13 @@
 						}
 					}
 
-###模板
+### 模板
 
 		{{msg}}		数据更新模板变化
 		
 		{{*msg}}	数据只绑定一次
 		
-		{{{msg}}}	HTML转义输出（可识别html标签）	注意{{{ }}}在Vue2.0被丢弃
+		{{{msg}}}	HTML转义输出（可识别html标签）	注意{{{ }}}在Vue2.0被废弃
 
 ### 过滤器（过滤模板数据）
 
@@ -279,24 +280,24 @@
 
 ### v-cloak
 
-		v-cloak		防止闪烁，比较大段落
+		v-cloak		防止闪烁
 		
 		<span>{{msg}}</span>		->		v-text
 		
-		{{{msg}}}		->		v-html		注意{{{ }}}在Vue2.0被丢弃
+		{{{msg}}}		->		v-html		注意{{{ }}}在Vue2.0被废弃
 
 ### 计算属性的使用
 
 		computed:{
-			b:function(){	//默认调用get
+			b(){	//默认调用get
 				return 值
 			}
 		}
 		
 		computed:{
 			b:{
-				get:
-				set:
+				get(){return 值}
+				set(val){...}	=>	参数val就是设置的值的形参
 			}
 		}
 		
@@ -304,21 +305,21 @@
 
 ### vue实例简单方法
 
-	vm.$el	->	就是元素
-	
-	vm.$data	->	就是data
-	
-	vm.$mount	->	手动挂在vue程序
-	
-	vm.$options	->	获取自定义属性
-	
-	vm.$destroy	->	销毁对象
-	
-	vm.$log()	->	查看现在数据的状态
+		vm.$el	->	就是元素
+		
+		vm.$data	->	就是data
+		
+		vm.$mount	->	手动挂在vue程序
+		
+		vm.$options	->	获取自定义属性
+		
+		vm.$destroy	->	销毁对象
+		
+		vm.$log()	->	查看现在数据的状态
 
 ### 循环
 
-		v-for="(value,index) in data"
+		v-for="(value,index) in data"		在Vue2.0被废弃
 		
 		出现重复数据：
 		
@@ -368,9 +369,23 @@
 
 ### 自定义键盘信息
 
-		Vue.directive('on').keyCodes.ctrl=17;
+		获取键值
+		
+			document.onkeydown=function(ev){
+				console.log(ev.keyCode);
+			}
+			
+		Vue自身支持enter以及方向键和字母（a,b,c...）这样的写法
+		也支持键值的写法，自定义就是给某个键值定义一个名字
+		
+		自定义键盘信息（Vue1.0）
+		
+			Vue.directive('on').keyCodes.ctrl=17;
+			
+			@keyup.ctrl		=>		自定义的ctrl就可以使用了
 
 ### 监听数据变化
 
 		vm.$watch(name,callback);	//浅度监视
+		
 		vm.$watch(name,callback,{deep:true});	//深度监视 
