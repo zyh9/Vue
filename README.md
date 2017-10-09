@@ -53,7 +53,7 @@
 		
 		v-for		循环		:key='index'提高循环性能
 		
-			**Vue2.0**:
+			**Vue2.0写法**:
 				v-for="(value,index) in arr"
 				
 				v-for="(value,key,index) in json"
@@ -465,7 +465,7 @@
 
 ### vue组件
 
-> 组件: 一个大对象
+		组件: 一个大对象
 
 ### 定义一个组件
 
@@ -583,15 +583,15 @@
 					'myMsg':Number
 				}
 		
-		2. 父级获取子级数据				**在vue2.0里面已废弃**
+		2. 父级获取子级数据
 		
 			*子组件把自己的数据，发送到父级
 		
 			vm.$emit(事件名,数据);
 		
-			vm.$dispatch(事件名,数据)	子级向父级发送数据
+			vm.$dispatch(事件名,数据)	子级向父级发送数据	**在Vue2.0被废弃**
 			
-			vm.$broadcast(事件名,数据)	父级向子级广播数据
+			vm.$broadcast(事件名,数据)	父级向子级广播数据	**在Vue2.0被废弃**
 			
 				配合: event:{}
 
@@ -723,4 +723,190 @@
 		导出模块：
 			export default {}
 		引入模块:
-			import 模块名 from 地址
+			import 模块名 from '地址'
+
+###	脚手架
+
+		vue-cli——vue脚手架
+		
+			帮你提供好基本项目结构
+			
+		模板：
+		
+			1).webpack	可以使用(大型项目)
+					1.Eslint 检查代码规范，
+					2.单元测试
+					
+			2).webpack-simple	个人推荐使用，没有代码检查	√
+		
+		基本使用流程:
+		
+		1. npm install vue-cli -g	安装 vue命令环境
+			验证安装ok?	=>	vue --version
+				
+		2. 生成项目模板
+			vue init <模板名> 本地文件夹名称
+			
+		3. 进入到生成目录里面
+			cd xxx
+			npm install
+			
+		4. npm run dev
+
+### webpack路由配置
+
+		vue-router		**注意这是Vue1.0版本**
+		
+		如何查看版本:
+			bower info vue-router
+			
+		配合vue-loader使用:
+		
+			1. 下载vue-router模块
+			
+				cnpm install vue-router@0.7.13
+				
+			2. import VueRouter from 'vue-router'
+			
+			3. Vue.use(VueRouter);  // VueRouter基于Vue来开发项目
+			
+			4. 配置路由
+				var router=new VueRouter();
+				router.map({
+					路由规则
+				})
+			5. 开启
+				router.start(App,'#app');
+
+## 到了2.0以后，有哪些变化?
+
+### 1. 在每个组件模板，不在支持片段代码
+
+		组件中模板:
+		
+			之前:
+				<template>
+					<h3>我是组件</h3><strong>我是加粗标签</strong>
+				</template>
+			
+			现在:  必须有根元素，包裹住所有的代码
+				<template id="aaa">
+				        <div>
+				            <h3>我是组件</h3>
+				            <strong>我是加粗标签</strong>
+				        </div>
+				</template>
+
+### 2. 关于组件定义
+
+		Vue.extend	
+			1.这种方式，在2.0里面有，但是有一些改动
+			2.这种写法，即使能用，也不必使用——废弃
+		
+		Vue.component(组件名称,{	// 在2.0继续能用
+			data(){
+				return {
+				}
+			}
+			methods:{}
+			template:
+		});
+		
+		2.0推出一个组件，简洁定义方式：
+			var Home={
+				template:''		->   Vue.extend()
+			};
+			Vue.component('my-aaa',Home);
+
+### 3. 生命周期
+
+		之前:
+			created	实例已经创建
+			beforeCompile	编译之前
+			compiled	编译之后
+			ready	插入到文档中	=>	mounted
+			beforeDestroy
+			destroyed
+			
+		现在:
+			beforeCreate	组件实例刚刚被创建，属性都没有
+			created	实例已经创建完成，属性已经绑定
+			beforeMount	模板编译之前
+			mounted	模板编译之后，代替之前ready	**
+			beforeUpdate	组件更新之前
+			updated	组件更新完毕	**
+			beforeDestroy	组件销毁前
+			destroyed	组件销毁后
+
+### 3. 循环
+
+		2.0里面默认就可以添加重复数据
+		
+		之前:
+			v-for="(index,val) in array"
+			v-for="(key,val) in json"
+		现在:
+			v-for="(val,index) in array"
+			v-for="(val,key,index) in json"
+
+### 4. track-by="$index"
+
+		变成:		<li v-for="(val,index) in list" :key="index">
+
+### 5. 自定义键盘指令
+
+		之前:		Vue.directive('on').keyCodes.ctrl=17;	
+		
+		现在:		Vue.config.keyCodes.ctrl=17
+
+### 6. 过滤器
+
+		之前:
+			系统就自带很多过滤
+				{{msg | currency}}
+				{{msg | json}}
+				limitBy
+				filterBy...
+			
+		到了2.0， 内置过滤器，全部删除了
+		
+		
+		lodash	工具库	_.debounce(fn,200)
+		
+		
+		自定义过滤器——还有
+		但是，自定义过滤器传参
+		
+			之前:	{{msg | toDou '12' '5'}}
+			现在:{{msg | toDou('12','5')}}
+
+### 组件通信
+
+		vm.$emit()
+		vm.$on();
+		父组件和子组件:
+		
+			子组件想要拿到父组件数据:
+				通过  props
+			
+			之前，子组件可以更改父组件信息，可以是同步	sync
+			现在，不允许直接给父级的数据，做赋值操作
+			
+			问题，就想更改：
+				a). 父组件每次传一个对象给子组件，对象之间引用	√
+				b). 只是不报错，mounted中转
+			
+			
+		可以单一事件管理组件通信:	vuex
+		
+			var Event=new Vue();
+			
+			Event.$emit(事件名称, 数据)
+			
+			Event.$on(事件名称,function(data){
+				//data
+			}.bind(this));
+			
+### debounce	**在Vue2.0被废弃**
+
+		lodash	工具库	_.debounce(fn,200)
