@@ -644,7 +644,7 @@
 		根据不同url地址，出现不同效果		**注意这是Vue1.0版本**
 		
 		主页		home
-		新闻页	news
+		新闻页		news
 		
 		html:
 			</div id="box">
@@ -693,7 +693,7 @@
 		主页		home
 			登录		home/login
 			注册		home/reg
-		新闻页	news
+		新闻页		news
 		
 		subRoutes:{
 			'login':{
