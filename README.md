@@ -388,4 +388,12 @@
 
 		vm.$watch(name,callback);	//浅度监视
 		
-		vm.$watch(name,callback,{deep:true});	//深度监视 
+		vm.$watch(name,callback,{deep:true});	//深度监视
+		
+		被监听的数据:{
+		    handler:function(val,oldVal){
+		    
+		    },
+		    deep:true
+		}
+
