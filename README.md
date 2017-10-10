@@ -1017,9 +1017,9 @@
 
 ### elementUI（PC）
 
-> 官网:[http://element.eleme.io/](http://element.eleme.io/)
+> 官网	[http://element.eleme.io/](http://element.eleme.io/)
 
-		1. 安装 element-ui
+		1.安装 element-ui
 		
 			npm i element-ui -D
 			
@@ -1030,43 +1030,43 @@
 			//   S	->	--save
 			
 			
-		2. 引入 main.js 入口文件
+		2.引入 main.js 入口文件
 		
 			import ElementUI from 'element-ui'
 			import 'element-ui/lib/theme-default/index.css'
 		
 		
-		3. 使用组件
+		3.使用组件
 		
 			Vue.use(ElementUI)
 			
 			css-loader		引入css
 			字体图标	file-loader
 			
-			less:
+			less
 				less less-loader
 				
 				
 		按需加载相应组件:	√	**推荐**
 		
-		1.babel-plugin-component
-			cnpm install babel-plugin-component -D
+			1.babel-plugin-component
+				cnpm install babel-plugin-component -D
+				
+			2.在.babelrc文件里面新增一个配置
 			
-		2.在.babelrc文件里面新增一个配置
-		
-			  "plugins": [["component", [
-			    {
-			      "libraryName": "element-ui",
-			      "styleLibraryName": "theme-default"
-			    }
-			  ]]]
-			  
-		3.想用哪个组件就用哪个
-			引入:
-				import {Button,Radio} from 'element-ui'
-			使用:
-				a). Vue.component(Button.name, Button);		个人不太喜欢
-				b). Vue.use(Button);		√	**推荐使用**
+				  "plugins": [["component", [
+				    {
+				      "libraryName": "element-ui",
+				      "styleLibraryName": "theme-default"
+				    }
+				  ]]]
+				  
+			3.想用哪个组件就用哪个
+				引入:
+					import {Button,Radio} from 'element-ui'
+				使用:
+					a). Vue.component(Button.name, Button);		个人不太喜欢
+					b). Vue.use(Button);		√	**推荐使用**
 
 ### 数据交互
 
@@ -1074,13 +1074,13 @@
 		
 		axios.get(xxx,{}).then(res=>{
 			// 成功
-        }).catch(err=>{
-        	// 失败
-        })
+		}).catch(err=>{
+			// 失败
+		})
 
 ### mint-ui（移动端）
 
-> 官网 [http://mint-ui.github.io/](http://mint-ui.github.io/)
+> 官网	[http://mint-ui.github.io/](http://mint-ui.github.io/)
 
 		1.下载
 		
@@ -1099,4 +1099,5 @@
 				Vue.component(Checklist.name, Checklist);
 			
 		3.中文使用文档 
-			[http://mint-ui.github.io/docs/#!/zh-cn2](http://mint-ui.github.io/docs/#!/zh-cn2)
+		
+			http://mint-ui.github.io/docs/#!/zh-cn2
