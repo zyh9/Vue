@@ -1100,4 +1100,4 @@
 			
 		3.中文使用文档 
 		
-			http://mint-ui.github.io/docs/#!/zh-cn2
+			http://mint-ui.github.io/docs/#/zh-cn2
