@@ -398,17 +398,18 @@
 		}
 
 ### bower
+
 		（前端）包管理器
 			npm install bower -g
 			验证: bower --version
 		
 		bower install 插件名字
 		bower uninstall 插件名字
-		bower info 插件名字		查看版本信息
+		bower info 插件名字	=>查看版本信息
 
 ### vue过渡(动画)
 
-> 本质走的css3: transtion ,animation
+> 本质走的css3: transtion,animation
 
 ```
 		<!DOCTYPE html>
@@ -469,7 +470,7 @@
 
 ### 定义一个组件
 
-		1. 全局组件
+		1.全局组件
 			var Aaa=Vue.extend({
 				template:'<h3>我是标题</h3>'
 			});
@@ -485,7 +486,7 @@
 				}
 		
 		
-		2. 局部组件（放到某个组件内部）
+		2.局部组件（放到某个组件内部）
 			var Aaa=Vue.extend({
 				template:'<h3>我是标题</h3>'
 			});
@@ -821,20 +822,20 @@
 ### 3. 生命周期
 
 		之前:
-			created	实例已经创建
+			created		实例已经创建
 			beforeCompile	编译之前
 			compiled	编译之后
-			ready	插入到文档中	=>	mounted
-			beforeDestroy
-			destroyed
+			ready		插入到文档中	=>	mounted
+			beforeDestroy	销毁之前
+			destroyed	销毁之后
 			
 		现在:
 			beforeCreate	组件实例刚刚被创建，属性都没有
-			created	实例已经创建完成，属性已经绑定
+			created		实例已经创建完成，属性已经绑定
 			beforeMount	模板编译之前
-			mounted	模板编译之后，代替之前ready	**
+			mounted		模板编译之后，代替之前ready	**
 			beforeUpdate	组件更新之前
-			updated	组件更新完毕	**
+			updated		组件更新完毕	**
 			beforeDestroy	组件销毁前
 			destroyed	组件销毁后
 
@@ -906,7 +907,196 @@
 			Event.$on(事件名称,function(data){
 				//data
 			}.bind(this));
-			
-### debounce	**在Vue2.0被废弃**
+
+### debounce		**在Vue2.0被废弃**
 
 		lodash	工具库	_.debounce(fn,200)
+
+### vue2.0 动画
+
+		transition	之前属性
+			<p transition="fade"></p>
+			
+			.fade-transition{}
+			.fade-enter{}
+			.fade-leave{}
+		
+		到2.0以后 transition 组件
+		
+			<transition name="fade">
+				运动东西(元素，属性、路由....)
+			</transition>
+		
+		class定义:
+			.fade-enter{}	//初始状态
+			.fade-enter-active{}	//变化成什么样	->	当元素出来(显示)
+			.fade-leave{}
+			.fade-leave-active{}	//变成成什么样	->	当元素离开(消失)
+		
+		如何animate.css配合用？
+			<transition enter-active-class="animated zoomInLeft"
+				leave-active-class="animated zoomOutRight">
+				<p v-show="show"></p>
+			</transition>
+		
+		多个元素运动:
+			<transition-group enter-active-class="" leave-active-class="">
+				<p :key="1"></p>
+				<p :key="2"></p>
+			</transition-group>
+
+### vue2.0 路由
+
+		1.布局
+			<router-link to="/home">主页</router-link>
+			
+			<router-view></router-view>
+		2.路由具体写法
+			//组件
+			var Home={
+			    template:'<h3>我是主页</h3>'
+			};
+			var News={
+			    template:'<h3>我是新闻</h3>'
+			};
+		
+			//配置路由
+			const routes=[
+			    {path:'/home', componet:Home},
+			    {path:'/news', componet:News},
+			];
+		
+			//生成路由实例
+			const router=new VueRouter({
+			    routes
+			});
+		
+			//最后挂到vue上
+			new Vue({
+			    router,
+			    el:'#box'
+			});
+		3.重定向
+			之前  router.rediect	废弃了
+			{path:'*', redirect:'/home'}
+		
+		4.路由嵌套
+			/user/username
+			
+			const routes=[
+			    {path:'/home', component:Home},
+			    {
+			        path:'/user',
+			        component:User,
+			        children:[  //核心
+			            {path:'username', component:UserDetail}
+			        ]
+			    },
+			    {path:'*', redirect:'/home'}
+			];
+		5.路由实例方法
+			router.push({path:'home'});  // 直接添加一个路由，表现切换路由，本质往历史记录里面添加一个
+			
+			router.replace({path:'news'}) // 替换路由，不会往历史记录里面添加
+
+### UI组件
+
+		目的:为了提高开发效率
+		
+		原则: 拿过来直接使用
+
+### bootstrap
+
+		twitter 开源
+		
+		简洁、大方
+		
+		基于 jquery
+		
+		栅格化系统+响应式工具 
+
+### elementUI（PC）
+
+> 官网:[http://element.eleme.io/](http://element.eleme.io/)
+
+		1. 安装 element-ui
+		
+			npm i element-ui -D
+			
+			npm install element-ui --save-dev
+		
+			//   i	->	install
+			//   D	->	--save-dev
+			//   S	->	--save
+			
+			
+		2. 引入 main.js 入口文件
+		
+			import ElementUI from 'element-ui'
+			import 'element-ui/lib/theme-default/index.css'
+		
+		
+		3. 使用组件
+		
+			Vue.use(ElementUI)
+			
+			css-loader		引入css
+			字体图标	file-loader
+			
+			less:
+				less less-loader
+				
+				
+		按需加载相应组件:	√	**推荐**
+		
+		1.babel-plugin-component
+			cnpm install babel-plugin-component -D
+			
+		2.在.babelrc文件里面新增一个配置
+		
+			  "plugins": [["component", [
+			    {
+			      "libraryName": "element-ui",
+			      "styleLibraryName": "theme-default"
+			    }
+			  ]]]
+			  
+		3.想用哪个组件就用哪个
+			引入:
+				import {Button,Radio} from 'element-ui'
+			使用:
+				a). Vue.component(Button.name, Button);		个人不太喜欢
+				b). Vue.use(Button);		√	**推荐使用**
+
+### 数据交互
+
+		axios		交互
+		
+		axios.get(xxx,{}).then(res=>{
+			// 成功
+        }).catch(err=>{
+        	// 失败
+        })
+
+### mint-ui（移动端）
+
+> 官网 [http://mint-ui.github.io/](http://mint-ui.github.io/)
+
+		1.下载
+		
+			npm install mint-ui -S
+		
+		2.引入
+		
+			import Vue from 'vue';
+			import Mint from 'mint-ui';
+			import 'mint-ui/lib/style.css'
+			Vue.use(Mint);
+		
+			按需引入:		**推荐使用**
+				import { Cell, Checklist } from 'minu-ui';
+				Vue.component(Cell.name, Cell);
+				Vue.component(Checklist.name, Checklist);
+			
+		3.中文使用文档 
+			[http://mint-ui.github.io/docs/#!/zh-cn2](http://mint-ui.github.io/docs/#!/zh-cn2)
