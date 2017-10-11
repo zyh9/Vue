@@ -1101,3 +1101,53 @@
 		3.中文使用文档 
 		
 			http://mint-ui.github.io/docs/#/zh-cn2
+
+### 自定义vue全局组件use使用
+
+		首先创建一个组件文件夹，再新建一个index.js文件
+		再新建一个组件内容文件	=>	name.vue
+		
+		以简单的Loading为例：
+		
+			index.js内容如下：
+			
+				import LoadingComponent from './Loading.vue'
+			
+				const Loading = {
+					install: function(Vue) {
+						Vue.component('Loading', LoadingComponent)
+					}
+				};
+				
+				export default Loading
+			
+			Loading.vue内容如下：
+			
+				<template>
+					<div class="loading-box">
+						{{msg}}
+					</div>
+				</template>
+				<script>
+					export default{
+						data(){
+							return {
+								msg:'Loading...^_^'
+							}
+						}
+					}
+				</script>
+				<style scoped>
+					.loading-box{
+						color: red;
+						font-size: 40px;
+						font-family: "微软雅黑";
+						text-shadow: 2px 2px 5px #000;
+					}
+				</style>
+			
+			main.js内容如下：
+			
+				import Loading from './components/loading'
+				
+				Vue.use(Loading)
