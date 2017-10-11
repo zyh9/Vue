@@ -1105,11 +1105,12 @@
 ### 自定义vue全局组件use使用
 
 		首先创建一个组件文件夹，再新建一个index.js文件
+		
 		再新建一个组件内容文件	=>	name.vue
 		
 		以简单的Loading为例：
 		
-			index.js内容如下：
+			**index.js内容如下**：
 			
 				import LoadingComponent from './Loading.vue'
 			
@@ -1121,7 +1122,8 @@
 				
 				export default Loading
 			
-			Loading.vue内容如下：
+			
+			**Loading.vue内容如下**：
 			
 				<template>
 					<div class="loading-box">
@@ -1146,7 +1148,8 @@
 					}
 				</style>
 			
-			main.js内容如下：
+			
+			**main.js内容如下**：
 			
 				import Loading from './components/loading'
 				
