@@ -1,5 +1,7 @@
 ﻿## Vue.js
 
+[vue简介](https://github.com/zyh19941109/Vue.js#vue简介)
+
 ### Vue简介
 
 		一个mvvm框架(库)、和angular类似
@@ -717,7 +719,7 @@
 		
 		{{$route.params | json}}	->	当前参数
 		
-		{{$route.query | json}}	->  数据
+		{{$route.query | json}}		->  数据
 
 ### ES6: 模块化开发
 
