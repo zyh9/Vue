@@ -951,6 +951,7 @@
 			<router-link to="/home">主页</router-link>
 			
 			<router-view></router-view>
+			
 		2.路由具体写法
 			//组件
 			var Home={
@@ -976,6 +977,7 @@
 			    router,
 			    el:'#box'
 			});
+			
 		3.重定向
 			之前  router.rediect	废弃了
 			{path:'*', redirect:'/home'}
@@ -994,6 +996,7 @@
 			    },
 			    {path:'*', redirect:'/home'}
 			];
+			
 		5.路由实例方法
 			router.push({path:'home'});  // 直接添加一个路由，表现切换路由，本质往历史记录里面添加一个
 			
