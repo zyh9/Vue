@@ -1,6 +1,8 @@
 ﻿## Vue.js
 
-[vue简介](https://github.com/zyh19941109/Vue.js#vue简介)
+[1. vue简介](https://github.com/zyh19941109/Vue.js#vue简介)
+[2. vue和angular区别](https://github.com/zyh19941109/Vue.js#vue和angular区别)
+
 
 ### Vue简介
 
