@@ -1001,6 +1001,19 @@
 			router.push({path:'home'});  // 直接添加一个路由，表现切换路由，本质往历史记录里面添加一个
 			
 			router.replace({path:'news'}) // 替换路由，不会往历史记录里面添加
+			
+		6.路由发生变化
+			watch:{
+				$route(to,from){
+					console.log(to,from);	//to:到哪里，from:从哪来
+					console.log(to.path);	//可以获取到你点击的路由路径
+					if(to.path=='/home'){
+						this.$store.dispatch('');	//发起action
+					}else{
+						this.$store.dispatch('');
+					}
+				}
+			}
 
 ### UI组件
 
