@@ -1120,7 +1120,7 @@
 
 ### 自定义vue全局组件use使用
 
-		首先创建一个组件文件夹，再新建一个index.js文件
+		首先在components中创建一个Loading文件夹，再新建一个index.js文件（位置可自已定义）
 		
 		再新建一个组件内容文件	=>	name.vue
 		
@@ -1170,3 +1170,97 @@
 				import Loading from './components/loading'
 				
 				Vue.use(Loading)
+
+### 自定义vue过滤器
+
+		首先创建一个filter文件夹，再新建一个index.js文件（位置可自已定义）
+		
+		再新建一个组件内容文件	=>	name.vue
+		
+		以简单的Time为例：
+		
+			**index.js内容如下**：
+			
+				import {Time} from './Time';
+				
+				export default{ // 可放置多个过滤器组件，中间以逗号隔开
+					Time
+				};
+				
+				
+			**Time.js内容如下**：
+			
+				export const Time=(time)=>{
+					if(time){
+						let oDate=new Date();
+						oDate.setTime(time);
+				
+						let y=oDate.getFullYear();
+						let m=oDate.getMonth()+1;
+						let d=oDate.getDate();
+				
+						let hh=oDate.getHours();
+						let mm=oDate.getMinutes();
+						let ss=oDate.getSeconds();
+				
+						return y+'-'+two(m)+'-'+two(d)+' '+two(hh)+':'+two(mm)+':'+two(ss);
+						
+						function two(n)=>{
+							return n<10?'0'+n:''+n;
+						}
+					}
+				}
+				
+				
+			**main.js内容如下**：
+			
+				import filters from './filters'
+				//循环遍历所有的过滤器
+				Object.keys(filters).forEach(e => Vue.filter(e, filters[e]))
+			
+			
+			在其他页面使用：
+				{{时间 | Time}}
+
+### 其它设置
+
+		1).路由的一些配置
+		
+			import routes from './routeConfig.js'
+			
+			const router=new VueRouter({
+				mode: 'history', //切换路径模式，变成history模式
+			  	scrollBehavior: () => ({ y: 0 }), // 滚动条滚动的行为，不加这个默认就会记忆原来滚动条的位置
+				routes //引入的路由配置
+			});
+		
+		
+		2).axios的一些配置
+			
+			import axios from 'axios'
+			import store from './store/store'
+			import Loading from './components/Loading'
+			
+			//比如发送请求显示loading，请求回来loading消失之类的
+			axios.interceptors.request.use(function (config) {  //配置发送请求的信息
+			  	store.dispatch('showLoading')  
+			  	return config;
+			}, function (error) {
+			  	return Promise.reject(error);
+			});
+			
+			axios.interceptors.response.use(function (response) { //配置请求回来的信息
+			  	store.dispatch('hideLoading')
+			  	return response;
+			}, function (error) {
+			  	return Promise.reject(error);
+			});
+		
+			//设置post请求头部信息
+			axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+			
+			//配置请求根路径
+			axios.defaults.baseURL='http://localhost:8080/';
+			
+			//把axios对象挂载到Vue的原型上，其他页面在使用axios的时候直接  this.$http就可以了
+			Vue.prototype.$http = axios;
