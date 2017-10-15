@@ -1220,7 +1220,8 @@
 			
 			
 			在其他页面使用：
-				{{时间 | Time}}
+			
+				{{ 时间 | Time }}
 
 ### 其它设置
 
@@ -1230,10 +1231,14 @@
 			
 			const router=new VueRouter({
 				mode: 'history', //切换路径模式，变成history模式
-			  	scrollBehavior: () => ({ y: 0 }), // 滚动条滚动的行为，不加这个默认就会记忆原来滚动条的位置
+			  	scrollBehavior: () => ({ y: 0 }),
 				routes //引入的路由配置
 			});
-		
+			
+			
+			scrollBehavior: () => ({ y: 0 })
+			
+				滚动条滚动的行为，不加这个在页面切换时，默认就会记忆原来滚动条的位置
 		
 		2).axios的一些配置
 			
