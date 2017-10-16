@@ -1,6 +1,6 @@
 import LoadingComponent from './Loading.vue'
 const loading = {
-  install: function(Vue) {
+	install: function(Vue) {
     Vue.component('loading', LoadingComponent)
   }
 }

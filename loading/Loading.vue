@@ -2,15 +2,15 @@
     <div class="loading">
     	<div class="loading-inner">
 	    	<div class="ball-spin-fade-loader">
-		      <div></div>
-		      <div></div>
-		      <div></div>
-		      <div></div>
-		      <div></div>
-		      <div></div>
-		      <div></div>
-		      <div></div>
-		    </div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
 	    </div>
     </div>
 </template>
@@ -51,7 +51,7 @@
 	        transform: scale(1); } }
 	
 	.ball-spin-fade-loader {
-	  	position: relative; }
+  		position: relative; }
 	.ball-spin-fade-loader > div:nth-child(1) {
 	    top: 25px;
 	    left: 0;
