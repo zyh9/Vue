@@ -1267,5 +1267,5 @@
 			//配置请求根路径
 			axios.defaults.baseURL='http://localhost:8080/';
 			
-			//把axios对象挂载到Vue的原型上，其他页面在使用axios的时候直接  this.$http就可以了
+			//把axios对象挂载到Vue的原型上，其他页面在使用axios的时候直接this.$http就可以了
 			Vue.prototype.$http = axios;
