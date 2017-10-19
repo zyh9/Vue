@@ -907,6 +907,11 @@
 			Event.$on(事件名称,function(data){
 				//data
 			}.bind(this));
+			
+			箭头函数写法：
+				Event.$on(事件名称,data=>{
+					//data
+				});
 
 ### debounce		**在Vue2.0被废弃**
 
