@@ -781,7 +781,7 @@
 
 ## 到了2.0以后，有哪些变化?
 
-### 1. 在每个组件模板，不在支持片段代码
+### 在每个组件模板，不再支持片段代码
 
 		组件中模板:
 		
@@ -798,7 +798,7 @@
 				        </div>
 				</template>
 
-### 2. 关于组件定义
+### 关于组件定义
 
 		Vue.extend	
 			1.这种方式，在2.0里面有，但是有一些改动
@@ -819,7 +819,7 @@
 			};
 			Vue.component('my-aaa',Home);
 
-### 3. 生命周期
+### 生命周期
 
 		之前:
 			created		实例已经创建
@@ -839,7 +839,7 @@
 			beforeDestroy	组件销毁前
 			destroyed	组件销毁后
 
-### 3. 循环
+### 循环
 
 		2.0里面默认就可以添加重复数据
 		
@@ -850,17 +850,17 @@
 			v-for="(val,index) in array"
 			v-for="(val,key,index) in json"
 
-### 4. track-by="$index"
+### track-by="$index"
 
 		变成:		<li v-for="(val,index) in list" :key="index">
 
-### 5. 自定义键盘指令
+### 自定义键盘指令
 
 		之前:		Vue.directive('on').keyCodes.ctrl=17;	
 		
 		现在:		Vue.config.keyCodes.ctrl=17
 
-### 6. 过滤器
+### 过滤器
 
 		之前:
 			系统就自带很多过滤
