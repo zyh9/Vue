@@ -1274,3 +1274,11 @@
 			
 			//把axios对象挂载到Vue的原型上，其他页面在使用axios的时候直接this.$http就可以了
 			Vue.prototype.$http = axios;
+
+### 使用less
+
+		安装less loader
+			npm install less-loader less --save-dev
+		
+		在style标签里加上lang="less"
+			<style lang="less"></style>
