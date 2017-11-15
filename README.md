@@ -1282,3 +1282,11 @@
 		
 		在style标签里加上lang="less"
 			<style lang="less"></style>
+
+### 用官方脚手架（vue-cli）搭建环境无法调起浏览器
+
+		记录于2017-11-15
+		
+		找到config文件夹里的index.js
+		
+		将 autoOpenBrowser: false,修改为autoOpenBrowser: true,
