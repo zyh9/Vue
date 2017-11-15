@@ -1289,4 +1289,4 @@
 		
 		找到config文件夹里的index.js
 		
-		将 autoOpenBrowser: false,修改为autoOpenBrowser: true,
+		将 autoOpenBrowser: false,修改为 autoOpenBrowser: true,
