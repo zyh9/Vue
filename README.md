@@ -1289,4 +1289,19 @@
 		
 		找到config文件夹里的index.js
 		
-		将 autoOpenBrowser: false,修改为 autoOpenBrowser: true,
+		将 autoOpenBrowser: false, 修改为 autoOpenBrowser: true,
+
+### 本地IP调起浏览器
+
+		记录于2017-11-18
+		
+		找到config文件夹里的index.js
+		
+		const os=require("os");
+		//node.js的一个方法，返回一个对象，包含只有被赋予网络地址的网络接口
+		console.log(os.networkInterfaces());
+		
+		const ip = os.networkInterfaces()['以太网'][1]['address'];
+		//此常量就是电脑的IP地址，以Win10系统本地连接为例，系统之间可能存在差异
+		
+		将 host: 'localhost', 修改为 host: ip,
