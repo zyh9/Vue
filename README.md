@@ -1299,7 +1299,9 @@
 		
 		const os=require("os");
 		//node.js的一个方法，返回一个对象，包含只有被赋予网络地址的网络接口
+		
 		console.log(os.networkInterfaces());
+		//根据对象里面的信息来获取IP地址
 		
 		const ip = os.networkInterfaces()['以太网'][1]['address'];
 		//此常量就是电脑的IP地址，以Win10系统本地连接为例，系统之间可能存在差异
