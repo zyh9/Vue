@@ -1307,3 +1307,17 @@
 		//此常量就是电脑的IP地址，以Win10系统本地连接为例，系统之间可能存在差异
 		
 		将 host: 'localhost', 修改为 host: ip,
+
+### 安装swiper
+
+		npm i swiper -D
+		
+		//引入swiper
+		import Swiper from 'swiper';
+		
+		//引入swiper.css
+		//注意：以组件名称开始向内部依次寻找css文件
+		import 'swiper/dist/css/swiper.min.css';
+		
+		//将swiper挂载到Vue的原型上，后续直接使用this.swiper可以了
+		Vue.prototype.Swiper = Swiper;
