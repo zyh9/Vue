@@ -1298,10 +1298,11 @@
 		找到 config 文件夹里的 index.js
 		
 		const os = require("os");
-		//node.js 的一个方法，返回一个对象，包含只有被赋予网络地址的网络接口
 		
-		console.log(os.networkInterfaces());
+		//node.js 的一个方法，os.networkInterfaces()返回一个对象，包含只有被赋予网络地址的网络接口
 		//根据对象里面的信息来获取 IP 地址
+		const obj = os.networkInterfaces();
+		console.log(obj);
 		
 		//定义一个变量
 		let ip;
@@ -1354,7 +1355,7 @@
 				})
 			}
 	    
-		//此常量就是电脑的IP地址，
+		//此常量（ip）就是电脑的IP地址，
 		将 host: 'localhost', 修改为 host: ip,
 
 ### 安装swiper
