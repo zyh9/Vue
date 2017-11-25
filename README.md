@@ -1303,6 +1303,7 @@
 		console.log(os.networkInterfaces());
 		//根据对象里面的信息来获取IP地址
 		
+		//定义一个变量
 		let ip;
 		
 		//得到如下信息:
@@ -1338,7 +1339,10 @@
 			因系统之间存在差异，故不能一味根据对象提供的值来一级一级向下找
 		*/
 		
-		
+		/*
+			先循环此对象，来获取到两个数组，然后遍历这两个数组，拿到e.family=="IPv4"的对象
+			最后通过字符串的方法（没找到返回-1），来获取到最终想要的对象的e.address赋值给ip
+		*/
 	        for(let value in obj){
 	          	obj[value].forEach(e => {
 	            	if(e.family=="IPv4"){
@@ -1348,8 +1352,11 @@
 	            	}
 	          	})
 	        }
+	    
+	    
 		//此常量就是电脑的IP地址，
 		将 host: 'localhost', 修改为 host: ip,
+
 ### 安装swiper
 
 		npm i swiper -D
