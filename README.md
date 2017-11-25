@@ -1355,7 +1355,7 @@
 				})
 			}
 	    
-		//此常量（ip）就是电脑的IP地址，
+		//此常量（ip）就是电脑的IP地址
 		将 host: 'localhost', 修改为 host: ip,
 
 ### 安装swiper
