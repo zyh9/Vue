@@ -1343,6 +1343,7 @@
 			先循环此对象，来获取到两个数组，然后遍历这两个数组，拿到e.family=="IPv4"的对象
 			最后通过字符串的方法（没找到返回-1），来获取到最终想要的对象的e.address赋值给ip
 		*/
+		
 	        for(let value in obj){
 	          	obj[value].forEach(e => {
 	            	if(e.family=="IPv4"){
@@ -1352,7 +1353,6 @@
 	            	}
 	          	})
 	        }
-	    
 	    
 		//此常量就是电脑的IP地址，
 		将 host: 'localhost', 修改为 host: ip,
