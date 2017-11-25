@@ -1345,14 +1345,14 @@
 		*/
 		
 	        for(let value in obj){
-	          	obj[value].forEach(e => {
-	            	if(e.family=="IPv4"){
-	              		if(e.address.indexOf('127.0.0.1')==-1){
-	                		ip = e.address;
-	              		}
-	            	}
-	          	})
-	        }
+				obj[value].forEach(e => {
+					if(e.family=="IPv4"){
+						if(e.address.indexOf('127.0.0.1')==-1){
+							ip = e.address;
+						}
+					}
+				})
+			}
 	    
 		//此常量就是电脑的IP地址，
 		将 host: 'localhost', 修改为 host: ip,
