@@ -1303,11 +1303,53 @@
 		console.log(os.networkInterfaces());
 		//根据对象里面的信息来获取IP地址
 		
-		const ip = os.networkInterfaces()['以太网'][1]['address'];
-		//此常量就是电脑的IP地址，以Win10系统本地连接为例，系统之间可能存在差异
+		let ip;
 		
+		//得到如下信息:
+		
+			{ WLAN:
+		      [ { address: 'fe80::e113:47e3:b04b:70cd',
+		          netmask: 'ffff:ffff:ffff:ffff::',
+		          family: 'IPv6',
+		          mac: '68:07:15:9d:fe:9a',
+		          scopeid: 10,
+		          internal: false },
+		        { address: '192.168.1.109',
+		          netmask: '255.255.255.0',
+		          family: 'IPv4',
+		          mac: '68:07:15:9d:fe:9a',
+		          internal: false } ],
+		      'Loopback Pseudo-Interface 1':
+		      [ { address: '::1',
+		          netmask: 'ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff',
+		          family: 'IPv6',
+		          mac: '00:00:00:00:00:00',
+		          scopeid: 0,
+		          internal: true },
+		        { address: '127.0.0.1',
+		          netmask: '255.0.0.0',
+		          family: 'IPv4',
+		          mac: '00:00:00:00:00:00',
+		          internal: true } ] }
+		
+		/*
+			以Win10系统为例，系统之间可能存在差异，WLAN连接的时候获取到的对象第一个key为WLAN，
+			宽带连接的时候获取到的对象第一个key为宽带连接，本地连接的时候获取到的对象第一个key为以太网，
+			因系统之间存在差异，故不能一味根据对象提供的值来一级一级向下找
+		*/
+		
+		
+	        for(let value in obj){
+	          	obj[value].forEach(e => {
+	            	if(e.family=="IPv4"){
+	              		if(e.address.indexOf('127.0.0.1')==-1){
+	                		ip = e.address;
+	              		}
+	            	}
+	          	})
+	        }
+		//此常量就是电脑的IP地址，
 		将 host: 'localhost', 修改为 host: ip,
-
 ### 安装swiper
 
 		npm i swiper -D
