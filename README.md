@@ -1295,13 +1295,13 @@
 
 		记录于2017-11-18
 		
-		找到config文件夹里的index.js
+		找到 config 文件夹里的 index.js
 		
-		const os=require("os");
-		//node.js的一个方法，返回一个对象，包含只有被赋予网络地址的网络接口
+		const os = require("os");
+		//node.js 的一个方法，返回一个对象，包含只有被赋予网络地址的网络接口
 		
 		console.log(os.networkInterfaces());
-		//根据对象里面的信息来获取IP地址
+		//根据对象里面的信息来获取 IP 地址
 		
 		//定义一个变量
 		let ip;
