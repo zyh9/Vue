@@ -1285,16 +1285,12 @@
 
 ### 用官方脚手架（vue-cli）搭建环境无法调起浏览器
 
-		记录于2017-11-15
-		
 		找到config文件夹里的index.js
 		
 		将 autoOpenBrowser: false, 修改为 autoOpenBrowser: true,
 
 ### 本地IP调起浏览器
 
-		记录于2017-11-18
-		
 		找到 config 文件夹里的 index.js
 		
 		const os = require("os");
