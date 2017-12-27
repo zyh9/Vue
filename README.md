@@ -411,57 +411,57 @@
 
 > 本质走的css3: transtion,animation
 
-```
-		<!DOCTYPE html>
-		<html>
-		<head>
-			<meta charset="UTF-8">
-			<title>Document</title>
-			<script src="bower_components/vue/dist/vue.js"></script>
-			<style>
-				#div1{
-					width:100px;
-					height:100px;
-					background: red;
-				}
-				//动画
-				.fade-transition{
-					transition: 1s all ease;	
-				}
-				//进入
-				.fade-enter{
-					opacity: 0;
-				}
-				//离开
-				.fade-leave{
-					opacity: 0;
-					transform: translateX(200px);
-				}
-			</style>
-		</head>
-		<body>
-			<div id="box">
-				<input type="button" value="按钮" @click="toggle">
-				<div id="div1" v-show="bSign" transition="fade"></div>
-			</div>
-			<script>
-				new Vue({
-					el:'#box',
-					data:{
-						bSign:true
-					},
-					methods:{
-						/*toggle:function(){
-							alert(1);
-						}*/
-						toggle(){
-							this.bSign=!this.bSign;
-						}
+```html
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<script src="bower_components/vue/dist/vue.js"></script>
+		<style>
+			#div1{
+				width:100px;
+				height:100px;
+				background: red;
+			}
+			//动画
+			.fade-transition{
+				transition: 1s all ease;	
+			}
+			//进入
+			.fade-enter{
+				opacity: 0;
+			}
+			//离开
+			.fade-leave{
+				opacity: 0;
+				transform: translateX(200px);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<input type="button" value="按钮" @click="toggle">
+			<div id="div1" v-show="bSign" transition="fade"></div>
+		</div>
+		<script>
+			new Vue({
+				el:'#box',
+				data:{
+					bSign:true
+				},
+				methods:{
+					/*toggle:function(){
+						alert(1);
+					}*/
+					toggle(){
+						this.bSign=!this.bSign;
 					}
-				});
-			</script>
-		</body>
-		</html>
+				}
+			});
+		</script>
+	</body>
+	</html>
 ```
 
 ### vue组件
@@ -1038,7 +1038,7 @@
 
 ### elementUI（PC）
 
-> 官网	[http://element.eleme.io/](http://element.eleme.io/)
+> 官网 [http://element.eleme.io/](http://element.eleme.io/)
 
 		1.安装 element-ui
 		
@@ -1101,7 +1101,7 @@
 
 ### mint-ui（移动端）
 
-> 官网	[http://mint-ui.github.io/](http://mint-ui.github.io/)
+> 官网 [http://mint-ui.github.io/](http://mint-ui.github.io/)
 
 		1.下载
 		
