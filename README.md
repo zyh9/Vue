@@ -1370,6 +1370,25 @@
 
 ## vue实现九宫格转盘
 
+		针对九宫格抽奖，是结合重复定时器定时器和延时定时器通过计算来实现
+		虽然达不到那种由慢到快再到慢的过渡效果，但也是一种实现的方法
+
+> 只展示九宫格结构
+
+```html
+	<ul class="con">
+	    <li class="item" :class="v.a==item%8?'itemMask':''" v-for="(v,i) in left" :key="i">
+	      <img :src="v.img" alt="">
+	      <p>{{v.info}}</p>
+	    </li>
+	    <li class="item click" @click="lottery"></li>
+	    <li class="item" :class="v.a==item%8?'itemMask':''" v-for="(v,i) in right" :key="i">
+	      <img :src="v.img" alt="">
+	      <p>{{v.info}}</p>
+	    </li>
+	</ul>
+```
+
 ```javascript
 	export default {
 	    data() {
