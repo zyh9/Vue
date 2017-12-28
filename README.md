@@ -1367,3 +1367,148 @@
 		
 		//将swiper挂载到Vue的原型上，后续直接使用this.swiper可以了
 		Vue.prototype.Swiper = Swiper;
+
+## vue实现九宫格转盘
+
+```javascript
+	export default {
+	    data() {
+	      return {
+	        item: -1, //旋转的位置
+	        num: 2, //剩余抽奖次数
+	        onoff: true, //抽奖开关
+	        n: null, //随机位置
+	        timer1: null,
+	        timer2: null,
+	        pos: 5, //定义慢速的位置
+	        add: 200, //慢速时间
+	        low: 100, //快速时间
+	        mask: false, //遮罩
+	        rule: [{
+	            txt: '1. 活动规则活动规则活动规则活动规则活动规则活动规则活动规则'
+	          },
+	          {
+	            txt: '2. 活动规则活动规则活动规则活动规则活动规则活动规则活动规则'
+	          },
+	          {
+	            txt: '3. 活动规则活动规则活动规则活动规则活动规则活动规则活动规则'
+	          }
+	        ],
+	        list: [{
+	            img: '/assets/rmb5.png',
+	            info: '5元代金券'
+	          },
+	          {
+	            img: '/assets/rmb5.png',
+	            info: '5元代金券'
+	          },
+	          {
+	            img: '/assets/rmb5.png',
+	            info: '5元代金券'
+	          },
+	          {
+	            img: '/assets/rmb5.png',
+	            info: '5元代金券'
+	          },
+	          {
+	            img: '/assets/rmb5.png',
+	            info: '5元代金券'
+	          },
+	          {
+	            img: '/assets/rmb5.png',
+	            info: '5元代金券'
+	          },
+	          {
+	            img: '/assets/rmb5.png',
+	            info: '5元代金券'
+	          },
+	          {
+	            img: '/assets/rmb5.png',
+	            info: '5元代金券'
+	          }
+	        ],
+	        left: null,
+	        right: null,
+	        text1: '您的抽奖次数用完了',
+	        text2: '明天再来吧'
+	      }
+	    },
+	    mounted() {
+	      //高亮顺序
+	      let arr = [0, 1, 2, 7, 3, 6, 5, 4];
+	      //往数据里面添加高亮顺序
+	      this.list.forEach((e, i) => {
+	        e.a = arr[i];
+	      })
+	      console.log(this.list)
+	      //截取前四个和后四个
+	      this.left = this.list.slice(0, 4)
+	      this.right = this.list.slice(4)
+	      console.log(this.left, this.right)
+	    },
+	    methods: {
+	      lottery() {
+	        if (this.onoff) {
+	          //防止中途点击
+	          this.onoff = false;
+	          //剩余0次显示遮罩，并提示次数已用完
+	          if (this.num == 0) {
+	            this.mask = true;
+	            return;
+	          }
+	          this.num--;
+	          // this.n = Math.round(Math.random() * 10 + 30);
+	          this.n = 25;
+	          // console.log(this.n)
+	          console.log(this.pos * this.add, this.pos * this.add + (this.n - this.pos * 2) * this.low)
+	          this.timer1 = setInterval(this.speed, this.add)
+	          setTimeout(_ => { //加速
+	            clearInterval(this.timer1)
+	            this.addSpeed()
+	          }, this.pos * this.add)
+	          setTimeout(_ => { //减速
+	            clearInterval(this.timer2)
+	            this.lowSpeed()
+	          }, this.pos * this.add + (this.n - this.pos * 2) * this.low)
+	        }
+	      },
+	      speed() {
+	        if (this.item < this.pos) { //小于设定位置
+	          this.item++;
+	        } else
+	        if (this.item >= this.pos && this.item < this.n - this.pos) { //大于等于设定位置 与 小于最终位置-设定位置
+	          this.item++;
+	        } else
+	        if (this.item >= this.n - this.pos && this.item <= this.n) { //大于等于最终位置-设定位置 与 小于等于最终位置
+	          this.item++;
+	          if (this.item > this.n) {
+	            clearInterval(this.timer1)
+	            setTimeout(_ => {
+	              this.mask = true;
+	            }, 200)
+	          }
+	        }
+	      },
+	      addSpeed() { //加速
+	        clearInterval(this.timer1)
+	        this.timer2 = setInterval(this.speed, this.low)
+	      },
+	      lowSpeed() { //减速
+	        clearInterval(this.timer2)
+	        this.timer1 = setInterval(this.speed, this.add)
+	      },
+	      ok() {
+	        // 遮罩隐藏
+	        this.mask = false;
+	        //如果剩余抽奖次数大于0，可以再次点击
+	        if (this.num > 0) {
+	          this.onoff = true;
+	          this.item = -1;
+	        } else if (this.num == 0) {
+	          this.onoff = true;
+	          this.item = -1;
+	        }
+	      }
+	    }
+  	}
+```
