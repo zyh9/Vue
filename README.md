@@ -1484,13 +1484,13 @@
 	        this.list.forEach((e, i) => {
 	          e.a = arr[i];
 	        })
-	        console.log(this.list)
+	        // console.log(this.list)
 	        //前4组数据
 	        this.left = this.list.slice(0, 4)
-	        console.log(this.left)
+	        // console.log(this.left)
 	        //后4组数据
 	        this.right = this.list.slice(4)
-	        console.log(this.right)
+	        // console.log(this.right)
 	      })
 	    },
 	    methods: {
@@ -1508,10 +1508,10 @@
 	          }
 	          this.ulmask = true;
 	          this.num--;
-	          // this.n = Math.round(Math.random() * 10 + 30);
-	          this.n = 25;
+	          this.n = Math.round(Math.random() * 10 + 30);
+	          // this.n = 25;
 	          // console.log(this.n)
-	          console.log(this.pos * this.add, this.pos * this.add + (this.n - this.pos * 2) * this.low)
+	          // console.log(this.pos * this.add, this.pos * this.add + (this.n - this.pos * 2) * this.low)
 	          this.timer1 = setInterval(this.speed, this.add)
 	          setTimeout(_ => { //加速
 	            clearInterval(this.timer1)
@@ -1534,11 +1534,16 @@
 	          this.item++;
 	          if (this.item == this.n) { //等于最终位置
 	            clearInterval(this.timer1)
-	            //获取得奖图片，并在遮罩中显示
-	            this.maskImg = this.list[this.n % 8].img;
-	            //获取得奖文本，并在遮罩中显示
-	            this.text1 = this.list[this.n % 8].txt1;
-	            this.text2 = this.list[this.n % 8].txt2;
+	            //判断奖品的内容
+	            this.list.forEach(e => {
+	              if (e.a == this.n % 8) {
+	                //获取得奖图片，并在遮罩中显示
+	                this.maskImg = e.img;
+	                //获取得奖文本，并在遮罩中显示
+	                this.text1 = e.txt1;
+	                this.text2 = e.txt2;
+	              }
+	            })
 	            setTimeout(_ => {
 	              this.mask = true;
 	            }, 300)
