@@ -1499,13 +1499,13 @@
 	        if (this.item >= this.pos && this.item < this.n - this.pos) { //大于等于设定位置 与 小于最终位置-设定位置
 	          this.item++;
 	        } else
-	        if (this.item >= this.n - this.pos && this.item <= this.n) { //大于等于最终位置-设定位置 与 小于等于最终位置
+	        if (this.item >= this.n - this.pos && this.item < this.n) { //大于等于最终位置-设定位置 与 小于最终位置
 	          this.item++;
-	          if (this.item > this.n) {
+	          if (this.item == this.n) { //等于最终位置
 	            clearInterval(this.timer1)
 	            setTimeout(_ => {
 	              this.mask = true;
-	            }, 200)
+	            }, 300)
 	          }
 	        }
 	      },
