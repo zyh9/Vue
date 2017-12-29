@@ -1378,15 +1378,20 @@
 
 ```html
 	<ul class="con">
-	    <li class="item" :class="v.a==item%8?'itemMask':''" v-for="(v,i) in left" :key="i">
-	      <img :src="v.img" alt="">
-	      <p>{{v.info}}</p>
-	    </li>
-	    <li class="item click" @click="lottery"></li>
-	    <li class="item" :class="v.a==item%8?'itemMask':''" v-for="(v,i) in right" :key="i">
-	      <img :src="v.img" alt="">
-	      <p>{{v.info}}</p>
-	    </li>
+		<li class="item" :class="v.a==item%8?'itemMask':''" v-for="(v,i) in left" :key="i">
+		  <div class="img-top">
+		    <img :src="v.img" alt="">
+		  </div>
+		  <p>{{v.info}}</p>
+		</li>
+		<li class="item click" @click="lottery"></li>
+		<li class="item" :class="v.a==item%8?'itemMask':''" v-for="(v,i) in right" :key="i">
+		  <div class="img-top">
+		    <img :src="v.img" alt="">
+		  </div>
+		  <p>{{v.info}}</p>
+		</li>
+		<div class="ul-mask" v-if="ulmask"></div>
 	</ul>
 ```
 
