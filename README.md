@@ -1404,6 +1404,7 @@
 	        add: 200, //慢速时间
 	        low: 100, //快速时间
 	        mask: false, //遮罩
+	        ulmask: false, //抽奖遮罩
 	        rule: [{
 	            txt: '1. 活动规则活动规则活动规则活动规则活动规则活动规则活动规则'
 	          },
@@ -1416,55 +1417,76 @@
 	        ],
 	        list: [{
 	            img: '/assets/rmb5.png',
-	            info: '5元代金券'
+	            info: '5元代金券',
+	            txt1: '恭喜您，获得5元代金券',
+	            txt2: '快去使用吧'
+	          },
+	          {
+	            img: '/assets/rmb10.png',
+	            info: '10元代金券',
+	            txt1: '恭喜您，获得10元代金券',
+	            txt2: '快去使用吧'
+	          },
+	          {
+	            img: '/assets/participate.png',
+	            info: '谢谢参与',
+	            txt1: '很遗憾，未中奖',
+	            txt2: '再接再厉'
 	          },
 	          {
 	            img: '/assets/rmb5.png',
-	            info: '5元代金券'
+	            info: '5元代金券',
+	            txt1: '恭喜您，获得5元代金券',
+	            txt2: '快去使用吧'
+	          },
+	          {
+	            img: '/assets/rmb10.png',
+	            info: '10元代金券',
+	            txt1: '恭喜您，获得10元代金券',
+	            txt2: '快去使用吧'
+	          },
+	          {
+	            img: '/assets/participate.png',
+	            info: '谢谢参与',
+	            txt1: '很遗憾，未中奖',
+	            txt2: '再接再厉'
 	          },
 	          {
 	            img: '/assets/rmb5.png',
-	            info: '5元代金券'
+	            info: '5元代金券',
+	            txt1: '恭喜您，获得5元代金券',
+	            txt2: '快去使用吧'
 	          },
 	          {
-	            img: '/assets/rmb5.png',
-	            info: '5元代金券'
-	          },
-	          {
-	            img: '/assets/rmb5.png',
-	            info: '5元代金券'
-	          },
-	          {
-	            img: '/assets/rmb5.png',
-	            info: '5元代金券'
-	          },
-	          {
-	            img: '/assets/rmb5.png',
-	            info: '5元代金券'
-	          },
-	          {
-	            img: '/assets/rmb5.png',
-	            info: '5元代金券'
+	            img: '/assets/rmb10.png',
+	            info: '10元代金券',
+	            txt1: '恭喜您，获得10元代金券',
+	            txt2: '快去使用吧'
 	          }
 	        ],
 	        left: null,
 	        right: null,
-	        text1: '您的抽奖次数用完了',
-	        text2: '明天再来吧'
+	        text1: '',
+	        text2: '',
+	        maskImg: null //弹窗获奖图片
 	      }
 	    },
 	    mounted() {
-	      //高亮顺序
-	      let arr = [0, 1, 2, 7, 3, 6, 5, 4];
-	      //往数据里面添加高亮顺序
-	      this.list.forEach((e, i) => {
-	        e.a = arr[i];
+	      this.$nextTick(_ => {
+	        //自定义顺序
+	        let arr = [0, 1, 2, 7, 3, 6, 5, 4];
+	        //插入顺序
+	        this.list.forEach((e, i) => {
+	          e.a = arr[i];
+	        })
+	        console.log(this.list)
+	        //前4组数据
+	        this.left = this.list.slice(0, 4)
+	        console.log(this.left)
+	        //后4组数据
+	        this.right = this.list.slice(4)
+	        console.log(this.right)
 	      })
-	      console.log(this.list)
-	      //截取前四个和后四个
-	      this.left = this.list.slice(0, 4)
-	      this.right = this.list.slice(4)
-	      console.log(this.left, this.right)
 	    },
 	    methods: {
 	      lottery() {
@@ -1473,9 +1495,13 @@
 	          this.onoff = false;
 	          //剩余0次显示遮罩，并提示次数已用完
 	          if (this.num == 0) {
+	            this.maskImg = '../assets/over.png';
+	            this.text1 = '您的抽奖次数用完了';
+	            this.text2 = '明天再来吧';
 	            this.mask = true;
 	            return;
 	          }
+	          this.ulmask = true;
 	          this.num--;
 	          // this.n = Math.round(Math.random() * 10 + 30);
 	          this.n = 25;
@@ -1503,6 +1529,11 @@
 	          this.item++;
 	          if (this.item == this.n) { //等于最终位置
 	            clearInterval(this.timer1)
+	            //获取得奖图片，并在遮罩中显示
+	            this.maskImg = this.list[this.n % 8].img;
+	            //获取得奖文本，并在遮罩中显示
+	            this.text1 = this.list[this.n % 8].txt1;
+	            this.text2 = this.list[this.n % 8].txt2;
 	            setTimeout(_ => {
 	              this.mask = true;
 	            }, 300)
@@ -1518,16 +1549,14 @@
 	        this.timer1 = setInterval(this.speed, this.add)
 	      },
 	      ok() {
-	        // 遮罩隐藏
+	        //遮罩隐藏
 	        this.mask = false;
-	        //如果剩余抽奖次数大于0，可以再次点击
-	        if (this.num > 0) {
-	          this.onoff = true;
-	          this.item = -1;
-	        } else if (this.num == 0) {
-	          this.onoff = true;
-	          this.item = -1;
-	        }
+	        //抽奖遮罩隐藏
+	        this.ulmask = false;
+	        //可以再次点击
+	        this.onoff = true;
+	        //初始化初始值
+	        this.item = -1;
 	      }
 	    }
   	}
