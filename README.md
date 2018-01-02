@@ -1293,7 +1293,7 @@
 
 		找到 config 文件夹里的 index.js
 		
-		const os = require("os");
+		const os = require('os');
 		
 		//node.js 的一个方法，os.networkInterfaces()返回一个对象，包含只有被赋予网络地址的网络接口
 		//根据对象里面的信息来获取 IP 地址
@@ -1312,7 +1312,7 @@
 		          mac: '68:07:15:9d:fe:9a',
 		          scopeid: 10,
 		          internal: false },
-		        { address: '192.168.1.109',
+		        { address: '192.168.1.101',
 		          netmask: '255.255.255.0',
 		          family: 'IPv4',
 		          mac: '68:07:15:9d:fe:9a',
