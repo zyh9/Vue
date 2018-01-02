@@ -1397,6 +1397,9 @@
 	export default {
 		data() {
 		    return {
+		        // test
+		        testdata: '123',
+		        pathname: null,
 		        item: -1, //旋转的位置
 		        num: 2, //剩余抽奖次数
 		        onoff: true, //抽奖开关
@@ -1481,9 +1484,8 @@
 		        text1: '',
 		        text2: '',
 		        maskImg: null, //弹窗获奖图片
-		        over: '/static/img1/over.png', //无抽奖次数弹窗图片
-		        notWinning: '/static/img1/notWinning.png', //未中奖弹窗图片
 		        templates: [{
+		                pid: 1,
 		                activityTitle: '活动模板一',
 		                conBg: '/static/img1/bg.png', //背景图片
 		                lotteryBg: '/static/img1/lotterybg.png', //抽奖背景图片
@@ -1500,9 +1502,12 @@
 		                titleColor: '#fff', //抽奖机会颜色
 		                titleNumColor: '#fff', //剩余次数颜色
 		                prizeColor: '#666', //奖品字体颜色
-		                ruleColor: '#fff' //活动规则颜色
+		                ruleColor: '#fff', //活动规则颜色
+		                over: '/static/img1/over.png', //无抽奖次数弹窗图片
+		                notWinning: '/static/img1/notWinning.png', //未中奖弹窗图片
 		            },
 		            {
+		                pid: 1,
 		                activityTitle: '活动模板二',
 		                conBg: '/static/img2/bg.png', //背景图片
 		                lotteryBg: '/static/img2/lotterybg.png', //抽奖背景图片
@@ -1519,7 +1524,9 @@
 		                titleColor: '#4d4d4d', //抽奖机会颜色
 		                titleNumColor: '#ff5741', //剩余次数颜色
 		                prizeColor: '#666', //奖品字体颜色
-		                ruleColor: '#333' //活动规则颜色
+		                ruleColor: '#333', //活动规则颜色
+		                over: '/static/img2/over.png', //无抽奖次数弹窗图片
+		                notWinning: '/static/img2/notWinning.png', //未中奖弹窗图片
 		            }
 		        ],
 		        number: 0, //选择第几套皮肤
@@ -1544,6 +1551,17 @@
 		        //PC设备最小宽度处理
 		        this.device()
 		    })
+		    let that = this;
+		    window.addEventListener('message', function(e) {
+		        console.log('child messge...');
+		        console.log(e.data.title);
+		        if (e.data.title) {
+		            console.log('title..');
+		            that.testdata = e.data.title;
+		        }
+		    }, false);
+		    this.pathname = window.location.hash.slice(1)
+		    console.log(this.pathname)
 		},
 		methods: {
 		    lottery() {
@@ -1552,7 +1570,7 @@
 		            this.onoff = false;
 		            //剩余0次显示遮罩，并提示次数已用完
 		            if (this.num == 0) {
-		                this.maskImg = this.over;
+		                this.maskImg = this.templates[this.number].over;
 		                this.text1 = '您的抽奖次数用完了';
 		                this.text2 = '明天再来吧';
 		                this.mask = true;
@@ -1592,7 +1610,7 @@
 		                        //如果是谢谢参与，显示未中奖图片
 		                        if (e.info == "谢谢参与") {
 		                            //获取得奖图片，并在遮罩中显示
-		                            this.maskImg = this.notWinning;
+		                            this.maskImg = this.templates[this.number].notWinning;
 		                        } else {
 		                            this.maskImg = e.img;
 		                        }
@@ -1636,11 +1654,11 @@
 		    device() {
 		        let n = navigator.userAgent.toLowerCase();
 		        // 只有设备是PC端才执行此操作
-		        if (n.indexOf('iphone') == -1 && n.indexOf('ipad') == -1 && n.indexOf('android') == -1) {
-		            document.getElementsByTagName('html')[0].style.cssText = `width:750px;margin:0 auto;font-size:75px;box-shadow:0 0 3px #333;overflow:hidden;`;
+		        if (n.indexOf('iphone') == -1 && n.indexOf('ipad') == -1 && n.indexOf('android') == -1 && this.pathname != 'ifr') {
+		            document.getElementsByTagName('html')[0].style.cssText = `max-width:750px;margin:0 auto;font-size:75px;box-shadow:0 0 3px #333;overflow:hidden;`;
 		            document.getElementsByClassName('lottery')[0].style.cssText += `height:750px`;
 		        }
-		    },
+		    }
 		}
 	}
 ```
