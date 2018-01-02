@@ -1397,9 +1397,6 @@
 	export default {
 		data() {
 		    return {
-		        // test
-		        testdata: '123',
-		        pathname: null,
 		        item: -1, //旋转的位置
 		        num: 2, //剩余抽奖次数
 		        onoff: true, //抽奖开关
@@ -1551,17 +1548,6 @@
 		        //PC设备最小宽度处理
 		        this.device()
 		    })
-		    let that = this;
-		    window.addEventListener('message', function(e) {
-		        console.log('child messge...');
-		        console.log(e.data.title);
-		        if (e.data.title) {
-		            console.log('title..');
-		            that.testdata = e.data.title;
-		        }
-		    }, false);
-		    this.pathname = window.location.hash.slice(1)
-		    console.log(this.pathname)
 		},
 		methods: {
 		    lottery() {
@@ -1654,7 +1640,7 @@
 		    device() {
 		        let n = navigator.userAgent.toLowerCase();
 		        // 只有设备是PC端才执行此操作
-		        if (n.indexOf('iphone') == -1 && n.indexOf('ipad') == -1 && n.indexOf('android') == -1 && this.pathname != 'ifr') {
+		        if (n.indexOf('iphone') == -1 && n.indexOf('ipad') == -1 && n.indexOf('android') == -1) {
 		            document.getElementsByTagName('html')[0].style.cssText = `max-width:750px;margin:0 auto;font-size:75px;box-shadow:0 0 3px #333;overflow:hidden;`;
 		            document.getElementsByClassName('lottery')[0].style.cssText += `height:750px`;
 		        }
