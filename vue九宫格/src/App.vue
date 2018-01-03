@@ -568,7 +568,7 @@
                 display: flex;
                 img {
                     margin: auto;
-                    width: 80%;
+                    width: 70%;
                 }
             }
             .mask-bot {
