@@ -8,14 +8,14 @@
                 <div class="lottery" :style="{backgroundImage:`url(${templates[number].lotteryBg})`}">
                     <p class="opportunity" :style="{color:templates[number].titleColor}">您还有<span :style="{color:templates[number].titleNumColor}">{{num}}</span>次抽奖机会</p>
                     <ul class="con">
-                        <li class="item" :class="v.a==item%8?'itemMask':''" v-for="(v) in left" :key="v.a" :style="{backgroundImage:v.a==item%8?`url(${templates[number].checkedBg})`:`url(${templates[number].itemBg})`}">
+                        <li class="item" :class="v.a==item%8?'itemMask':''" v-for="(v,i) in left" :key="v.a" :style="{backgroundImage:v.a==item%8?`url(${templates[number].checkedBg})`:`url(${templates[number].itemBg})`}">
                             <div class="img-top">
                                 <img :src="v.img" alt="" />
                             </div>
                             <p :style="{color:templates[number].prizeColor}">{{v.info}}</p>
                         </li>
                         <li class="item click" @click="lottery" :style="{backgroundImage:`url(${templates[number].clickBg})`}"></li>
-                        <li class="item" :class="v.a==item%8?'itemMask':''" v-for="(v) in right" :key="v.a" :style="{backgroundImage:v.a==item%8?`url(${templates[number].checkedBg})`:`url(${templates[number].itemBg})`}">
+                        <li class="item" :class="v.a==item%8?'itemMask':''" v-for="(v,i) in right" :key="v.a" :style="{backgroundImage:v.a==item%8?`url(${templates[number].checkedBg})`:`url(${templates[number].itemBg})`}">
                             <div class="img-top">
                                 <img :src="v.img" alt="" />
                             </div>
@@ -52,6 +52,7 @@
         <div class="music" @click="music" :style="{animationName:musicOnoff?'move':''}">
             <img :src="musicOnoff?templates[number].play:templates[number].mute" alt="">
         </div>
+        <button @click="pifu" class="pifu">更换皮肤</button>
     </div>
 </template>
 
@@ -143,6 +144,8 @@
                 text1: '',
                 text2: '',
                 maskImg: null, //弹窗获奖图片
+                number: 0, //选择第几套皮肤
+                musicOnoff: true, //音乐开关
                 templates: [{
                         pid: 1,
                         activityTitle: '活动模板一',
@@ -186,10 +189,52 @@
                         ruleColor: '#333', //活动规则颜色
                         over: '/static/img2/over.png', //无抽奖次数弹窗图片
                         notWinning: '/static/img2/notWinning.png', //未中奖弹窗图片
+                    },
+                    {
+                        pid: 1,
+                        activityTitle: '活动模板三',
+                        conBg: '/static/img3/bg.png', //背景图片
+                        lotteryBg: '/static/img3/lotterybg.png', //抽奖背景图片
+                        itemBg: '/static/img3/normal.png', //未选中背景图片
+                        clickBg: '/static/img3/click.png', //立即抽奖背景图片
+                        checkedBg: '/static/img3/checked.png', //已选中背景图片
+                        maskBg: '/static/img3/mask.png', //弹窗背景图片
+                        bgColor: '#362c51', //皮肤底色
+                        bannerImg: '/static/img3/banner.png', //标题img
+                        ruleImg: '/static/img3/article.png', //规则img
+                        bgMusic: '/static/img3/石进-夜的钢琴曲五.mp3', //背景音乐
+                        play: '/static/img3/play.png', //背景音乐播放img
+                        mute: '/static/img3/pause.png', //背景音乐暂停img
+                        titleColor: '#fff', //抽奖机会颜色
+                        titleNumColor: '#ffe827', //剩余次数颜色
+                        prizeColor: '#666', //奖品字体颜色
+                        ruleColor: '#fff', //活动规则颜色
+                        over: '/static/img3/over.png', //无抽奖次数弹窗图片
+                        notWinning: '/static/img3/notWinning.png', //未中奖弹窗图片
+                    },
+                    {
+                        pid: 1,
+                        activityTitle: '活动模板四',
+                        conBg: '/static/img4/bg.png', //背景图片
+                        lotteryBg: '/static/img4/lotterybg.png', //抽奖背景图片
+                        itemBg: '/static/img4/normal.png', //未选中背景图片
+                        clickBg: '/static/img4/click.png', //立即抽奖背景图片
+                        checkedBg: '/static/img4/checked.png', //已选中背景图片
+                        maskBg: '/static/img4/mask.png', //弹窗背景图片
+                        bgColor: '#326bd3', //皮肤底色
+                        bannerImg: '/static/img4/banner.png', //标题img
+                        ruleImg: '/static/img4/article.png', //规则img
+                        bgMusic: '/static/img4/Yiruma-Kiss The Rain.mp3', //背景音乐
+                        play: '/static/img4/play.png', //背景音乐播放img
+                        mute: '/static/img4/pause.png', //背景音乐暂停img
+                        titleColor: '#4c4535', //抽奖机会颜色
+                        titleNumColor: '#dd2c14', //剩余次数颜色
+                        prizeColor: '#666', //奖品字体颜色
+                        ruleColor: '#fff', //活动规则颜色
+                        over: '/static/img4/over.png', //无抽奖次数弹窗图片
+                        notWinning: '/static/img4/notWinning.png', //未中奖弹窗图片
                     }
-                ],
-                number: 0, //选择第几套皮肤
-                musicOnoff: true //音乐开关
+                ]
             }
         },
         mounted() {
@@ -306,6 +351,13 @@
                     document.getElementsByTagName('html')[0].style.cssText = `max-width:750px;margin:0 auto;font-size:75px;box-shadow:0 0 3px #333;overflow:hidden;`;
                     document.getElementsByClassName('lottery')[0].style.cssText += `height:750px`;
                 }
+            },
+            pifu() {
+                this.number++;
+                if (this.number == this.templates.length) {
+                    this.number = 0;
+                }
+                document.title = this.templates[this.number].activityTitle;
             }
         }
     }
@@ -313,6 +365,18 @@
 
 <style lang="less">
     @rem: 75rem;
+    .pifu {
+        position: relative;
+        z-index: 100;
+        width: 120/@rem;
+        height: 40/@rem;
+        font-size: 24/@rem;
+        background: #fff;
+        border: 1px solid #000;
+        outline: none;
+        box-sizing: content-box;
+        border-radius: 20/@rem;
+    }
     #app::-webkit-scrollbar {
         display: none;
     }
@@ -373,17 +437,22 @@
                 right: 90/@rem;
                 bottom: 132/@rem;
                 .item {
-                    width: 32%;
-                    height: 32%;
+                    width: 32.5%;
+                    height: 32.5%;
                     background-repeat: no-repeat;
                     background-size: 100% 100%;
                     float: left;
-                    margin-right: 2%;
-                    margin-bottom: 2%;
+                    margin-right: 1.25%;
+                    margin-bottom: 1.25%;
                     text-align: center;
                     position: relative;
                     &:nth-of-type(3n) {
                         margin-right: 0%;
+                    }
+                    &:nth-of-type(7),
+                    &:nth-of-type(8),
+                    &:nth-of-type(9) {
+                        margin-bottom: 0%;
                     }
                     .img-top {
                         position: absolute;
@@ -395,7 +464,7 @@
                         display: -ms-flexbox;
                         display: flex;
                         img {
-                            width: 55%;
+                            width: 80%;
                             margin: auto;
                         }
                     }
@@ -404,7 +473,7 @@
                         position: absolute;
                         width: 100%;
                         text-align: center;
-                        bottom: 10/@rem;
+                        bottom: 16/@rem;
                         height: 36/@rem;
                         line-height: 36/@rem;
                     }
@@ -418,6 +487,7 @@
                     background: rgba(0, 0, 0, .3);
                     overflow: hidden;
                     z-index: 2;
+                    border-radius: 8/@rem;
                 }
                 .click {
                     background-repeat: no-repeat;
@@ -498,7 +568,7 @@
                 display: flex;
                 img {
                     margin: auto;
-                    width: 70%;
+                    width: 80%;
                 }
             }
             .mask-bot {
@@ -606,7 +676,7 @@
                     .item {
                         p {
                             font-size: 30/@rem;
-                            bottom: 20/@rem;
+                            bottom: 26/@rem;
                         }
                     }
                 }
@@ -657,7 +727,7 @@
                     .item {
                         p {
                             font-size: 36/@rem;
-                            bottom: 30/@rem;
+                            bottom: 36/@rem;
                         }
                     }
                 }
@@ -709,7 +779,7 @@
                     .item {
                         p {
                             font-size: 24/@rem;
-                            bottom: 10/@rem;
+                            bottom: 16/@rem;
                         }
                     }
                 }
