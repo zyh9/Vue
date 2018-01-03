@@ -158,7 +158,7 @@
                         bgColor: '#660e88', //皮肤底色
                         bannerImg: '/static/img1/banner.png', //标题img
                         ruleImg: '/static/img1/article.png', //规则img
-                        bgMusic: '/static/img1/石久让-天空之城.mp3', //背景音乐
+                        bgMusic: '/static/img1/Richard Clayderman - 梦中的婚礼.mp3', //背景音乐
                         play: '/static/img1/play.png', //背景音乐播放img
                         mute: '/static/img1/pause.png', //背景音乐暂停img
                         titleColor: '#fff', //抽奖机会颜色
@@ -180,7 +180,7 @@
                         bgColor: '#ffe433', //皮肤底色
                         bannerImg: '/static/img2/banner.png', //标题img
                         ruleImg: '/static/img2/article.png', //规则img
-                        bgMusic: '/static/img2/理查德.克莱德曼-梦中的婚礼.mp3', //背景音乐
+                        bgMusic: '/static/img2/Richard Clayderman - 秋日私语.mp3', //背景音乐
                         play: '/static/img2/play.png', //背景音乐播放img
                         mute: '/static/img2/pause.png', //背景音乐暂停img
                         titleColor: '#4d4d4d', //抽奖机会颜色
@@ -202,7 +202,7 @@
                         bgColor: '#362c51', //皮肤底色
                         bannerImg: '/static/img3/banner.png', //标题img
                         ruleImg: '/static/img3/article.png', //规则img
-                        bgMusic: '/static/img3/石进-夜的钢琴曲五.mp3', //背景音乐
+                        bgMusic: '/static/img3/Richard Clayderman - 梦中的婚礼.mp3', //背景音乐
                         play: '/static/img3/play.png', //背景音乐播放img
                         mute: '/static/img3/pause.png', //背景音乐暂停img
                         titleColor: '#fff', //抽奖机会颜色
@@ -224,7 +224,7 @@
                         bgColor: '#326bd3', //皮肤底色
                         bannerImg: '/static/img4/banner.png', //标题img
                         ruleImg: '/static/img4/article.png', //规则img
-                        bgMusic: '/static/img4/Yiruma-Kiss The Rain.mp3', //背景音乐
+                        bgMusic: '/static/img4/Richard Clayderman - 秋日私语.mp3', //背景音乐
                         play: '/static/img4/play.png', //背景音乐播放img
                         mute: '/static/img4/pause.png', //背景音乐暂停img
                         titleColor: '#4c4535', //抽奖机会颜色
@@ -367,7 +367,7 @@
     @rem: 75rem;
     .pifu {
         position: relative;
-        z-index: 100;
+        z-index: 5;
         width: 120/@rem;
         height: 40/@rem;
         font-size: 24/@rem;
