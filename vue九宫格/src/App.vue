@@ -50,7 +50,7 @@
         </div>
         <audio :src="templates[number].bgMusic" autoplay="autoplay" loop="loop" ref="music"></audio>
         <div class="music" @click="music" :style="{animationName:musicOnoff?'move':''}">
-            <img :src="musicOnoff?templates[number].play:templates[number].mute" alt="">
+            <img :src="musicOnoff?templates[number].playImg:templates[number].muteImg" alt="">
         </div>
         <button @click="pifu" class="pifu">更换皮肤</button>
     </div>
@@ -159,13 +159,13 @@
                         bannerImg: '/static/img1/banner.png', //标题img
                         ruleImg: '/static/img1/article.png', //规则img
                         bgMusic: '/static/img1/Richard Clayderman - 梦中的婚礼.mp3', //背景音乐
-                        play: '/static/img1/play.png', //背景音乐播放img
-                        mute: '/static/img1/pause.png', //背景音乐暂停img
+                        playImg: '/static/img1/play.png', //背景音乐播放img
+                        muteImg: '/static/img1/pause.png', //背景音乐暂停img
                         titleColor: '#fff', //抽奖机会颜色
                         titleNumColor: '#fff', //剩余次数颜色
                         prizeColor: '#666', //奖品字体颜色
                         ruleColor: '#fff', //活动规则颜色
-                        over: '/static/img1/over.png', //无抽奖次数弹窗图片
+                        overImg: '/static/img1/over.png', //无抽奖次数弹窗图片
                         notWinning: '/static/img1/notWinning.png', //未中奖弹窗图片
                     },
                     {
@@ -181,13 +181,13 @@
                         bannerImg: '/static/img2/banner.png', //标题img
                         ruleImg: '/static/img2/article.png', //规则img
                         bgMusic: '/static/img2/Richard Clayderman - 秋日私语.mp3', //背景音乐
-                        play: '/static/img2/play.png', //背景音乐播放img
-                        mute: '/static/img2/pause.png', //背景音乐暂停img
+                        playImg: '/static/img2/play.png', //背景音乐播放img
+                        muteImg: '/static/img2/pause.png', //背景音乐暂停img
                         titleColor: '#4d4d4d', //抽奖机会颜色
                         titleNumColor: '#ff5741', //剩余次数颜色
                         prizeColor: '#666', //奖品字体颜色
                         ruleColor: '#333', //活动规则颜色
-                        over: '/static/img2/over.png', //无抽奖次数弹窗图片
+                        overImg: '/static/img2/over.png', //无抽奖次数弹窗图片
                         notWinning: '/static/img2/notWinning.png', //未中奖弹窗图片
                     },
                     {
@@ -203,13 +203,13 @@
                         bannerImg: '/static/img3/banner.png', //标题img
                         ruleImg: '/static/img3/article.png', //规则img
                         bgMusic: '/static/img3/Richard Clayderman - 梦中的婚礼.mp3', //背景音乐
-                        play: '/static/img3/play.png', //背景音乐播放img
-                        mute: '/static/img3/pause.png', //背景音乐暂停img
+                        playImg: '/static/img3/play.png', //背景音乐播放img
+                        muteImg: '/static/img3/pause.png', //背景音乐暂停img
                         titleColor: '#fff', //抽奖机会颜色
                         titleNumColor: '#ffe827', //剩余次数颜色
                         prizeColor: '#666', //奖品字体颜色
                         ruleColor: '#fff', //活动规则颜色
-                        over: '/static/img3/over.png', //无抽奖次数弹窗图片
+                        overImg: '/static/img3/over.png', //无抽奖次数弹窗图片
                         notWinning: '/static/img3/notWinning.png', //未中奖弹窗图片
                     },
                     {
@@ -225,13 +225,13 @@
                         bannerImg: '/static/img4/banner.png', //标题img
                         ruleImg: '/static/img4/article.png', //规则img
                         bgMusic: '/static/img4/Richard Clayderman - 秋日私语.mp3', //背景音乐
-                        play: '/static/img4/play.png', //背景音乐播放img
-                        mute: '/static/img4/pause.png', //背景音乐暂停img
+                        playImg: '/static/img4/play.png', //背景音乐播放img
+                        muteImg: '/static/img4/pause.png', //背景音乐暂停img
                         titleColor: '#4c4535', //抽奖机会颜色
                         titleNumColor: '#dd2c14', //剩余次数颜色
                         prizeColor: '#666', //奖品字体颜色
                         ruleColor: '#fff', //活动规则颜色
-                        over: '/static/img4/over.png', //无抽奖次数弹窗图片
+                        overImg: '/static/img4/over.png', //无抽奖次数弹窗图片
                         notWinning: '/static/img4/notWinning.png', //未中奖弹窗图片
                     }
                 ]
@@ -263,7 +263,7 @@
                     this.onoff = false;
                     //剩余0次显示遮罩，并提示次数已用完
                     if (this.num == 0) {
-                        this.maskImg = this.templates[this.number].over;
+                        this.maskImg = this.templates[this.number].overImg;
                         this.text1 = '您的抽奖次数用完了';
                         this.text2 = '明天再来吧';
                         this.mask = true;
@@ -345,10 +345,9 @@
                 this.musicOnoff = !this.musicOnoff;
             },
             device() {
-                let n = navigator.userAgent.toLowerCase();
-                // 只有设备是PC端才执行此操作
-                if (n.indexOf('iphone') == -1 && n.indexOf('ipad') == -1 && n.indexOf('android') == -1) {
-                    document.getElementsByTagName('html')[0].style.cssText = `max-width:750px;margin:0 auto;font-size:75px;box-shadow:0 0 3px #333;overflow:hidden;`;
+                if (document.getElementsByTagName('html')[0].getBoundingClientRect().width >= 1250) {
+                    document.getElementsByTagName('html')[0].style.cssText += `font-size:75px;`;
+                    document.getElementsByTagName('body')[0].style.cssText += `max-width:750px;margin:0 auto;box-shadow:0 0 3px #333;overflow:hidden;`;
                     document.getElementsByClassName('lottery')[0].style.cssText += `height:750px`;
                 }
             },
@@ -480,9 +479,9 @@
                 }
                 .ul-mask {
                     position: absolute;
-                    top: 0;
-                    right: 0;
-                    left: 0;
+                    top: -2/@rem;
+                    right: -2/@rem;
+                    left: -2/@rem;
                     bottom: -6/@rem;
                     background: rgba(0, 0, 0, .3);
                     overflow: hidden;
@@ -518,7 +517,7 @@
                     font-weight: 700;
                     position: absolute;
                     left: 50%;
-                    top: 42/@rem;
+                    top: 40/@rem;
                     transform: translateX(-50%);
                     height: 60/@rem; // line-height: 60/@rem;
                 }
@@ -692,7 +691,7 @@
                     p {
                         height: 80/@rem; // line-height: 80/@rem;
                         font-size: 36/@rem;
-                        top: 40/@rem;
+                        top: 38/@rem;
                     }
                 }
                 .rule-con {
@@ -743,7 +742,7 @@
                     p {
                         height: 100/@rem; // line-height: 100/@rem;
                         font-size: 44/@rem;
-                        top: 46/@rem;
+                        top: 44/@rem;
                     }
                 }
                 .rule-con {
@@ -795,7 +794,7 @@
                     p {
                         height: 60/@rem; // line-height: 60/@rem;
                         font-size: 28/@rem;
-                        top: 42/@rem;
+                        top: 40/@rem;
                     }
                 }
                 .rule-con {
