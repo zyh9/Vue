@@ -10,14 +10,13 @@
     export default {
         data() {
             return {
-                list: ['模板1', '模板2', '模板3', '模板4','模板5']
+                list: ['模板1', '模板2', '模板3', '模板4', '模板5']
             }
         },
         mounted() {
             if (document.getElementsByTagName('html')[0].getBoundingClientRect().width >= 1250) {
                 document.getElementsByTagName('html')[0].style.cssText += `font-size:75px;`;
                 document.getElementsByTagName('body')[0].style.cssText += `max-width:750px;margin:0 auto;box-shadow:0 0 3px #333;overflow:hidden;`;
-                document.getElementsByClassName('lottery')[0].style.cssText += `height:750px`;
             }
             document.title = '模板选择页';
         },
