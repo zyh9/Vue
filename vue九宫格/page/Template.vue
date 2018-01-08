@@ -302,11 +302,9 @@
                     // console.log(this.pos * this.add, this.pos * this.add + (this.n - this.pos * 2) * this.low)
                     this.timer1 = setInterval(this.speed, this.add)
                     setTimeout(_ => { //加速
-                        clearInterval(this.timer1)
                         this.addSpeed()
                     }, this.pos * this.add)
                     setTimeout(_ => { //减速
-                        clearInterval(this.timer2)
                         this.lowSpeed()
                     }, this.pos * this.add + (this.n - this.pos * 2) * this.low)
                 }
