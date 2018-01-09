@@ -92,49 +92,49 @@
                 ],
                 list: [{
                         img: '/static/img1/coupon.png',
-                        info: '5元优惠券',
+                        info: '5元优惠券1',
                         txt1: '恭喜您，获得5元优惠券',
                         txt2: '快去使用吧'
                     },
                     {
                         img: '/static/img1/gold.png',
-                        info: '5枚U币',
+                        info: '5枚U币2',
                         txt1: '恭喜您，获得5枚U币',
                         txt2: '快去使用吧'
                     },
                     {
                         img: '/static/img1/redCard.png',
-                        info: '现金红包',
+                        info: '现金红包3',
                         txt1: '恭喜您，获得5元现金红包',
                         txt2: '快去使用吧'
                     },
                     {
                         img: '/static/img1/smiley.png',
-                        info: '谢谢参与',
+                        info: '谢谢参与4',
                         txt1: '很遗憾，未中奖',
                         txt2: '再接再厉'
                     },
                     {
                         img: '/static/img1/coupon.png',
-                        info: '5元优惠券',
+                        info: '5元优惠券5',
                         txt1: '恭喜您，获得5元优惠券',
                         txt2: '快去使用吧'
                     },
                     {
                         img: '/static/img1/gold.png',
-                        info: '5枚U币',
+                        info: '5枚U币6',
                         txt1: '恭喜您，获得5枚U币',
                         txt2: '快去使用吧'
                     },
                     {
                         img: '/static/img1/redCard.png',
-                        info: '现金红包',
+                        info: '现金红包7',
                         txt1: '恭喜您，获得5元现金红包',
                         txt2: '快去使用吧'
                     },
                     {
                         img: '/static/img1/smiley.png',
-                        info: '谢谢参与',
+                        info: '谢谢参与8',
                         txt1: '很遗憾，未中奖',
                         txt2: '再接再厉'
                     }
@@ -256,7 +256,9 @@
                         overImg: '/static/img5/over.png', //无抽奖次数弹窗图片
                         notWinning: '/static/img5/notWinning.png', //未中奖弹窗图片
                     }
-                ]
+                ],
+                arr: [0, 1, 2, 7, 3, 6, 5, 4], //自定义高亮顺序
+                arrList: [] //排序之后的数组
             }
         },
         mounted() {
@@ -264,16 +266,19 @@
             index--;
             this.number = index;
             this.$nextTick(_ => {
-                //自定义顺序
-                let arr = [0, 1, 2, 7, 3, 6, 5, 4];
-                //插入顺序
-                this.list.forEach((e, i) => {
-                    e.a = arr[i];
+                // 将数组重新排序，再插入高亮顺序
+                // 后续请求的替换数据，插入this.list再重新渲染即可
+                this.list.forEach((e, i, array) => {
+                    this.arrList.push(array[this.arr[i]])
                 })
+                this.arrList.forEach((e, i) => {
+                    e.a = this.arr[i];
+                })
+                console.log(this.arrList)
                 //前4组数据
-                this.left = this.list.slice(0, 4)
+                this.left = this.arrList.slice(0, 4)
                 //后4组数据
-                this.right = this.list.slice(4)
+                this.right = this.arrList.slice(4)
                 // console.log(this.left,this.right)
                 //PC设备最小宽度处理
                 this.device()
