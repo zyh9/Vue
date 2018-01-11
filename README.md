@@ -1400,8 +1400,13 @@
 			
 			最近要在移动端做一套关于问卷的活动，第一个想到的是用div来模拟textarea，
 			其中会用到contenteditable="true"的属性来达到可输入文本的功能（用在移动端足够）
-			然后通过vue的@input="updata($event)"来实时获取用户输入的文字
+			然后通过vue的v-on:input="updata($event)"  =>  @input="updata($event)"来实时获取用户输入的文字
 		
 		如何让contenteditable元素只能输入纯文本，可参考以下文章
 
 [张鑫旭博客：如何让contenteditable元素只能输入纯文本](http://www.zhangxinxu.com/wordpress/2016/01/contenteditable-plaintext-only/)
+
+### oninput和onchange的区别
+
+		oninput事件类似于 onchange事件
+		不同之处在于oninput事件在元素值发生变化是立即触发，onchange在元素失去焦点时触发
