@@ -1417,8 +1417,9 @@
 
 		npm i keymirror -S
 		
-		在vuex中要建一个mutation-type.js来专门来放mutation里用到的方法常量值
-		为了方便多人协作的时候不至于代码太乱，所以要统一放在一个文件里
+		在使用vuex的时候，我们通常要建一个mutation-type.js来专门来放mutation里用到的方法常量值
+		
+		此做法是为了方便多人协作的时候不至于代码太乱，所以要放在一个文件里统一管理
 
 > 正常的写法
 
