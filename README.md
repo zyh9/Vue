@@ -1412,3 +1412,34 @@
 
 		oninput事件类似于 onchange事件
 		不同之处在于oninput事件在元素值发生变化是立即触发，onchange在元素失去焦点时触发
+
+### keymirror插件的使用
+
+		npm i keymirror -S
+		
+		在vuex中要建一个mutation-type.js来专门来放mutation里用到的方法常量值
+		为了方便多人协作的时候不至于代码太乱，所以要统一放在一个文件里
+
+> 正常的写法
+
+```javascript
+	export const START_ACTION = 'START_ACTION'; 
+	export const PROBLEM_LIST = 'PROBLEM_LIST';
+	export const PROBLEM_CLEAN = 'PROBLEM_CLEAN';
+	export const QUESTION_LIST = 'QUESTION_LIST'; 
+	export const QUESTION_CLEAN = 'QUESTION_CLEAN';
+```
+
+> 加入keymirror之后的写法
+
+```javascript
+	import keymirror from 'keymirror'; 
+	let types = keymirror({ 
+	START_ACTION:null, 
+	PROBLEM_LIST:null, 
+	PROBLEM_CLEAN:null, 
+	QUESTION_LIST:null, 
+	QUESTION_CLEAN:null 
+	}) 
+	export {types};
+```
