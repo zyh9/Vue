@@ -1479,12 +1479,12 @@
 
 ```javascript
 		//是否是微信
-        let u = navigator.userAgent;
-        if (u.indexOf('MicroMessenger') != -1) {
-            this.weiXin = true;
-        } else {
-            this.weiXin = false;
-        }
+		let u = navigator.userAgent;
+		if (u.indexOf('MicroMessenger') != -1) {
+			this.weiXin = true;
+		} else {
+			this.weiXin = false;
+		}
 ```
 
 		答题采用单选和倒计时相结合
