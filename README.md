@@ -1459,6 +1459,7 @@
                         this.urlObj[e.split('=')[0]] = e.split('=')[1]
                     }
                 })
+                return '地址栏有参数';
             } else return 'nodata';
         } else {
             if (search.indexOf('=') != -1) {
@@ -1468,6 +1469,7 @@
                         this.urlObj[e.split('=')[0]] = e.split('=')[1]
                     }
                 })
+                return '地址栏有参数';
             } else return 'nodata';
         }
     }
