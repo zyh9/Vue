@@ -283,7 +283,9 @@
             let state = this.$store.state.mutations;
             this.normal = state.normal;
             this.checked = state.checked;
-            this.timerInfo() //调用时间倒计时
+            if (state.pos == 1) { //只有是答题的时候才调用倒计时
+                this.timerInfo()
+            }
         },
         methods: {
             nextQuestion() {
