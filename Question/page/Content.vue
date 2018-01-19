@@ -31,6 +31,7 @@
                 </ul>
             </div>
             <div class="problem-b">
+                <p class="tips" :class="tip?'move':''">您还没有选择哦</p>
                 <button class="btn" v-if="problemIndex!=problemList.length-1" :class="pIndex>-1?'active':''" @click="nextProblem">下一题</button>
                 <button class="btn" v-if="problemIndex==problemList.length-1" :class="pIndex>-1?'active':''" @click="overProblem">完成答题</button>
             </div>
@@ -272,7 +273,8 @@
                 normal: '', //未选中背景图
                 checked: '', //选中背景图
                 time: 0, //答题时间10s
-                timer: null //时间定时器
+                timer: null, //时间定时器
+                tip: false //未勾选小提示
             }
         },
         mounted() {
@@ -324,6 +326,11 @@
                     this.problemIndex++;
                     this.answerList.push(this.pIndex)
                     this.pIndex = -1; //恢复index索引
+                } else {
+                    this.tip = true;
+                    setTimeout(_ => {
+                        this.tip = false;
+                    }, 1000)
                 }
             },
             overProblem() {
@@ -337,6 +344,11 @@
                         path: 'end'
                     })
                     this.pIndex = -1; //恢复index索引
+                } else {
+                    this.tip = true;
+                    setTimeout(_ => {
+                        this.tip = false;
+                    }, 1000)
                 }
             },
             clickQuestion(i) {
@@ -352,6 +364,7 @@
             },
             timerInfo() {
                 this.time = 10; //初始化时间
+                this.tip = false; //初始化小提示
                 this.timer = setInterval(_ => {
                     this.time--;
                     if (this.time == 0) { //如果时间为零，跳转下一题
@@ -437,7 +450,7 @@
                     height: 50/@rem;
                     line-height: 50/@rem;
                     text-align: center;
-                    border-radius: 25/@rem;
+                    border-radius: 50%;
                 }
                 span {
                     display: block;
@@ -513,6 +526,16 @@
                     background: #fff;
                     color: #333;
                 }
+                .tips {
+                    position: absolute;
+                    background: rgba(0, 0, 0, .5);
+                    padding: 12/@rem 16/@rem;
+                    color: #fff;
+                    font-size: 24/@rem;
+                    border-radius: 8/@rem;
+                    transform: translateY(-160%);
+                    opacity: 0;
+                }
             }
         }
     }
@@ -531,5 +554,20 @@
                 }
             }
         }
+    }
+    @keyframes zyh {
+        0% {
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+    .move {
+        animation-name: zyh;
+        animation-duration: 1s;
     }
 </style>
