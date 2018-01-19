@@ -119,7 +119,7 @@
             this.wx = state.weixin;
             if (state.pos == 1) { //如果是答题
                 state.answer.forEach((e, i) => { //比对正确答案
-                    if (e == this.problemAnswer[i]) {
+                    if (e === this.problemAnswer[i]) {
                         this.fraction++;
                     }
                 })
