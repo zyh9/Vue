@@ -3,7 +3,7 @@
         <div v-if="pos==0" class="question">
             <div class="question-t" v-for="(v,i) in questionList" :key="i" v-if="i==questionIndex">
                 <div class="questionTxt">
-                    <p>{{i+1}}.{{v.question}}</p>
+                    <p class="p-text">{{i+1}}.{{v.question}}</p>
                     <span>{{problemIndex+1}}/{{problemList.length}}</span>
                 </div>
                 <ul class="questionConCheck" v-if="v.attr==1">

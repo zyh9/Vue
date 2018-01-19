@@ -1386,7 +1386,7 @@
 		
 		后续根据请求的皮肤和奖品数据再进行赋值操作渲染即可
 
-[点此查看示例Demo](https://github.com/zyh19941109/Vue.js/tree/master/vue九宫格)
+[点此查看示例Demo](https://github.com/zyh19941109/Vue.js/tree/master/Jiugongge)
 
 ### div模拟textarea文本域实现高度自适应以及输入纯文本
 
@@ -1489,4 +1489,4 @@
 
 > 答题采用单选和倒计时相结合，问卷采用单选和纯文本输入
 
-[点此查看示例Demo](https://github.com/zyh19941109/Vue/tree/master/问卷and答题)
+[点此查看示例Demo](https://github.com/zyh19941109/Vue/tree/master/Question)
