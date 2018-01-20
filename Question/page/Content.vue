@@ -378,7 +378,6 @@
                             }
                             this.problemIndex++;
                             this.answerList.push('')
-                            this.nextProblem() //执行下一题
                             this.timerInfo()
                         } else {
                             //针对定时器时间为0的操作
