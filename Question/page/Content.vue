@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="question-b">
-                <button class="btn" v-if="questionIndex!=questionList.length-1" :class="val.length||qIndex>-1?'active':''" @click="nextQuestion">下一题</button>
+                <button class="btn" v-if="questionIndex<questionList.length-1" :class="val.length||qIndex>-1?'active':''" @click="nextQuestion">下一题</button>
                 <button class="btn" v-if="questionIndex==questionList.length-1" :class="val.length||qIndex>-1?'active':''" @click="overQuestion">完成调研</button>
             </div>
         </div>
@@ -32,7 +32,7 @@
             </div>
             <div class="problem-b">
                 <p class="tips" :class="tip?'move':''">您还没有选择哦</p>
-                <button class="btn" v-if="problemIndex!=problemList.length-1" :class="pIndex>-1?'active':''" @click="nextProblem">下一题</button>
+                <button class="btn" v-if="problemIndex<problemList.length-1" :class="pIndex>-1?'active':''" @click="nextProblem">下一题</button>
                 <button class="btn" v-if="problemIndex==problemList.length-1" :class="pIndex>-1?'active':''" @click="overProblem">完成答题</button>
             </div>
         </div>
