@@ -3,8 +3,8 @@
         <div v-if="pos==0" class="question">
             <div class="question-t" v-for="(v,i) in questionList" :key="i" v-if="i==questionIndex">
                 <div class="questionTxt">
-                    <p class="p-text">{{i+1}}.{{v.question}}</p>
-                    <span>{{problemIndex+1}}/{{problemList.length}}</span>
+                    <p class="p-text">{{i+1}}.{{v.question}}（问卷）</p>
+                    <span>{{questionIndex+1}}/{{questionList.length}}</span>
                 </div>
                 <ul class="questionConCheck" v-if="v.attr==1">
                     <li class="questionLi" v-for="(v,k,i) in v.answer" :key="i" @click="clickQuestion(i)" :style="{backgroundImage:i ==qIndex?checked:normal,color:i ==qIndex?'#fff':''}">{{k}}.{{v}}</li>
@@ -22,7 +22,7 @@
         <div v-if="pos==1" class="problem">
             <div class="problem-t" v-for="(v,i) in problemList" :key="i" v-if="i==problemIndex">
                 <div class="problemTxt">
-                    <p class="p-text">{{i+1}}.{{v.question}}</p>
+                    <p class="p-text">{{i+1}}.{{v.problem}}（答题）</p>
                     <span>{{problemIndex+1}}/{{problemList.length}}</span>
                     <p class="time">{{time}}</p>
                 </div>
@@ -161,7 +161,7 @@
                 //答题
                 problemList: [{
                         txt: '答题第1题',
-                        question: '先秦时代，教育内容以“六艺”为主，下列不属于“六艺”的是？',
+                        problem: '先秦时代，教育内容以“六艺”为主，下列不属于“六艺”的是？',
                         answer: {
                             A: '射',
                             B: '御',
@@ -171,7 +171,7 @@
                     },
                     {
                         txt: '答题第2题',
-                        question: '经魏晋多名士，有著名的竹林七贤，《与山巨源绝交书》是竹林七贤中的谁写给山涛的？',
+                        problem: '经魏晋多名士，有著名的竹林七贤，《与山巨源绝交书》是竹林七贤中的谁写给山涛的？',
                         answer: {
                             A: '阮籍',
                             B: '嵇康',
@@ -181,7 +181,7 @@
                     },
                     {
                         txt: '答题第3题',
-                        question: '科举制在中国影响深远，乡试录取者称为“举人”，会试录取者称为“贡生”，那么殿试录取者称为？',
+                        problem: '科举制在中国影响深远，乡试录取者称为“举人”，会试录取者称为“贡生”，那么殿试录取者称为？',
                         answer: {
                             A: '大元',
                             B: '解元',
@@ -191,7 +191,7 @@
                     },
                     {
                         txt: '答题第4题',
-                        question: '“生当做人杰，死亦为鬼雄，至今思项羽，不肯过江东。”为哪位诗人的作品？',
+                        problem: '“生当做人杰，死亦为鬼雄，至今思项羽，不肯过江东。”为哪位诗人的作品？',
                         answer: {
                             A: '李白',
                             B: '杜甫',
@@ -201,7 +201,7 @@
                     },
                     {
                         txt: '答题第5题',
-                        question: '“豆蔻”是指多少岁？',
+                        problem: '“豆蔻”是指多少岁？',
                         answer: {
                             A: '十三',
                             B: '十五',
@@ -211,7 +211,7 @@
                     },
                     {
                         txt: '答题第6题',
-                        question: '中国的书院制度自唐代始，有官方和私人设置的两类，下列各书院属于官方创办的是？',
+                        problem: '中国的书院制度自唐代始，有官方和私人设置的两类，下列各书院属于官方创办的是？',
                         answer: {
                             A: '岳麓书院',
                             B: '嵩阳书院',
@@ -221,7 +221,7 @@
                     },
                     {
                         txt: '答题第7题',
-                        question: '友谊的深浅，由下列那一个成语可以看出情义最为深重？',
+                        problem: '友谊的深浅，由下列那一个成语可以看出情义最为深重？',
                         answer: {
                             A: '莫逆之交',
                             B: '金兰之交',
@@ -231,7 +231,7 @@
                     },
                     {
                         txt: '答题第8题',
-                        question: '一提到书法中的草书，人们便会想到“颠张醉素”，请问下列属于颠张的作品的是？',
+                        problem: '一提到书法中的草书，人们便会想到“颠张醉素”，请问下列属于颠张的作品的是？',
                         answer: {
                             A: '自叙帖',
                             B: '自言帖',
@@ -241,7 +241,7 @@
                     },
                     {
                         txt: '答题第9题',
-                        question: '鲁迅先生称（ ）为“史家之绝唱，无韵之离骚”？',
+                        problem: '鲁迅先生称（ ）为“史家之绝唱，无韵之离骚”？',
                         answer: {
                             A: '史记',
                             B: '汉书',
@@ -251,7 +251,7 @@
                     },
                     {
                         txt: '答题第10题',
-                        question: '鲁迅先生称（ 郑谷有诗曰：“何事文星与酒星，一时钟在李先生。高吟大醉三千百，留着人间伴月明。”诗中的李先生指的是？',
+                        problem: '鲁迅先生称（ 郑谷有诗曰：“何事文星与酒星，一时钟在李先生。高吟大醉三千百，留着人间伴月明。”诗中的李先生指的是？',
                         answer: {
                             A: '李商隐',
                             B: '李贺',
