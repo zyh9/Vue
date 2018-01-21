@@ -1413,6 +1413,25 @@
 		oninput事件类似于 onchange事件
 		不同之处在于oninput事件在元素值发生变化是立即触发，onchange在元素失去焦点时触发
 
+### 问卷and答题
+
+```javascript
+		//是否是微信
+		let u = navigator.userAgent;
+		if (u.indexOf('MicroMessenger') != -1) {
+			this.weiXin = true;
+		} else {
+			this.weiXin = false;
+		}
+```
+
+		答题采用单选和倒计时相结合，问卷采用单选和纯文本输入，答题和问卷的答案利用vuex来做存储
+		尾页的卡片成绩展示利用html2canvas将需要转化为图片的结构先转化为canvas
+		然后利用canvas.toDataURL("image/png")将canvas转化为base64位编码
+		最后将base64位编码赋值给img的src，来达到微信端的长按保存图片
+
+[点此查看示例Demo](https://github.com/zyh19941109/Vue/tree/master/Question)
+
 ### keymirror插件的使用
 
 		npm i keymirror -S
@@ -1474,19 +1493,3 @@
         }
     }
 ```
-
-### 问卷and答题
-
-```javascript
-		//是否是微信
-		let u = navigator.userAgent;
-		if (u.indexOf('MicroMessenger') != -1) {
-			this.weiXin = true;
-		} else {
-			this.weiXin = false;
-		}
-```
-
-> 答题采用单选和倒计时相结合，问卷采用单选和纯文本输入
-
-[点此查看示例Demo](https://github.com/zyh19941109/Vue/tree/master/Question)
