@@ -1426,8 +1426,11 @@
 ```
 
 		答题采用单选和倒计时相结合，问卷采用单选和纯文本输入，答题和问卷的答案利用vuex来做存储
+		
 		尾页的卡片成绩展示利用html2canvas将需要转化为图片的结构先转化为canvas
+		
 		然后利用canvas.toDataURL("image/png")将canvas转化为base64位编码
+		
 		最后将base64位编码赋值给img的src，来达到微信端的长按保存图片
 
 [点此查看示例Demo](https://github.com/zyh19941109/Vue/tree/master/Question)
