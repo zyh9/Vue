@@ -15,6 +15,7 @@
                 </div>
             </div>
             <div class="question-b">
+                <p class="tips" :class="tip?'move':''">{{tipTxt}}</p>
                 <button class="btn" v-if="questionIndex<questionList.length-1" :class="val.length||qIndex>-1?'active':''" @click="nextQuestion">下一题</button>
                 <button class="btn" v-if="questionIndex==questionList.length-1" :class="val.length||qIndex>-1?'active':''" @click="overQuestion">完成调研</button>
             </div>
@@ -31,7 +32,7 @@
                 </ul>
             </div>
             <div class="problem-b">
-                <p class="tips" :class="tip?'move':''">您还没有选择哦</p>
+                <p class="tips" :class="tip?'move':''">{{tipTxt}}</p>
                 <button class="btn" v-if="problemIndex<problemList.length-1" :class="pIndex>-1?'active':''" @click="nextProblem">下一题</button>
                 <button class="btn" v-if="problemIndex==problemList.length-1" :class="pIndex>-1?'active':''" @click="overProblem">完成答题</button>
             </div>
@@ -274,7 +275,8 @@
                 checked: '', //选中背景图
                 time: 0, //答题时间10s
                 timer: null, //时间定时器
-                tip: false //未勾选小提示
+                tip: false, //未勾选小提示
+                tipTxt: '' //小提示文本
             }
         },
         mounted() {
@@ -296,6 +298,16 @@
                 } else if (this.qIndex > -1) { //如果是单选，判断选中的index
                     this.questionIndex++;
                     this.surveyList.push(this.qIndex)
+                } else if (this.qIndex == -1 || this.val == '') {
+                    if (this.questionList[this.questionIndex].attr == 1) {
+                        this.tipTxt = '您还没有选择哦';
+                    } else if (this.questionList[this.questionIndex].attr == 2) {
+                        this.tipTxt = '您还没有输入内容哦';
+                    }
+                    this.tip = true;
+                    setTimeout(_ => {
+                        this.tip = false;
+                    }, 1000)
                 }
                 this.val = ''; //清理掉输入的值
                 this.qIndex = -1; //恢复index索引
@@ -316,6 +328,16 @@
                     this.$router.replace({
                         path: 'end'
                     })
+                } else if (this.qIndex == -1 || this.val == '') {
+                    if (this.questionList[this.questionIndex].attr == 1) {
+                        this.tipTxt = '您还没有选择哦';
+                    } else if (this.questionList[this.questionIndex].attr == 2) {
+                        this.tipTxt = '您还没有输入内容哦';
+                    }
+                    this.tip = true;
+                    setTimeout(_ => {
+                        this.tip = false;
+                    }, 1000)
                 }
                 this.val = ''; //清理掉输入的值
                 this.qIndex = -1; //恢复index索引
@@ -329,6 +351,7 @@
                     this.answerList.push(this.pIndex)
                     this.pIndex = -1; //恢复index索引
                 } else {
+                    this.tipTxt = '您还没有选择哦';
                     this.tip = true;
                     setTimeout(_ => {
                         this.tip = false;
@@ -347,6 +370,7 @@
                     })
                     this.pIndex = -1; //恢复index索引
                 } else {
+                    this.tipTxt = '您还没有选择哦';
                     this.tip = true;
                     setTimeout(_ => {
                         this.tip = false;
