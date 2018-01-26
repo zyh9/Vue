@@ -1424,7 +1424,10 @@
 			this.weiXin = false;
 		}
 ```
-
+		地址栏参数localhost:8080/?id=0&skinId=0
+		
+		问卷为0，答题为1，皮肤1-4可供选择
+		
 		答题采用单选和倒计时相结合，问卷采用单选和纯文本输入，答题和问卷的答案利用vuex来做存储
 		
 		尾页的卡片成绩展示利用html2canvas将需要转化为图片的结构先转化为canvas
@@ -1432,6 +1435,17 @@
 		然后利用canvas.toDataURL("image/png")将canvas转化为base64位编码
 		
 		最后将base64位编码赋值给img的src，来达到微信端的长按保存图片
+		
+		小问题：
+		
+			可以在canvas中绘制跨域的图片，但此时的canvas处于被‘污染’的状态
+			而污染状态的canvas使用 toDataUrl()等API是会出现问题的
+		
+		所以，现在我们需要做两件事：
+		
+			1.给img元素设置crossorigin属性，值为anonymous
+			
+			2.图片服务端设置允许跨域（返回CORS头）
 
 [点此查看示例Demo](https://github.com/zyh19941109/Vue/tree/master/Question)
 
