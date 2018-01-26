@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="question-b">
-                <p class="tips" :class="tip?'move':''">{{tipTxt}}</p>
+                <p class="tips" v-if="tip">{{tipTxt}}</p>
                 <button class="btn" v-if="questionIndex<questionList.length-1" :class="val.length||qIndex>-1?'active':''" @click="nextQuestion">下一题</button>
                 <button class="btn" v-if="questionIndex==questionList.length-1" :class="val.length||qIndex>-1?'active':''" @click="overQuestion">完成调研</button>
             </div>
@@ -32,7 +32,7 @@
                 </ul>
             </div>
             <div class="problem-b">
-                <p class="tips" :class="tip?'move':''">{{tipTxt}}</p>
+                <p class="tips" v-if="tip">{{tipTxt}}</p>
                 <button class="btn" v-if="problemIndex<problemList.length-1" :class="pIndex>-1?'active':''" @click="nextProblem">下一题</button>
                 <button class="btn" v-if="problemIndex==problemList.length-1" :class="pIndex>-1?'active':''" @click="overProblem">完成答题</button>
             </div>
@@ -167,7 +167,9 @@
                             A: '射',
                             B: '御',
                             C: '礼',
-                            D: '武'
+                            D: '武',
+                            E: '测试1',
+                            F: '测试2'
                         }
                     },
                     {
@@ -276,7 +278,8 @@
                 time: 0, //答题时间10s
                 timer: null, //时间定时器
                 tip: false, //未勾选小提示
-                tipTxt: '' //小提示文本
+                tipTxt: '', //小提示文本
+                textOnoff: true //防止多次点击开关
             }
         },
         mounted() {
@@ -299,15 +302,19 @@
                     this.questionIndex++;
                     this.surveyList.push(this.qIndex)
                 } else if (this.qIndex == -1 || this.val == '') {
-                    if (this.questionList[this.questionIndex].attr == 1) {
-                        this.tipTxt = '您还没有选择哦';
-                    } else if (this.questionList[this.questionIndex].attr == 2) {
-                        this.tipTxt = '您还没有输入内容哦';
+                    if (this.textOnoff) {
+                        this.textOnoff = false;
+                        if (this.questionList[this.questionIndex].attr == 1) {
+                            this.tipTxt = '您还没有选择哦';
+                        } else if (this.questionList[this.questionIndex].attr == 2) {
+                            this.tipTxt = '您还没有输入内容哦';
+                        }
+                        this.tip = true;
+                        setTimeout(_ => {
+                            this.tip = false;
+                            this.textOnoff = true;
+                        }, 1000)
                     }
-                    this.tip = true;
-                    setTimeout(_ => {
-                        this.tip = false;
-                    }, 1000)
                 }
                 this.val = ''; //清理掉输入的值
                 this.qIndex = -1; //恢复index索引
@@ -329,15 +336,19 @@
                         path: 'end'
                     })
                 } else if (this.qIndex == -1 || this.val == '') {
-                    if (this.questionList[this.questionIndex].attr == 1) {
-                        this.tipTxt = '您还没有选择哦';
-                    } else if (this.questionList[this.questionIndex].attr == 2) {
-                        this.tipTxt = '您还没有输入内容哦';
+                    if (this.textOnoff) {
+                        this.textOnoff = false;
+                        if (this.questionList[this.questionIndex].attr == 1) {
+                            this.tipTxt = '您还没有选择哦';
+                        } else if (this.questionList[this.questionIndex].attr == 2) {
+                            this.tipTxt = '您还没有输入内容哦';
+                        }
+                        this.tip = true;
+                        setTimeout(_ => {
+                            this.tip = false;
+                            this.textOnoff = true;
+                        }, 1000)
                     }
-                    this.tip = true;
-                    setTimeout(_ => {
-                        this.tip = false;
-                    }, 1000)
                 }
                 this.val = ''; //清理掉输入的值
                 this.qIndex = -1; //恢复index索引
@@ -351,11 +362,15 @@
                     this.answerList.push(this.pIndex)
                     this.pIndex = -1; //恢复index索引
                 } else {
-                    this.tipTxt = '您还没有选择哦';
-                    this.tip = true;
-                    setTimeout(_ => {
-                        this.tip = false;
-                    }, 1000)
+                    if (this.textOnoff) {
+                        this.textOnoff = false;
+                        this.tipTxt = '您还没有选择哦';
+                        this.tip = true;
+                        setTimeout(_ => {
+                            this.tip = false;
+                            this.textOnoff = true;
+                        }, 1000)
+                    }
                 }
             },
             overProblem() {
@@ -370,11 +385,15 @@
                     })
                     this.pIndex = -1; //恢复index索引
                 } else {
-                    this.tipTxt = '您还没有选择哦';
-                    this.tip = true;
-                    setTimeout(_ => {
-                        this.tip = false;
-                    }, 1000)
+                    if (this.textOnoff) {
+                        this.textOnoff = false;
+                        this.tipTxt = '您还没有选择哦';
+                        this.tip = true;
+                        setTimeout(_ => {
+                            this.tip = false;
+                            this.textOnoff = true;
+                        }, 1000)
+                    }
                 }
             },
             clickQuestion(i) {
@@ -442,10 +461,16 @@
         width: 100%;
         height: 100%;
         position: absolute;
+        .question::-webkit-scrollbar,
+        .problem::-webkit-scrollbar {
+            display: none;
+        }
         .question,
         .problem {
             width: 100%;
             height: 100%;
+            overflow-x: hidden;
+            overflow-y: scroll;
             .question-t,
             .problem-t {
                 padding-top: 80/@rem;
@@ -528,11 +553,15 @@
                     background-size: 100% 100%;
                     text-indent: 18%;
                 }
+                .problemLi:last-of-type,
+                .questionLi:last-of-type {
+                    margin-bottom: 0;
+                }
             }
             .question-b,
             .problem-b {
-                position: absolute;
-                bottom: 100/@rem;
+                position: relative;
+                margin: 100/@rem 0;
                 width: 100%;
                 display: flex;
                 justify-content: center;
@@ -559,7 +588,6 @@
                     font-size: 24/@rem;
                     border-radius: 8/@rem;
                     transform: translateY(-160%);
-                    opacity: 0;
                 }
             }
         }
@@ -579,20 +607,5 @@
                 }
             }
         }
-    }
-    @keyframes zyh {
-        0% {
-            opacity: 0;
-        }
-        50% {
-            opacity: 1;
-        }
-        100% {
-            opacity: 0;
-        }
-    }
-    .move {
-        animation-name: zyh;
-        animation-duration: 1s;
     }
 </style>

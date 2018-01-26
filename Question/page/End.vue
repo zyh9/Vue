@@ -1,26 +1,6 @@
 <template>
     <div class="end">
         <div v-if="pos==0" class="end1">
-            <div class="taste" v-if="false">
-                <div class="end-t">
-                    <img class="endImg" :src="canvasImg" alt="">
-                    <div class="img-html">
-                        <div class="html-top">
-                            <img class="userImg" :src="avatarImg" alt="">
-                            <p class="p1">感谢您的参与</p>
-                            <p class="p2">UU答卷</p>
-                        </div>
-                        <div class="html-con" :style="{backgroundImage:lastSurveyImg}"></div>
-                        <h3 class="thank">谢谢您的参与</h3>
-                        <div class="html-bot">
-                            <p>我们会及时进行数据分析，调整出现的问题，谢谢！</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="end-bot">
-                    <button>分享</button>
-                </div>
-            </div>
             <div class="prize">
                 <div class="end-t">
                     <img class="endImg" :src="canvasImg" alt="">
@@ -43,7 +23,7 @@
             </div>
         </div>
         <div v-if="pos==1" class="end2">
-            <div class="taste" v-if="fraction*10<60">
+            <div class="prize">
                 <div class="end-t">
                     <img class="endImg" :src="canvasImg" alt="">
                     <div class="img-html">
@@ -52,34 +32,11 @@
                             <p class="p1">我的最终得分</p>
                             <p class="p2">UU预测2018</p>
                         </div>
-                        <div class="html-con" :style="{backgroundImage:lastAnswerBg}">
+                        <div class="html-con" :style="{backgroundImage:this.lastAnswerBg}">
                             <img :src="lastAnswerImg" alt="">
                         </div>
-                        <h3 class="fraction">谢谢您的参与</h3>
-                        <div class="html-bot">
-                            <p>再大的困难也阻挡不上帝对你的恩宠！2018年的你鸿运当头！</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="end-bot">
-                    <button @click="again">再来一次</button>
-                    <button v-if="wx==true">长按图片保存</button>
-                    <a ref="save" v-if="wx!=true">成绩保存相册</a>
-                </div>
-            </div>
-            <div class="prize" v-if="fraction*10>=60">
-                <div class="end-t">
-                    <img class="endImg" :src="canvasImg" alt="">
-                    <div class="img-html">
-                        <div class="html-top">
-                            <img class="userImg" :src="avatarImg" alt="">
-                            <p class="p1">我的最终得分</p>
-                            <p class="p2">UU预测2018</p>
-                        </div>
-                        <div class="html-con" :style="{backgroundImage:lastAnswerBg}">
-                            <img :src="lastAnswerImg" alt="">
-                        </div>
-                        <h3 class="fraction">{{fraction*10}}分</h3>
+                        <h3 class="thank" v-if="fraction*10<60">谢谢您的参与</h3>
+                        <h3 class="fraction" v-if="fraction*10>=60">{{fraction*10}}分</h3>
                         <div class="html-bot">
                             <p>再大的困难也阻挡不上帝对你的恩宠！2018年的你鸿运当头！</p>
                         </div>
@@ -193,7 +150,6 @@
         .end2 {
             width: 100%;
             height: 100%;
-            .taste,
             .prize {
                 width: 100%;
                 height: 100%;
