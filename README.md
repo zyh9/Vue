@@ -836,6 +836,8 @@
 			mounted		模板编译之后，代替之前ready	**
 			beforeUpdate	组件更新之前
 			updated		组件更新完毕	**
+			activated	组件被激活时调用（keep-alive）
+			deactivated	组件被移除时调用（keep-alive）
 			beforeDestroy	组件销毁前
 			destroyed	组件销毁后
 
