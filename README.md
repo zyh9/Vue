@@ -1487,9 +1487,8 @@
 ### 地址栏参数获取
 
 ```javascript
-	const querystring=require('querystring');
-	
 	//地址栏参数获取1
+	
 	getUrl:function() {
 	    let urlHref = window.location.href;
 	    let urlObj = {};
@@ -1502,8 +1501,13 @@
 	        })
 	        return urlObj;
 	    }else return 'nodata';
-	},
+	}
+	
+	
 	//地址栏参数获取2
+	
+	const querystring=require('querystring');//引入node系统模块
+	
 	getUrlData:function(){
 	    let urlHref = window.location.href;
 	    if (urlHref.indexOf('?')!=-1) {
