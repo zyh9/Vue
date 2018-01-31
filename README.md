@@ -1490,26 +1490,26 @@
 	const querystring=require('querystring');
 	
 	//地址栏参数获取1
-    getUrl:function() {
-        let urlHref = window.location.href;
-        let urlObj = {};
-        if (urlHref.indexOf('?')!=-1) {
-            let getArr = urlHref.split('?')[1].split('&');
-            getArr.forEach(e => {
-                if (!(e.split('=')[0] in urlObj)) {
-                    urlObj[e.split('=')[0]] = e.split('=')[1];
-                }
-            })
-            return urlObj;
-        }else return 'nodata';
-    },
-    //地址栏参数获取2
-    getUrlData:function(){
-        let urlHref = window.location.href;
-        if (urlHref.indexOf('?')!=-1) {
-            let getStr = urlHref.split('?')[1];
-            let urlObj = querystring.parse(getStr);
-            return urlObj;
-        }else return 'nodata'; 
-    }
+	getUrl:function() {
+	    let urlHref = window.location.href;
+	    let urlObj = {};
+	    if (urlHref.indexOf('?')!=-1) {
+	        let getArr = urlHref.split('?')[1].split('&');
+	        getArr.forEach(e => {
+	            if (!(e.split('=')[0] in urlObj)) {
+	                urlObj[e.split('=')[0]] = e.split('=')[1];
+	            }
+	        })
+	        return urlObj;
+	    }else return 'nodata';
+	},
+	//地址栏参数获取2
+	getUrlData:function(){
+	    let urlHref = window.location.href;
+	    if (urlHref.indexOf('?')!=-1) {
+	        let getStr = urlHref.split('?')[1];
+	        let urlObj = querystring.parse(getStr);
+	        return urlObj;
+	    }else return 'nodata'; 
+	}
 ```
