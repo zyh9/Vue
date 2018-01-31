@@ -133,8 +133,7 @@
             //PC设备最小宽度处理
             this.device()
             //获取地址栏参数
-            this.getUrl()
-            console.log(this.getUrl())
+            this.urlObj = this.getUrl()
             console.log(this.urlObj)
             //是否是微信
             let u = navigator.userAgent;
@@ -183,30 +182,18 @@
             survey() {
                 this.start()
             },
-            getUrl(hash = window.location.hash, search = window.location.search) {
-                //如果地址栏有参数就以对象（urlObj:{}）形式存储，如果没有就返回'nodata'
-                //vue-router默认hash模式，search针对路由的history模式
-                if (window.location.href.indexOf('#') != -1) {
-                    if (hash.indexOf('=') != -1) {
-                        let getArr = hash.split('?')[1].split('&');
-                        getArr.forEach(e => {
-                            if (!(e.split('=')[0] in this.urlObj)) {
-                                this.urlObj[e.split('=')[0]] = e.split('=')[1]
-                            }
-                        })
-                        return '地址栏有参数';
-                    } else return 'nodata';
-                } else {
-                    if (search.indexOf('=') != -1) {
-                        let getArr = search.split('?')[1].split('&');
-                        getArr.forEach(e => {
-                            if (!(e.split('=')[0] in this.urlObj)) {
-                                this.urlObj[e.split('=')[0]] = e.split('=')[1]
-                            }
-                        })
-                        return '地址栏有参数';
-                    } else return 'nodata';
-                }
+            getUrl() {
+                let urlHref = window.location.href;
+                let urlObj = {};
+                if (urlHref.indexOf('?') != -1) {
+                    let getArr = urlHref.split('?')[1].split('&');
+                    getArr.forEach(e => {
+                        if (!(e.split('=')[0] in urlObj)) {
+                            urlObj[e.split('=')[0]] = e.split('=')[1];
+                        }
+                    })
+                    return urlObj;
+                } else return 'nodata';
             },
             device() {
                 if (document.getElementsByTagName('html')[0].getBoundingClientRect().width >= 1250) {
