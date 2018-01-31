@@ -34,8 +34,8 @@
                 <ul class="list">
                     <li v-for="(v,i) in rule" :key="i">{{v.txt}}</li>
                 </ul>
-                <img :src="closeImg" alt="" @click="mask=false">
             </div>
+            <img :src="closeImg" alt="" @click="mask=false">
         </div>
         <div class="tipmask" v-if="tips">
             <div class="tip">{{tipsTxt}}</div>
@@ -96,7 +96,7 @@
                     }
                 ],
                 rule: [{
-                    txt: '本次活动的最终解释权由UU跑腿所有。'
+                    txt: '本次活动的最终解释权由本公司所有。'
                 }, {
                     txt: '根据答题正确次数获得积分，每次答对+10分，答错-5分。'
                 }],
@@ -326,21 +326,12 @@
             bottom: 0;
             background: rgba(0, 0, 0, .7);
             z-index: 5;
-            display: flex;
             .mask {
                 width: 620/@rem;
                 height: 780/@rem;
                 margin: 20% auto 0;
                 border-radius: 8/@rem;
                 position: relative;
-                img {
-                    width: 60/@rem;
-                    height: 60/@rem;
-                    position: absolute;
-                    left: 50%;
-                    bottom: -100/@rem;
-                    transform: translateX(-50%);
-                }
                 p {
                     text-align: center;
                     font-size: 40/@rem;
@@ -357,6 +348,14 @@
                         color: #fff;
                     }
                 }
+            }
+            img {
+                width: 80/@rem;
+                height: 80/@rem;
+                position: absolute;
+                left: 50%;
+                bottom: 100/@rem;
+                transform: translateX(-50%);
             }
         }
     }
