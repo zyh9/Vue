@@ -142,10 +142,14 @@
             } else {
                 this.weiXin = false;
             }
+            //活动标题
+            document.title = '首页';
+            //针对问卷输入处理
+            document.body.style.cssText += `height:${document.documentElement.clientHeight}px`;
             // 如果没有数据，给出一套模拟数据
             if (this.getUrl() == 'nodata') {
                 this.number = 1;
-                document.body.style.backgroundImage = `url(${this.conBg})`;
+                document.body.style.backgroundImage += `url(${this.conBg})`;
                 this.bannerTpl = `url(${this.bannerImg})`; //答题banner
                 this.bannerSurveyTpl = `url(${this.bannerSurveyImg})`; //问卷banner
                 this.conTpl = `url(${this.conImg})`;
@@ -156,8 +160,6 @@
             }
             this.number = this.urlObj.id;
             this.skin = this.urlObj.skinId;
-            //活动标题
-            document.title = '首页';
             document.body.style.backgroundImage = `url(${this.templates[this.skin].conBg})`;
             this.bannerTpl = `url(${this.templates[this.skin].bannerImg})`; //答题banner
             this.bannerSurveyTpl = `url(${this.templates[this.skin].bannerSurveyImg})`; //问卷banner
@@ -198,7 +200,6 @@
             device() {
                 if (document.getElementsByTagName('html')[0].getBoundingClientRect().width >= 1250) {
                     document.getElementsByTagName('html')[0].style.cssText += `max-width:750px;margin:0 auto;box-shadow:0 0 3px #333;overflow:hidden;`;
-                    document.getElementsByTagName('body')[0].style.cssText += `background-size: 100%;background-repeat: no-repeat;`;
                 }
             }
         }

@@ -531,6 +531,9 @@
                     -webkit-user-select: text;
                     -user-select: text;
                 }
+                .conTxt::-webkit-scrollbar {
+                    display: none;
+                }
                 p {
                     position: absolute;
                     top: 20/@rem;
@@ -591,12 +594,11 @@
                 }
             }
         }
-    }
-    @media(max-height:400px) {
-        .btn {
-            display: none;
-        }
-    }
+    } // @media(max-height:400px) {
+    //     .btn {
+    //         display: none;
+    //     }
+    // }
     @media all and(max-width:640px) {
         .con {
             .problemCon,
