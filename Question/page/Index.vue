@@ -176,7 +176,16 @@
         },
         methods: {
             start() {
-                this.$store.dispatch("start", [this.number, this.weiXin, this.normalTpl, this.checkedTpl, this.lastBgTpl, this.lastImgTpl, this.userTpl, this.lastSurveyTpl])
+                this.$store.dispatch("start", [
+                    this.number,
+                    this.weiXin,
+                    this.normalTpl,
+                    this.checkedTpl,
+                    this.lastBgTpl,
+                    this.lastImgTpl,
+                    this.userTpl,
+                    this.lastSurveyTpl
+                ])
                 this.$router.push({
                     path: 'con'
                 })
