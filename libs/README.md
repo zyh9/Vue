@@ -1,4 +1,4 @@
-### UUFE-Libs
+### 公共方法整理
 
 ```javascript
     // main.js文件
