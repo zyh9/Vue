@@ -7,7 +7,7 @@
     // 接口访问地址
     Ajax.baseURL='http://localhost:8080';
     // 引入公共方法
-    import {Client,Putil,Mutil} from 'uufe-libs';
+    import {Client,Putil,Mutil} from 'libs';
     // 挂载到Vue原型上
     Vue.prototype.Client = Client;
     Vue.prototype.Putil = Putil;
@@ -20,5 +20,5 @@
 
 ```javascript
     // 也可以在组件中直接引用
-    import {Client,Putil,Mutil} from 'uufe-libs';
+    import {Client,Putil,Mutil} from 'libs';
 ```
