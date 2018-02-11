@@ -1524,7 +1524,7 @@
 
 ### 公用方法
 
-``javascript
+```javascript
     // main.js文件
     // 引入axios
     import Ajax from "axios";
