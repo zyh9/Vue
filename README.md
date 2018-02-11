@@ -1546,6 +1546,12 @@
 
 [点此查看示例Demo](https://github.com/zyh19941109/Vue/tree/master/libs)
 
-### 滚动demo
+### 滚动Demo
+
+		利用vue的transition-group来实现动画
+		
+		.fade-enter-active{}	//变化成什么样	->	当元素出来(显示)
+		
+		.fade-leave-active{}	//变成成什么样	->	当元素离开(消失)
 
 [点此查看示例Demo](https://github.com/zyh19941109/Vue/tree/master/scroll)
