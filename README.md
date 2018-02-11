@@ -1521,3 +1521,31 @@
 	    }else return 'nodata'; 
 	}
 ```
+
+### 公用方法
+
+``javascript
+    // main.js文件
+    // 引入axios
+    import Ajax from "axios";
+    // 接口访问地址
+    Ajax.baseURL='http://localhost:8080';
+    // 引入公共方法
+    import {Client,Putil,Mutil} from 'libs';
+    // 挂载到Vue原型上
+    Vue.prototype.Client = Client;
+    Vue.prototype.Putil = Putil;
+    Vue.prototype.Mutil = Mutil;
+    // 也可以在组件中直接引用
+    import {Client,Putil,Mutil} from 'libs';
+```
+
+|客户端方法|PC端方法|移动端方法|
+|--|--|--|
+|this.Client|this.Putil|this.Mutil|
+
+[点此查看示例Demo](https://github.com/zyh19941109/Vue/tree/master/libs)
+
+### 滚动demo
+
+[点此查看示例Demo](https://github.com/zyh19941109/Vue/tree/master/scroll)
