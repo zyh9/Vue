@@ -1555,3 +1555,9 @@
 		.fade-leave-active{}	//变成成什么样	->	当元素离开(消失)
 
 [点此查看示例Demo](https://github.com/zyh19941109/Vue/tree/master/scroll)
+
+### state存储插件
+
+[vuex状态存储插件](https://www.npmjs.com/package/vuex-persist)
+
+[redux状态存储插件](https://www.npmjs.com/package/redux-persist)
