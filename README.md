@@ -1280,9 +1280,11 @@
 ### 使用less
 
 		安装less loader
+		
 			npm install less-loader less --save-dev
 		
 		在style标签里加上lang="less"
+		
 			<style lang="less"></style>
 
 ### 用官方脚手架（vue-cli）搭建环境无法调起浏览器
@@ -1413,6 +1415,7 @@
 ### oninput和onchange的区别
 
 		oninput事件类似于 onchange事件
+		
 		不同之处在于oninput事件在元素值发生变化是立即触发，onchange在元素失去焦点时触发
 
 ### 问卷and答题
