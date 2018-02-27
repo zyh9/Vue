@@ -5,7 +5,7 @@
             <button @click="remove">删除</button>
         </div>
         <transition-group class="scroll-list" name="list" tag="ul">
-            <li v-for="item in list" ref="lis" class="list-item list-move" :key="item.prizeName">
+            <li v-for="item in list" ref="lis" class="list-item" :key="item.prizeName">
                 <img :src="item.userPhoto" alt="">
                 <span>恭喜{{item.userName}}获得了{{item.prizeName}}</span>
             </li>
