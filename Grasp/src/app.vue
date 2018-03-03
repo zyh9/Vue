@@ -11,7 +11,7 @@
                 <div class="lottery">
                     <img :src="lottery" alt="" class="lottery_bg">
                     <img :src="num>0?getprize1:getprize2" alt="" class="start" @click="start">
-                    <div class="claw" :class="aniMove?'clawMove':''" :style="{animationPlayState:aniOnoff?'paused':'running'}">
+                    <div class="claw" :class="aniMove&&!mask?'clawMove':''" :style="{animationPlayState:aniOnoff?'paused':'running'}">
                         <img :src="line" alt="" class="line">
                         <img :src="down" alt="" class="down" :class="aniOnoff?'middle_run':''">
                         <img :src="downHead" alt="" class="down_head" :class="aniOnoff?'top_run':''">
