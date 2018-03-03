@@ -14,7 +14,7 @@
                     <div class="claw" :class="aniMove&&!mask?'clawMove':''" :style="{animationPlayState:aniOnoff?'paused':'running'}">
                         <img :src="line" alt="" class="line">
                         <img :src="down" alt="" class="down" :class="aniOnoff?'middle_run':''">
-                        <img :src="downHead" alt="" class="down_head" :class="aniOnoff?'top_run':''">
+                        <img :src="downHead" alt="" class="down_head">
                     </div>
                     <span class="num">{{num}}</span>
                 </div>
@@ -563,29 +563,29 @@
     .middle_run {
         -webkit-animation: MidMove .8s ease;
         animation: MidMove .8s ease;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
     }
     @-webkit-keyframes MidMove {
-        to {
+        0% {
+            height: 0.8rem;
+        }
+        50% {
             height: 3rem;
+        }
+        to {
+            height: 0.8rem;
         }
     }
     @keyframes MidMove {
-        to {
+        0% {
+            height: 0.8rem;
+        }
+        50% {
             height: 3rem;
         }
-    }
-    .top_run {
-        -webkit-animation: TopMove .8s ease;
-        animation: TopMove .8s ease;
-    }
-    @-webkit-keyframes TopMove {
         to {
-            top: 5rem;
-        }
-    }
-    @keyframes TopMove {
-        to {
-            top: 5rem;
+            height: 0.8rem;
         }
     }
     .mask-bg {
@@ -968,8 +968,8 @@
         animation-fill-mode: forwards;
         -webkit-animation-duration: 2s;
         animation-duration: 2s;
-        -webkit-animation-timing-function: ease;
-        animation-timing-function: ease;
+        -webkit-animation-timing-function: linear;
+        animation-timing-function: linear;
         -webkit-animation-iteration-count: infinite;
         animation-iteration-count: infinite;
     }
