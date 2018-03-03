@@ -11,9 +11,11 @@
                 <div class="lottery">
                     <img :src="lottery" alt="" class="lottery_bg">
                     <img :src="num>0?getprize1:getprize2" alt="" class="start" @click="start">
-                    <img :src="line" alt="" class="line">
-                    <img :src="down" alt="" class="down" :class="aniOnoff==true?'middle_run':''">
-                    <img :src="downHead" alt="" class="down_head" :class="aniOnoff==true?'top_run':''">
+                    <div class="claw" :class="aniMove?'clawMove':''" :style="{animationPlayState:aniOnoff?'paused':'running'}">
+                        <img :src="line" alt="" class="line">
+                        <img :src="down" alt="" class="down" :class="aniOnoff?'middle_run':''">
+                        <img :src="downHead" alt="" class="down_head" :class="aniOnoff?'top_run':''">
+                    </div>
                     <span class="num">{{num}}</span>
                 </div>
                 <div class="record">
@@ -101,12 +103,12 @@
                 userList: [{
                         img: require('../static/img1/user.png'),
                         name: '5元优惠券',
-                        time: '2018/03/01'
+                        time: '2018-03-01'
                     },
                     {
                         img: require('../static/img1/user.png'),
                         name: '5元优惠券',
-                        time: '2018/03/01'
+                        time: '2018-03-01'
                     }
                 ],
                 prize: [{
@@ -161,7 +163,8 @@
                 ruleShow: false, //规则显示
                 allRecord: false, //全部中奖记录开关
                 backIndex: false, //返回抽奖页开关
-                recordShow: false //中奖记录显示
+                recordShow: false, //中奖记录显示
+                aniMove: true //左右移动动画
             }
         },
         mounted() {
@@ -182,6 +185,9 @@
                         setTimeout(_ => {
                             this.aniOnoff = false;
                             this.mask = true;
+                            if (this.num == 0) { //抽奖次数为0，左右移动动画关闭
+                                this.aniMove = false;
+                            }
                             this.n = Math.round(Math.random() * (this.prize.length - 1));
                             this.maskImg = this.prize[this.n].img;
                             this.text1 = `恭喜你获得${this.prize[this.n].info}`;
@@ -258,7 +264,7 @@
                     if (new RegExp("(" + k + ")").test(fmt))
                         fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
                 return fmt;
-            },
+            }
         }
     }
 </script>
@@ -342,29 +348,30 @@
             width: 280/@rem;
             height: 180/@rem;
         }
-        .line {
+        .claw {
             position: absolute;
             top: 140/@rem;
+            left: 35%;
+            width: 260/@rem;
+            overflow: hidden;
+            transform: translate(0, 0);
+        }
+        .line {
             width: 260/@rem;
             height: 50/@rem;
-            left: 50%;
-            transform: translate(-50%, 0);
+            margin: 0 auto;
         }
         .down {
-            position: absolute;
-            top: 162/@rem;
             width: 100/@rem;
             height: 60/@rem;
-            left: 50%;
-            transform: translate(-50%, 0);
+            margin: 0 auto;
+            transform: translate(0, -28/@rem);
         }
         .down_head {
-            position: absolute;
-            top: 212/@rem;
             width: 200/@rem;
             height: 100/@rem;
-            left: 50%;
-            transform: translate(-50%, 0);
+            margin: 0 auto;
+            transform: translate(0, -28/@rem);
         }
         .num {
             position: absolute;
@@ -833,5 +840,29 @@
         animation-fill-mode: forwards;
         animation-duration: .4s;
         animation-timing-function: ease;
+    }
+    @keyframes clawM {
+        0% {
+            transform: translate(0, 0);
+        }
+        25% {
+            transform: translate(-70%, 0);
+        }
+        50% {
+            transform: translate(0, 0);
+        }
+        75% {
+            transform: translate(70%, 0);
+        }
+        to {
+            transform: translate(0, 0);
+        }
+    }
+    .clawMove {
+        animation-name: clawM;
+        animation-fill-mode: forwards;
+        animation-duration: 2s;
+        animation-timing-function: ease;
+        animation-iteration-count: infinite;
     }
 </style>
