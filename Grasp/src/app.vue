@@ -561,15 +561,27 @@
         transform: translate(100%, 0);
     }
     .middle_run {
+        -webkit-animation: MidMove .8s ease;
         animation: MidMove .8s ease;
+    }
+    @-webkit-keyframes MidMove {
+        to {
+            height: 3rem;
+        }
     }
     @keyframes MidMove {
         to {
-            height: 3rem
+            height: 3rem;
         }
     }
     .top_run {
+        -webkit-animation: TopMove .8s ease;
         animation: TopMove .8s ease;
+    }
+    @-webkit-keyframes TopMove {
+        to {
+            top: 5rem;
+        }
     }
     @keyframes TopMove {
         to {
@@ -785,84 +797,180 @@
             }
         }
     }
-    @keyframes moveT {
+    @-webkit-keyframes moveT {
         0% {
+            -webkit-transform: translate(0, 100%);
             transform: translate(0, 100%);
         }
         to {
+            -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+        }
+    }
+    @keyframes moveT {
+        0% {
+            -webkit-transform: translate(0, 100%);
+            transform: translate(0, 100%);
+        }
+        to {
+            -webkit-transform: translate(0, 0);
             transform: translate(0, 0);
         }
     }
     .moveTop {
+        -webkit-animation-name: moveT;
         animation-name: moveT;
+        -webkit-animation-fill-mode: forwards;
         animation-fill-mode: forwards;
+        -webkit-animation-duration: .4s;
         animation-duration: .4s;
+        -webkit-animation-timing-function: ease;
         animation-timing-function: ease;
     }
-    @keyframes moveB {
+    @-webkit-keyframes moveB {
         0% {
+            -webkit-transform: translate(0, 0);
             transform: translate(0, 0);
         }
         to {
+            -webkit-transform: translate(0, 100%);
+            transform: translate(0, 100%);
+        }
+    }
+    @keyframes moveB {
+        0% {
+            -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+        }
+        to {
+            -webkit-transform: translate(0, 100%);
             transform: translate(0, 100%);
         }
     }
     .moveBot {
+        -webkit-animation-name: moveB;
         animation-name: moveB;
+        -webkit-animation-fill-mode: forwards;
         animation-fill-mode: forwards;
+        -webkit-animation-duration: .4s;
         animation-duration: .4s;
+        -webkit-animation-timing-function: ease;
         animation-timing-function: ease;
     }
-    @keyframes moveL {
+    @-webkit-keyframes moveL {
         0% {
+            -webkit-transform: translate(100%, 0);
             transform: translate(100%, 0);
         }
         to {
+            -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+        }
+    }
+    @keyframes moveL {
+        0% {
+            -webkit-transform: translate(100%, 0);
+            transform: translate(100%, 0);
+        }
+        to {
+            -webkit-transform: translate(0, 0);
             transform: translate(0, 0);
         }
     }
     .moveLeft {
+        -webkit-animation-name: moveL;
         animation-name: moveL;
+        -webkit-animation-fill-mode: forwards;
         animation-fill-mode: forwards;
+        -webkit-animation-duration: .4s;
         animation-duration: .4s;
+        -webkit-animation-timing-function: ease;
         animation-timing-function: ease;
     }
-    @keyframes moveR {
+    @-webkit-keyframes moveR {
         0% {
+            -webkit-transform: translate(0, 0);
             transform: translate(0, 0);
         }
         to {
+            -webkit-transform: translate(100%, 0);
+            transform: translate(100%, 0);
+        }
+    }
+    @keyframes moveR {
+        0% {
+            -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+        }
+        to {
+            -webkit-transform: translate(100%, 0);
             transform: translate(100%, 0);
         }
     }
     .moveRight {
+        -webkit-animation-name: moveR;
         animation-name: moveR;
+        -webkit-animation-fill-mode: forwards;
         animation-fill-mode: forwards;
+        -webkit-animation-duration: .4s;
         animation-duration: .4s;
+        -webkit-animation-timing-function: ease;
         animation-timing-function: ease;
     }
-    @keyframes clawM {
+    @-webkit-keyframes clawM {
         0% {
+            -webkit-transform: translate(0, 0);
             transform: translate(0, 0);
         }
         25% {
+            -webkit-transform: translate(-70%, 0);
             transform: translate(-70%, 0);
         }
         50% {
+            -webkit-transform: translate(0, 0);
             transform: translate(0, 0);
         }
         75% {
+            -webkit-transform: translate(70%, 0);
             transform: translate(70%, 0);
         }
         to {
+            -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+        }
+    }
+    @keyframes clawM {
+        0% {
+            -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+        }
+        25% {
+            -webkit-transform: translate(-70%, 0);
+            transform: translate(-70%, 0);
+        }
+        50% {
+            -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+        }
+        75% {
+            -webkit-transform: translate(70%, 0);
+            transform: translate(70%, 0);
+        }
+        to {
+            -webkit-transform: translate(0, 0);
             transform: translate(0, 0);
         }
     }
     .clawMove {
+        -webkit-animation-name: clawM;
         animation-name: clawM;
+        -webkit-animation-fill-mode: forwards;
         animation-fill-mode: forwards;
+        -webkit-animation-duration: 2s;
         animation-duration: 2s;
+        -webkit-animation-timing-function: ease;
         animation-timing-function: ease;
+        -webkit-animation-iteration-count: infinite;
         animation-iteration-count: infinite;
     }
 </style>
