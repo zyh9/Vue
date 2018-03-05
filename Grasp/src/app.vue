@@ -64,18 +64,20 @@
                 </div>
             </div>
         </transition>
-        <div class="mask-bg" v-if="mask">
-            <div class="mask bounceIn">
-                <div class="mask-top" :style="{backgroundImage:maskTop}">
-                    <img :src="maskImg" alt="" />
-                </div>
-                <div class="mask-bot">
-                    <p class="p1">{{text1}}</p>
-                    <p class="p2">{{text2}}</p>
-                    <div class="ok" @click="okClick">确定</div>
+        <transition name="mask">
+            <div class="mask-bg" v-if="mask">
+                <div class="mask">
+                    <div class="mask-top" :style="{backgroundImage:maskTop}">
+                        <img :src="maskImg" alt="" />
+                    </div>
+                    <div class="mask-bot">
+                        <p class="p1">{{text1}}</p>
+                        <p class="p2">{{text2}}</p>
+                        <div class="ok" @click="okClick">确定</div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </transition>
         <transition name="regulation">
             <div class="activity_rule" v-if="ruleShow">
                 <p class="rule_title">活动规则</p>
@@ -581,10 +583,10 @@
     }
     .mask-bg {
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        top: -50%;
+        left: -50%;
+        right: -50%;
+        bottom: -50%;
         background: rgba(0, 0, 0, .6);
         display: -webkit-box;
         display: -ms-flexbox;
@@ -737,11 +739,51 @@
             transform: scale3d(1, 1, 1);
         }
     }
-    .bounceIn {
+    .mask-enter-active {
         -webkit-animation-name: bounceIn;
         animation-name: bounceIn;
         -webkit-animation-duration: .8s;
         animation-duration: .8s;
+    }
+    @-webkit-keyframes bounceOut {
+        20% {
+            -webkit-transform: scale3d(0.9, 0.9, 0.9);
+            transform: scale3d(0.9, 0.9, 0.9);
+        }
+        50%,
+        55% {
+            opacity: 1;
+            -webkit-transform: scale3d(1.1, 1.1, 1.1);
+            transform: scale3d(1.1, 1.1, 1.1);
+        }
+        to {
+            opacity: 0;
+            -webkit-transform: scale3d(0.3, 0.3, 0.3);
+            transform: scale3d(0.3, 0.3, 0.3);
+        }
+    }
+    @keyframes bounceOut {
+        20% {
+            -webkit-transform: scale3d(0.9, 0.9, 0.9);
+            transform: scale3d(0.9, 0.9, 0.9);
+        }
+        50%,
+        55% {
+            opacity: 1;
+            -webkit-transform: scale3d(1.1, 1.1, 1.1);
+            transform: scale3d(1.1, 1.1, 1.1);
+        }
+        to {
+            opacity: 0;
+            -webkit-transform: scale3d(0.3, 0.3, 0.3);
+            transform: scale3d(0.3, 0.3, 0.3);
+        }
+    }
+    .mask-leave-active {
+        -webkit-animation-duration: .8s;
+        animation-duration: .8s;
+        -webkit-animation-name: bounceOut;
+        animation-name: bounceOut;
     }
     .activity_rule {
         position: absolute;
