@@ -15,7 +15,6 @@
                         <img :src="line" alt="" class="line">
                         <img :src="down" alt="" class="down" :class="aniOnoff?'middle_run':''">
                         <img :src="downHead" alt="" class="down_head">
-                        <img :src="prizeImg" alt="" class="prize" v-if="prizeShow">
                     </div>
                     <span class="num">{{num}}</span>
                 </div>
@@ -35,35 +34,33 @@
                         </li>
                     </ul>
                     <div class="all">
-                        <p @click="recordShow=true">查看我的中奖记录</p>
+                        <p @click="viewAll">查看我的中奖记录</p>
                     </div>
-                    <p class="rule" @click="ruleShow=true">活动规则 ></p>
+                    <p class="rule" @click="ruleClick">活动规则 ></p>
                 </div>
             </div>
         </div>
-        <transition name="winning">
-            <div class="view_all" v-if="recordShow">
-                <div class="view_top">
-                    <img :src="viewTop" alt="">
+        <div class="view_all" v-if="recordShow" :class="{moveLeft:allRecord,moveRight:backIndex}">
+            <div class="view_top">
+                <img :src="viewTop" alt="">
+            </div>
+            <div class="view_record">
+                <div class="view_menu">
+                    <span>获奖名称</span>
+                    <span>时间</span>
                 </div>
-                <div class="view_record">
-                    <div class="view_menu">
-                        <span>获奖名称</span>
-                        <span>时间</span>
-                    </div>
-                    <div class="view_no_record" v-if="list.length==0">暂无中奖记录</div>
-                    <ul class="view_list" v-else>
-                        <li v-for="(v,i) in list" :key="i">
-                            <span>{{v.name}}</span>
-                            <span>{{v.time}}</span>
-                        </li>
-                    </ul>
-                    <div class="back">
-                        <p @click="recordShow=false">返回活动</p>
-                    </div>
+                <div class="view_no_record" v-if="list.length==0">暂无中奖记录</div>
+                <ul class="view_list" v-else>
+                    <li v-for="(v,i) in list" :key="i">
+                        <span>{{v.name}}</span>
+                        <span>{{v.time}}</span>
+                    </li>
+                </ul>
+                <div class="back">
+                    <p @click="goBack">返回活动</p>
                 </div>
             </div>
-        </transition>
+        </div>
         <div class="mask-bg" v-if="mask">
             <div class="mask bounceIn">
                 <div class="mask-top" :style="{backgroundImage:maskTop}">
@@ -76,17 +73,15 @@
                 </div>
             </div>
         </div>
-        <transition name="regulation">
-            <div class="activity_rule" v-if="ruleShow">
-                <p class="rule_title">活动规则</p>
-                <ul class="rule_list">
-                    <li v-for="(v,i) in ruleList" :key="i">{{i+1}}. {{v.text}}</li>
-                </ul>
-                <div class="back_activity">
-                    <p @click="ruleShow=false">返回活动</p>
-                </div>
+        <div class="activity_rule" :class="{moveTop:ruleOnoff,moveBot:backOnoff}" v-if="ruleShow">
+            <p class="rule_title">活动规则</p>
+            <ul class="rule_list">
+                <li v-for="(v,i) in ruleList" :key="i">{{i+1}}. {{v.text}}</li>
+            </ul>
+            <div class="back_activity">
+                <p @click="backClick">返回活动</p>
             </div>
-        </transition>
+        </div>
     </div>
 </template>
 
@@ -151,7 +146,6 @@
                 ],
                 maskBg: require('../static/img1/mask.png'),
                 overImg: require('../static/img1/over.png'),
-                prizeImg: require('../static/img1/prize.png'),
                 conBg: '', //娃娃机图片
                 maskTop: '', //遮罩顶部图片
                 maskImg: '', //遮罩奖品图片
@@ -164,10 +158,13 @@
                 text2: '', //奖品页面文字2
                 n: -1, //模拟随机奖品
                 opportunity: -1, //是否有抽奖机会
+                ruleOnoff: false, //规则开关
+                backOnoff: false, //返回开关
                 ruleShow: false, //规则显示
+                allRecord: false, //全部中奖记录开关
+                backIndex: false, //返回抽奖页开关
                 recordShow: false, //中奖记录显示
-                aniMove: true, //左右移动动画
-                prizeShow: false
+                aniMove: true //左右移动动画
             }
         },
         mounted() {
@@ -197,9 +194,6 @@
                             this.text2 = '快去使用吧';
                             this.click = true;
                         }, 1000)
-                        setTimeout(_ => {
-                            this.prizeShow = true;
-                        }, 500)
                     } else {
                         this.opportunity = 0;
                         this.maskImg = this.overImg;
@@ -212,13 +206,36 @@
             },
             okClick() {
                 this.mask = false;
-                this.prizeShow = false;
                 if (this.opportunity) {
                     this.list.push({
                         time: this.getTime(new Date()),
                         name: this.prize[this.n].info
                     })
                 }
+            },
+            ruleClick() {
+                this.ruleShow = true;
+                this.backOnoff = false;
+                this.ruleOnoff = true;
+            },
+            backClick() {
+                setTimeout(_ => {
+                    this.ruleShow = false;
+                }, 400)
+                this.ruleOnoff = false;
+                this.backOnoff = true;
+            },
+            viewAll() {
+                this.recordShow = true;
+                this.backIndex = false;
+                this.allRecord = true;
+            },
+            goBack() {
+                setTimeout(_ => {
+                    this.recordShow = false;
+                }, 400)
+                this.allRecord = false;
+                this.backIndex = true;
             },
             device() {
                 let html = document.getElementsByTagName('html')[0];
@@ -355,14 +372,6 @@
             height: 100/@rem;
             margin: 0 auto;
             transform: translate(0, -28/@rem);
-        }
-        .prize {
-            position: absolute;
-            bottom: 10/@rem;
-            left: 50%;
-            transform: translate(-50%, 0);
-            width: 60/@rem;
-            height: 60/@rem;
         }
         .num {
             position: absolute;
@@ -549,11 +558,11 @@
         overflow-y: scroll;
         z-index: 2;
         background: #fff;
-        transform: translate(0, 0);
+        transform: translate(100%, 0);
     }
     .middle_run {
-        -webkit-animation: MidMove 1s ease;
-        animation: MidMove 1s ease;
+        -webkit-animation: MidMove .8s ease;
+        animation: MidMove .8s ease;
         -webkit-animation-fill-mode: forwards;
         animation-fill-mode: forwards;
     }
@@ -750,7 +759,7 @@
         z-index: 5;
         overflow-x: hidden;
         overflow-y: scroll;
-        transform: translate(0, 0);
+        transform: translate(0, 100%);
         background: #fff;
         .rule_title {
             color: #FC1436;
@@ -787,6 +796,126 @@
                 box-shadow: 2/@rem 4/@rem 10/@rem #999;
             }
         }
+    }
+    @-webkit-keyframes moveT {
+        0% {
+            -webkit-transform: translate(0, 100%);
+            transform: translate(0, 100%);
+        }
+        to {
+            -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+        }
+    }
+    @keyframes moveT {
+        0% {
+            -webkit-transform: translate(0, 100%);
+            transform: translate(0, 100%);
+        }
+        to {
+            -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+        }
+    }
+    .moveTop {
+        -webkit-animation-name: moveT;
+        animation-name: moveT;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+        -webkit-animation-duration: .4s;
+        animation-duration: .4s;
+        -webkit-animation-timing-function: ease;
+        animation-timing-function: ease;
+    }
+    @-webkit-keyframes moveB {
+        0% {
+            -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+        }
+        to {
+            -webkit-transform: translate(0, 100%);
+            transform: translate(0, 100%);
+        }
+    }
+    @keyframes moveB {
+        0% {
+            -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+        }
+        to {
+            -webkit-transform: translate(0, 100%);
+            transform: translate(0, 100%);
+        }
+    }
+    .moveBot {
+        -webkit-animation-name: moveB;
+        animation-name: moveB;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+        -webkit-animation-duration: .4s;
+        animation-duration: .4s;
+        -webkit-animation-timing-function: ease;
+        animation-timing-function: ease;
+    }
+    @-webkit-keyframes moveL {
+        0% {
+            -webkit-transform: translate(100%, 0);
+            transform: translate(100%, 0);
+        }
+        to {
+            -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+        }
+    }
+    @keyframes moveL {
+        0% {
+            -webkit-transform: translate(100%, 0);
+            transform: translate(100%, 0);
+        }
+        to {
+            -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+        }
+    }
+    .moveLeft {
+        -webkit-animation-name: moveL;
+        animation-name: moveL;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+        -webkit-animation-duration: .4s;
+        animation-duration: .4s;
+        -webkit-animation-timing-function: ease;
+        animation-timing-function: ease;
+    }
+    @-webkit-keyframes moveR {
+        0% {
+            -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+        }
+        to {
+            -webkit-transform: translate(100%, 0);
+            transform: translate(100%, 0);
+        }
+    }
+    @keyframes moveR {
+        0% {
+            -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+        }
+        to {
+            -webkit-transform: translate(100%, 0);
+            transform: translate(100%, 0);
+        }
+    }
+    .moveRight {
+        -webkit-animation-name: moveR;
+        animation-name: moveR;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+        -webkit-animation-duration: .4s;
+        animation-duration: .4s;
+        -webkit-animation-timing-function: ease;
+        animation-timing-function: ease;
     }
     @-webkit-keyframes clawM {
         0% {
@@ -843,33 +972,5 @@
         animation-timing-function: linear;
         -webkit-animation-iteration-count: infinite;
         animation-iteration-count: infinite;
-    }
-    .winning-enter,
-    .winning-leave-active {
-        -webkit-transform: translate(100%, 0);
-        -ms-transform: translate(100%, 0);
-        transform: translate(100%, 0);
-    }
-    .winning-enter-active,
-    .winning-leave-active {
-        -webkit-transition: -webkit-transform .4s ease;
-        transition: -webkit-transform .4s ease;
-        -o-transition: transform .4s ease;
-        transition: transform .4s ease;
-        transition: transform .4s ease, -webkit-transform .4s ease;
-    }
-    .regulation-enter,
-    .regulation-leave-active {
-        -webkit-transform: translate(0, 100%);
-        -ms-transform: translate(0, 100%);
-        transform: translate(0, 100%);
-    }
-    .regulation-enter-active,
-    .regulation-leave-active {
-        -webkit-transition: -webkit-transform .4s ease;
-        transition: -webkit-transform .4s ease;
-        -o-transition: transform .4s ease;
-        transition: transform .4s ease;
-        transition: transform .4s ease, -webkit-transform .4s ease;
     }
 </style>
