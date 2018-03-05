@@ -1566,11 +1566,39 @@
 
 [点此查看示例Demo](https://github.com/zyh19941109/Vue/tree/master/scroll)
 
-### state存储插件
+### state状态存储插件
 
 [vuex状态存储插件](https://www.npmjs.com/package/vuex-persist)
 
-[redux状态存储插件](https://www.npmjs.com/package/redux-persist)
+```javascript
+	import Vue from 'vue'
+	import Vuex from 'vuex'
+	import mutations from './mutations'
+	import actions from './actions'
+	import VuexPersistence from 'vuex-persist'
+	
+	Vue.use(Vuex)
+	
+	// 存储至localStorage
+	/*
+	const vuexStorage = new VuexPersistence({
+		storage: window.localStorage
+	})
+	*/
+	
+	// 存储至sessionStorage
+	const vuexStorage = new VuexPersistence({
+	    storage: window.sessionStorage
+	})
+	
+	export default new Vuex.Store({
+		modules:{
+			mutations
+		},
+		actions,
+		plugins: [vuexStorage.plugin]
+	})
+```
 
 ### 抓娃娃机
 
