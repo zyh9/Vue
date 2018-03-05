@@ -966,8 +966,8 @@
         animation-name: clawM;
         -webkit-animation-fill-mode: forwards;
         animation-fill-mode: forwards;
-        -webkit-animation-duration: 2s;
-        animation-duration: 2s;
+        -webkit-animation-duration: 3s;
+        animation-duration: 3s;
         -webkit-animation-timing-function: linear;
         animation-timing-function: linear;
         -webkit-animation-iteration-count: infinite;
