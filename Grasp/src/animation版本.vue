@@ -15,6 +15,7 @@
                         <img :src="line" alt="" class="line">
                         <img :src="down" alt="" class="down" :class="aniOnoff?'middle_run':''">
                         <img :src="downHead" alt="" class="down_head">
+                        <img :src="prizeImg" alt="" class="prize" v-if="prizeShow">
                     </div>
                     <span class="num">{{num}}</span>
                 </div>
@@ -146,6 +147,7 @@
                 ],
                 maskBg: require('../static/img1/mask.png'),
                 overImg: require('../static/img1/over.png'),
+                prizeImg: require('../static/img1/prize.png'),
                 conBg: '', //娃娃机图片
                 maskTop: '', //遮罩顶部图片
                 maskImg: '', //遮罩奖品图片
@@ -164,7 +166,8 @@
                 allRecord: false, //全部中奖记录开关
                 backIndex: false, //返回抽奖页开关
                 recordShow: false, //中奖记录显示
-                aniMove: true //左右移动动画
+                aniMove: true, //左右移动动画
+                prizeShow: false
             }
         },
         mounted() {
@@ -194,6 +197,9 @@
                             this.text2 = '快去使用吧';
                             this.click = true;
                         }, 1000)
+                        setTimeout(_ => {
+                            this.prizeShow = true;
+                        }, 500)
                     } else {
                         this.opportunity = 0;
                         this.maskImg = this.overImg;
@@ -206,6 +212,7 @@
             },
             okClick() {
                 this.mask = false;
+                this.prizeShow = false;
                 if (this.opportunity) {
                     this.list.push({
                         time: this.getTime(new Date()),
@@ -372,6 +379,14 @@
             height: 100/@rem;
             margin: 0 auto;
             transform: translate(0, -28/@rem);
+        }
+        .prize {
+            position: absolute;
+            bottom: 10/@rem;
+            left: 50%;
+            transform: translate(-50%, 0);
+            width: 60/@rem;
+            height: 60/@rem;
         }
         .num {
             position: absolute;
@@ -561,8 +576,8 @@
         transform: translate(100%, 0);
     }
     .middle_run {
-        -webkit-animation: MidMove .8s ease;
-        animation: MidMove .8s ease;
+        -webkit-animation: MidMove 1s ease;
+        animation: MidMove 1s ease;
         -webkit-animation-fill-mode: forwards;
         animation-fill-mode: forwards;
     }
