@@ -11,7 +11,7 @@
                 <div class="lottery">
                     <img :src="lottery" alt="" class="lottery_bg">
                     <img :src="num>0?getprize1:getprize2" alt="" class="start" @click="start">
-                    <div class="claw" :class="aniMove&&!mask?'clawMove':''" :style="{animationPlayState:aniOnoff?'paused':'running'}">
+                    <div class="claw" :class="aniMove?'clawMove':''" :style="{animationPlayState:aniPlay?'paused':'running'}">
                         <img :src="line" alt="" class="line">
                         <img :src="down" alt="" class="down" :class="aniOnoff?'middle_run':''">
                         <img :src="downHead" alt="" class="down_head">
@@ -169,7 +169,8 @@
                 ruleShow: false, //规则显示
                 recordShow: false, //中奖记录显示
                 aniMove: true, //左右移动动画
-                prizeShow: false
+                prizeShow: false,
+                aniPlay: false //动画是否暂停
             }
         },
         mounted() {
@@ -185,6 +186,7 @@
                     if (this.num > 0) {
                         this.opportunity = 1;
                         this.aniOnoff = true;
+                        this.aniPlay = true;
                         this.num--;
                         // console.log(this.num)
                         setTimeout(_ => {
@@ -214,6 +216,7 @@
             },
             okClick() {
                 this.mask = false;
+                this.aniPlay = false;
                 this.prizeShow = false;
                 if (this.opportunity) {
                     this.list.push({
@@ -541,6 +544,8 @@
             color: #807778;
             line-height: 40/@rem;
             height: 40/@rem;
+            width: 200/@rem;
+            margin: 0 auto;
         }
     }
     .view_all {
