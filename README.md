@@ -1611,3 +1611,31 @@
 		才发现之前使用animation和定时器的结合太low了
 
 [点此查看示例Demo](https://github.com/zyh19941109/Vue/tree/master/Grasp)
+
+### Vue-Socket.io插件的使用
+
+		安装
+			
+			npm install vue-socket.io -S
+		
+		引入
+		
+			import VueSocketio from 'vue-socket.io';
+			Vue.use(VueSocketio, 'http://www.baidu.com');
+
+```javascript
+	sockets: {
+		connect() {
+			console.log('socket已连接')
+		},
+		getPrizeLog(val) {//接收消息
+			console.log('接收到服务端消息', val)
+		}
+	},
+	methods: {
+		addSocket() {
+			//向服务端发送消息
+			this.$socket.emit('commitLog', '你不要这样的看着我');
+		}
+	}
+```
