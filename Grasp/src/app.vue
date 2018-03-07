@@ -3,7 +3,7 @@
         <aside class="loading" v-show="false">
             <img :src="load" alt="">
         </aside>
-        <div class="level">
+        <div class="level" :class="mask?'hidden':''">
             <div class="con_bg" :style="{backgroundImage:conBg}">
                 <div class="top">
                     <img :src="header" alt="">
@@ -192,9 +192,6 @@
                         setTimeout(_ => {
                             this.aniOnoff = false;
                             this.mask = true;
-                            if (this.num == 0) { //抽奖次数为0，左右移动动画关闭
-                                this.aniMove = false;
-                            }
                             this.n = Math.round(Math.random() * (this.prize.length - 1));
                             this.maskImg = this.prize[this.n].img;
                             this.text1 = `恭喜你获得${this.prize[this.n].info}`;
@@ -218,6 +215,9 @@
                 this.mask = false;
                 this.aniPlay = false;
                 this.prizeShow = false;
+                if (this.num == 0) { //抽奖次数为0，左右移动动画关闭
+                    this.aniMove = false;
+                }
                 if (this.opportunity) {
                     this.list.push({
                         time: this.getTime(new Date()),
@@ -310,6 +310,9 @@
         overflow-y: scroll;
         background: #4f0971;
         z-index: 1;
+    }
+    .hidden {
+        overflow: hidden;
     }
     .level::-webkit-scrollbar,
     .activity_rule::-webkit-scrollbar,
