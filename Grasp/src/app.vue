@@ -11,7 +11,7 @@
                 <div class="lottery">
                     <img :src="lottery" alt="" class="lottery_bg">
                     <img :src="num>0?getprize1:getprize2" alt="" class="start" @click="start">
-                    <div class="claw" :class="aniMove?'clawMove':''" :style="{animationPlayState:aniPlay?'paused':'running'}">
+                    <div class="claw" :class="{clawMove:aniMove,paused:aniHead,running:!aniHead}">
                         <img :src="line" alt="" class="line">
                         <img :src="down" alt="" class="down" :class="aniOnoff?'middle_run':''">
                         <img :src="downHead" alt="" class="down_head">
@@ -26,14 +26,8 @@
                         <span>获奖名称</span>
                         <span>时间</span>
                     </div>
-                    <div class="no_record" v-if="userList.length==0">暂无用户中奖记录</div>
-                    <ul class="record_list" v-else>
-                        <li v-for="(v,i) in userList" :key="i">
-                            <span><img :src="v.img" alt=""></span>
-                            <span>{{v.name}}</span>
-                            <span>{{v.time}}</span>
-                        </li>
-                    </ul>
+                    <div class="no_record" v-if="userList.length<5">暂无用户中奖记录</div>
+                    <app-scroll :list="userList" v-if="userList.length>=5"></app-scroll>
                     <div class="all">
                         <p @click="recordShow=true">查看我的中奖记录</p>
                     </div>
@@ -93,6 +87,7 @@
 </template>
 
 <script>
+    import appScroll from './appScroll.vue';
     export default {
         data() {
             return {
@@ -108,6 +103,21 @@
                 downHead: require('../static/img1/down_head.png'), //娃娃机铁爪图片
                 list: [],
                 userList: [{
+                        img: require('../static/img1/user.png'),
+                        name: '5元优惠券',
+                        time: '2018-03-01'
+                    },
+                    {
+                        img: require('../static/img1/user.png'),
+                        name: '5元优惠券',
+                        time: '2018-03-01'
+                    },
+                    {
+                        img: require('../static/img1/user.png'),
+                        name: '5元优惠券',
+                        time: '2018-03-01'
+                    },
+                    {
                         img: require('../static/img1/user.png'),
                         name: '5元优惠券',
                         time: '2018-03-01'
@@ -170,7 +180,7 @@
                 recordShow: false, //中奖记录显示
                 aniMove: true, //左右移动动画
                 prizeShow: false,
-                aniPlay: false //动画是否暂停
+                aniHead: false //动画是否暂停
             }
         },
         mounted() {
@@ -186,7 +196,7 @@
                     if (this.num > 0) {
                         this.opportunity = 1;
                         this.aniOnoff = true;
-                        this.aniPlay = true;
+                        this.aniHead = true;
                         this.num--;
                         // console.log(this.num)
                         setTimeout(_ => {
@@ -213,7 +223,7 @@
             },
             okClick() {
                 this.mask = false;
-                this.aniPlay = false;
+                this.aniHead = false;
                 this.prizeShow = false;
                 if (this.num == 0) { //抽奖次数为0，左右移动动画关闭
                     this.aniMove = false;
@@ -253,6 +263,9 @@
                         fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
                 return fmt;
             }
+        },
+        components: {
+            appScroll
         }
     }
 </script>
@@ -285,6 +298,8 @@
             position: absolute;
             left: 50%;
             top: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
             background: rgba(0, 0, 0, .5);
             border-radius: 8/@rem;
@@ -313,6 +328,14 @@
     }
     .hidden {
         overflow: hidden;
+    }
+    .paused {
+        -webkit-animation-play-state: paused;
+        animation-play-state: paused;
+    }
+    .running {
+        -webkit-animation-play-state: running;
+        animation-play-state: running;
     }
     .level::-webkit-scrollbar,
     .activity_rule::-webkit-scrollbar,
@@ -345,6 +368,8 @@
             left: 35%;
             width: 260/@rem;
             overflow: hidden;
+            -webkit-transform: translate(0, 0);
+            -ms-transform: translate(0, 0);
             transform: translate(0, 0);
         }
         .line {
@@ -356,18 +381,24 @@
             width: 100/@rem;
             height: 60/@rem;
             margin: 0 auto;
+            -webkit-transform: translate(0, -28/@rem);
+            -ms-transform: translate(0, -28/@rem);
             transform: translate(0, -28/@rem);
         }
         .down_head {
             width: 200/@rem;
             height: 100/@rem;
             margin: 0 auto;
+            -webkit-transform: translate(0, -28/@rem);
+            -ms-transform: translate(0, -28/@rem);
             transform: translate(0, -28/@rem);
         }
         .prize {
             position: absolute;
             bottom: 10/@rem;
             left: 50%;
+            -webkit-transform: translate(-50%, 0);
+            -ms-transform: translate(-50%, 0);
             transform: translate(-50%, 0);
             width: 60/@rem;
             height: 60/@rem;
@@ -406,8 +437,10 @@
             margin-bottom: 50/@rem;
         }
         .menu {
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            margin-bottom: 20/@rem;
+            margin-bottom: 30/@rem;
             span {
                 display: block;
                 width: 34%;
@@ -416,6 +449,7 @@
                 font-size: 26/@rem;
                 white-space: nowrap;
                 overflow: hidden;
+                -o-text-overflow: ellipsis;
                 text-overflow: ellipsis;
                 position: relative;
                 line-height: 40/@rem;
@@ -429,7 +463,11 @@
                     height: 100%;
                     display: block;
                     background: #eee;
+                    -webkit-transform: scaleX(.5);
+                    -ms-transform: scaleX(.5);
                     transform: scaleX(.5);
+                    -webkit-transform-origin: 0 0;
+                    -ms-transform-origin: 0 0;
                     transform-origin: 0 0;
                 }
                 &:nth-last-of-type(1)::before {
@@ -438,8 +476,10 @@
             }
         }
         .view_menu {
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            margin-bottom: 20/@rem;
+            margin-bottom: 30/@rem;
             span {
                 display: block;
                 width: 50%;
@@ -448,6 +488,7 @@
                 font-size: 26/@rem;
                 white-space: nowrap;
                 overflow: hidden;
+                -o-text-overflow: ellipsis;
                 text-overflow: ellipsis;
                 position: relative;
                 line-height: 40/@rem;
@@ -461,7 +502,11 @@
                     height: 100%;
                     display: block;
                     background: #eee;
+                    -webkit-transform: scaleX(.5);
+                    -ms-transform: scaleX(.5);
                     transform: scaleX(.5);
+                    -webkit-transform-origin: 0 0;
+                    -ms-transform-origin: 0 0;
                     transform-origin: 0 0;
                 }
                 &:nth-last-of-type(1)::before {
@@ -473,6 +518,8 @@
             margin-bottom: 50/@rem;
             li {
                 color: #807778;
+                display: -webkit-box;
+                display: -ms-flexbox;
                 display: flex;
                 margin-bottom: 6/@rem;
                 border-bottom: 1px dashed #eee;
@@ -484,6 +531,8 @@
                     overflow: hidden;
                 }
                 span {
+                    display: -webkit-box;
+                    display: -ms-flexbox;
                     display: flex;
                     width: 34%;
                     padding: 0 5%;
@@ -491,6 +540,7 @@
                     font-size: 26/@rem;
                     white-space: nowrap;
                     overflow: hidden;
+                    -o-text-overflow: ellipsis;
                     text-overflow: ellipsis;
                     height: 80/@rem;
                     line-height: 80/@rem;
@@ -504,6 +554,8 @@
             margin-bottom: 50/@rem;
             li {
                 color: #807778;
+                display: -webkit-box;
+                display: -ms-flexbox;
                 display: flex;
                 margin-bottom: 6/@rem;
                 border-bottom: 1px dashed #eee;
@@ -515,6 +567,7 @@
                     font-size: 26/@rem;
                     white-space: nowrap;
                     overflow: hidden;
+                    -o-text-overflow: ellipsis;
                     text-overflow: ellipsis;
                     height: 80/@rem;
                     line-height: 80/@rem;
@@ -526,7 +579,11 @@
         }
         .all,
         .back {
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
             justify-content: center;
             margin-bottom: 50/@rem;
             p {
@@ -538,6 +595,7 @@
                 text-align: center;
                 line-height: 80/@rem;
                 border-radius: 40/@rem;
+                -webkit-box-shadow: 2/@rem 4/@rem 10/@rem #999;
                 box-shadow: 2/@rem 4/@rem 10/@rem #999;
             }
         }
@@ -547,8 +605,8 @@
             color: #807778;
             line-height: 40/@rem;
             height: 40/@rem;
-            width: 200/@rem;
             margin: 0 auto;
+            width: 200/@rem;
         }
     }
     .view_all {
@@ -559,6 +617,8 @@
         overflow-y: scroll;
         z-index: 2;
         background: #fff;
+        -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
         transform: translate(0, 0);
     }
     .middle_run {
@@ -651,10 +711,12 @@
                     line-height: 36/@rem;
                     height: 36/@rem;
                     padding: 0 36/@rem;
+                    -webkit-box-sizing: border-box;
                     box-sizing: border-box;
                     width: 100%;
                     overflow: hidden;
                     white-space: nowrap;
+                    -o-text-overflow: ellipsis;
                     text-overflow: ellipsis;
                 }
                 .ok {
@@ -800,6 +862,8 @@
         z-index: 5;
         overflow-x: hidden;
         overflow-y: scroll;
+        -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
         transform: translate(0, 0);
         background: #fff;
         .rule_title {
@@ -822,7 +886,11 @@
             }
         }
         .back_activity {
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
             justify-content: center;
             margin-bottom: 50/@rem;
             p {
@@ -834,6 +902,7 @@
                 text-align: center;
                 line-height: 80/@rem;
                 border-radius: 40/@rem;
+                -webkit-box-shadow: 2/@rem 4/@rem 10/@rem #999;
                 box-shadow: 2/@rem 4/@rem 10/@rem #999;
             }
         }
