@@ -1604,11 +1604,7 @@
 
 		抓娃娃机的抓手动效依靠css3的动画来完成，减少js的dom操作，提高页面在移动端运行的性能
 		
-		页面的切换同样用到css3的动画来完成，给人一种app式的操作体验
-		
-		但后续结合vue的transition来达到页面切换的过渡效果，极大的减少了代码量
-		
-		才发现之前使用animation和定时器的结合太low了
+		结合vue的transition来达到页面切换的过渡效果，给人一种app式的操作体验
 
 [点此查看示例Demo](https://github.com/zyh19941109/Vue/tree/master/Grasp)
 
