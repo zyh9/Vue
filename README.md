@@ -1631,7 +1631,7 @@
 	methods: {
 		addSocket() {
 			//向服务端发送消息
-			this.$socket.emit('commitLog', '你不要这样的看着我');
+			this.$socket.emit('commitLog', '我收到消息了');
 		}
 	}
 ```
