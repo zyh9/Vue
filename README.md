@@ -1429,7 +1429,7 @@
 			this.weiXin = false;
 		}
 ```
-		地址栏参数localhost:8080/?id=0&skinId=0
+		地址栏参数localhost:8888/?id=0&skinId=0
 		
 		问卷为0，答题为1，皮肤1-4可供选择
 		
