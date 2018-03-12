@@ -1505,6 +1505,7 @@
 	}
 	
 	
+	
 	//地址栏参数获取2
 	
 	const querystring=require('querystring');//引入node系统模块
