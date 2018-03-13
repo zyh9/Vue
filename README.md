@@ -1117,6 +1117,7 @@
 			Vue.use(Mint);
 		
 			按需引入:		**推荐使用**
+			
 				import { Cell, Checklist } from 'minu-ui';
 				Vue.component(Cell.name, Cell);
 				Vue.component(Checklist.name, Checklist);
