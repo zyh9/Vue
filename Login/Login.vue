@@ -1,641 +1,362 @@
 <template>
-  <div class="bigBox">
-    <cube-loading :size="20" v-show="loading"></cube-loading>
-    <div class="login">
-      <div class="container" :class="seen==false?'':'show'" v-show="view==true">
-        <div class="imgs">
-          <img src="../../assets/bg.png" alt="">
+    <div class="login" v-cloak ref="login" v-if="!loginok">
+        <div class="login_enter">
+            <input type="text" :placeholder="public==0?'请输入手机号码':'请输入手机号码'" class="tel_enter" maxlength='11' v-model="tel" @blur="phone(tel)">
+            <p>{{info}}</p>
+            <div v-if="smsShow>3" class="img_block">
+                <div class="sms">
+                    <input type="text" placeholder="请输入图片验证码" class="sms_enter" maxlength="6" v-model="imgCode" @blur="imgCoding(imgCode)">
+                    <img :src="imgSrc" alt="" @click="ATSCaptcha">
+                </div>
+                <p>{{imgInfo}}</p>
+            </div>
+            <div class="sms">
+                <input type="text" placeholder="请输入短信验证码" class="sms_enter" maxlength='4' v-model="smsCode" @blur="smsCoding(smsCode)">
+                <div class="sms_click">
+                    <span @click="sendSms" v-if="send">发送验证码</span>
+                    <span v-else class="second">{{time}}秒后重新获取</span>
+                </div>
+            </div>
+            <p>{{smsInfo}}</p>
+            <button @click="login">登录</button>
         </div>
-        <h1>UUNOTE</h1>
-        <!-- 登录 -->
-        <div class="keyBox">
-          <div class="form">
-            <div class="secForm um-flex um-ver">
-              <div class="ipt">
-                <input type="text" placeholder="请输入用户名" minlength="4" maxlength="14" v-model="form.name">
-              </div>
-            </div>
-            <div class="secForm um-flex um-ver">
-              <div class="ipt">
-                <input type="password" placeholder="请输入密码" v-model="form.pwd" minlength="6">
-              </div>
-            </div>
-          </div>
-          <div class="btnBox">
-            <button class="btn" @click="submit">登录</button>
-          </div>
-          <div class="reigstCode">
-            <h3 @click="seen=false">注册账号</h3>
-          </div>
-        </div>
-        <div class="tel um-flex um-ver um-center telNone">
-          <p>UU跑腿前端开发：周欢、张燕辉</p>
-        </div>
-        <!-- 注册 -->
-        <div class="register" v-show="state==1">
-          <div class="closeImg" @click="closedImg">
-            <img src="../../assets/img/close.png" alt="">
-          </div>
-          <div class="forms">
-            <div class="topBox um-flex">
-              <div class="flow">
-                <img src="../../assets/icon.png" alt="">
-              </div>
-              <div class="infoLogin">真实姓名</div>
-            </div>
-            <div class="secIpt">
-              <input type="text" placeholder="请输入账号" v-model="registerForms.real_name">
-            </div>
-          </div>
-          <div class="forms">
-            <div class="topBox um-flex">
-              <div class="flow">
-                <img src="../../assets/icon.png" alt="">
-              </div>
-              <div class="infoLogin">用户名</div>
-            </div>
-            <div class="secIpt">
-              <input type="text" minlength="4" maxlength="14" placeholder="请输入用户名" v-model="registerForms.user_name">
-            </div>
-          </div>
-          <div class="forms">
-            <div class="topBox um-flex">
-              <div class="flow">
-                <img src="../../assets/icon.png" alt="">
-              </div>
-              <div class="infoLogin">QQ</div>
-            </div>
-            <div class="secIpt">
-              <input type="tel" minlength="4" maxlength="13" placeholder="请输入QQ号" v-model="registerForms.qq">
-            </div>
-          </div>
-          <div class="forms">
-            <div class="topBox um-flex">
-              <div class="flow">
-                <img src="../../assets/icon.png" alt="">
-              </div>
-              <div class="infoLogin">密码</div>
-            </div>
-            <div class="secIpt">
-              <input type="password" minlength="6" placeholder="请输入密码" v-model="registerForms.reg_pwd">
-            </div>
-          </div>
-          <button class="btn registerBtn" :class="registerForms.real_name!=''&&registerForms.user_name!=''&&registerForms.qq.length>=4&&registerForms.qq.length<=13&&registerForms.reg_pwd.length>=6?'active':''" @click="registers">注册</button>
-        </div>
-        <cube-popup type="my-popup" :mask="false" ref="myPopup">
-          {{message}}
-        </cube-popup>
-      </div>
-      <!-- 弹窗 -->
-      <div class="popBox" :class="seen==false?'show':'hide'">
-        <div class="main">
-          <div class="tip um-flex um-ver">
-            <div class="font">请输入邀请码</div>
-            <div class="close" @click="seen=true">
-              <img src="../../assets/close.png" alt="">
-            </div>
-          </div>
-          <div class="box">
-            <input type="text" v-model="registerForms.inviteCode" autofocus="autofocus">
-          </div>
-          <div class="btns um-flex um-ver">
-            <button class="bigBtn" @click="sure">提交</button>
-          </div>
-        </div>
-        <div class="emp" @click="seen=true"></div>
-      </div>
-      <div class="animate" v-show="view==false">
-        <div class="ani" v-show="pic"><img src="../../assets/bg.png" alt=""> </div>
-      </div>
     </div>
-  </div>
 </template>
-
 <script>
-// var Hub=new Vue();
-export default {
-  data() {
-    return {
-      // token: '',
-      loading: false, //加载
-      seen: true, //控制自定义弹窗
-      view: true, //控制开场动画
-      pic: true, //控制动画图片
-      state: 0, //控制注册页面
-      // quit: sessionStorage['quit'],
-      message: '', //cube-ui弹窗
-      // 登录
-      form: {
-        name: '',
-        pwd: ''
-      },
-      // 注册
-      registerForms: {
-        inviteCode: '',
-        com: '',
-        real_name: '',
-        user_name: '',
-        qq: '',
-        reg_pwd: '',
-        groupid: 5
-      }
-    }
-  },
-  beforeCreate() { },
-  mounted() {
-    // this.animate();
-  },
-  components: {},
-  methods: {
-    // cube-ui弹窗
-    showPopup(msg) {
-      this.message = msg;
-      const component = this.$refs['myPopup']
-      component.show()
-      setTimeout(() => {
-        component.hide()
-      }, 1000)
-    },
-    // 确认邀请码
-    sure() {
-      console.log(111)
-      // if ((/[^\u4e00-\u9fa5]/.test(this.registerForms.inviteCode))) {
-      this.Util.post({
-        url: '/note/Userapi/checkKey',
-        data: {
-          key: this.registerForms.inviteCode
-        },
-        success: (res) => {
-          if (res.code == 1) {
-            this.registerForms.com = res.com
-            this.state = 1
-            this.seen = true
-            this.showPopup(res.msg)
-          } else {
-            this.showPopup(res.msg)
-          }
-        },
-        error: (res) => {
-          this.showPopup('错误')
-        },
-      })
-      // }
-    },
-    // 开场动画
-    // animate() {
-    //   var that = this
-    //   setTimeout(function() {
-    //     that.view = true
-    //   }, 6600)
-    //   setTimeout(function() {
-    //     that.pic = true
-    //   }, 1500)
-    // },
-    // 登录
-    submit: function() {
-      this.loading = true
-      if (this.form.name.length < 4) {
-        this.showPopup('账户名不正确')
-        this.loading = false
-      } else if (this.form.pwd.length < 6) {
-        this.showPopup('密码不正确')
-        this.loading = false
-      } else {
-        this.Util.post({
-          url: '/note/Userapi/loginApi',
-          data: {
-            name: this.form.name,
-            password: this.form.pwd
-          },
-          success: (res) => {
-            if (res.code == 1) {
-              this.$router.push({
-                path: '/'
-              })
-              this.token = sessionStorage['token'] = res.userinfo.token
-              sessionStorage['photo'] = res.userinfo.userphoto
-              sessionStorage['name'] = res.userinfo.username
-              sessionStorage['id'] = res.userinfo.id
-              sessionStorage['real_name'] = res.userinfo.real_name
-              sessionStorage['sex'] = res.userinfo.sex
-              sessionStorage['qq'] = res.userinfo.qq
-              sessionStorage['email'] = res.userinfo.useremail
-              this.loading = false
-            } else {
-              this.showPopup(res.msg)
-              this.loading = false
+    const baseTest = 'http://192.168.6.168:9309';
+    export default {
+        data() {
+            return {
+                time: 60,
+                timer: null,
+                loginApi: {
+                    smsCount: `${baseTest}/Handler/ATSBaseService.ashx?action=smssendcount`,
+                    ATSCaptcha: `${baseTest}/Handler/ATSCaptcha.ashx`,
+                    sendSms: `${baseTest}/Handler/ATSBaseService.ashx?action=sendsms`,
+                    userLogin: `${baseTest}/Handler/ATSBaseService.ashx?action=verfy`
+                },
+                smsShow: null,
+                send: true,
+                imgSrc: '',
+                tel: '',
+                info: '',
+                imgInfo: '',
+                smsInfo: '',
+                smsCode: '',
+                imgCode: '',
+                ticket: '',
+                mapInfo: {},
+                urlData: {},
+                token: null,
+                loginok: false
             }
-          },
-          error: (res) => {
-            this.showPopup(res.msg)
-          }
-        })
-      }
-    },
-    //验证纯汉字
-    // checkText() {
-    //   var reg = /^[a-zA-Z\d]+$/;
-    //   return reg.test(this.registerForms.real_name);
-    // },
-    // 注册
-    registers: function() {
-      for (let m in this.registerForms) {
-        if (this.registerForms[m] === '') {
-          switch (m) {
-            case 'real_name':
-              this.showPopup("请输入真实姓名!");
-              break;
-            case 'user_name':
-              this.showPopup('请输入用户名!');
-              break;
-            case 'qq':
-              this.showPopup("请输入您的qq号!");
-              break;
-            case 'reg_pwd':
-              this.showPopup("请输入您的密码!");
-          }
-          return;
-        }
-      }
-      if (this.registerForms.length < 2) {
-        this.showPopup("请输入正确的姓名");
-        return;
-      } else if (this.registerForms.qq.length < 4 || this.registerForms.qq.length > 14) {
-        this.showPopup("请输入正确的qq号");
-        return;
-      } else if (this.registerForms.reg_pwd.length < 6) {
-        this.showPopup("密码格式不正确");
-        return;
-      } else {
-        this.Util.post({
-          url: '/note/Userapi/regUser',
-          data: {
-            username: this.registerForms.user_name,
-            real_name: this.registerForms.real_name,
-            password: this.registerForms.reg_pwd,
-            com: this.registerForms.com,
-            groupid: this.registerForms.groupid
-          },
-          success: (res) => {
-            if (res.code == 1) {
-              this.showPopup('恭喜你，注册成功~')
-              this.registerForms.user_name = this.form.name
-              this.registerForms.reg_pwd = this.form.pwd
-              setTimeout(function() {
-                this.seen = true
-              }, 1000)
-            } else {
-              this.showPopup(res.msg)
+        },
+        props: {
+            public: {
+                type: Number,
+                default: _ => 0
             }
-          },
-          error: (res) => {
-            this.showPopup(res.msg)
-          }
-        })
-      }
-    },
-    // 注册关闭按钮
-    closedImg(){
-      this.seen=true
-      this.state=0
-      this.registerForms.inviteCode=''
-    }
-  }
-}
-</script>
-
-<style lang='less'>
-@rem: 75rem;
-.bigBox {
-  width: 100%;
-  height: 100%;
-  background: #fff;
-  .cube-loading {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    z-index: 5;
-    background: rgba(0, 0, 0, .4);
-    span {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 5;
-      width: 40/@rem !important;
-      height: 40/@rem !important;
-      i {
-        background-color: #fff;
-      }
-    }
-  }
-  .login {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    .show {
-      display: block;
-    }
-    .hide {
-      display: none;
-    }
-    .container {
-      width: 100%;
-      height: 100%;
-      padding-top: 180/@rem;
-      .tel {
-        position: absolute;
-        bottom: 50/@rem;
-        left: 50%;
-        transform: translateX(-50%);
-        height: 100/@rem;
-        padding: 0 10/@rem;
-        p {
-          font-size: 28/@rem;
-          color: #666;
-          white-space: nowrap;
-        }
-        .mask-bg-avtive {
-          display: block;
-        }
-      }
-      @media (max-height: 500px) {
-        .telNone {
-          display: none;
-        }
-      }
-      .imgs {
-        width: 100%;
-        margin: 0 auto;
-        text-align: center;
-        img {
-          width: 120/@rem;
-        }
-      }
-      h1 {
-        text-align: center;
-        font-size: 44/@rem;
-        color: #fdd110;
-        margin: 25/@rem auto 30/@rem;
-        font-weight: bold;
-      }
-      .keyBox {
-        .form {
-          margin: 0/@rem 50/@rem;
-          .secForm {
-            height: 120/@rem;
-            .icon {
-              width: 60/@rem;
-              img {
-                width: 100%;
-              }
+        },
+        mounted() {
+            // console.log(this)
+            this.Bdmap()
+            if (sessionStorage['loginok']) {
+                this.loginok = JSON.parse(sessionStorage['loginok']).loginok;
             }
-            .ipt {
-              width: 100%;
-              height: 100%;
-              margin: 0 auto;
-              input {
-                width: 100%;
-                height: 100%;
-                text-align: left;
-                font-size: 28/@rem;
-                border-bottom: 1px solid #CBCBCE;
-                padding-left: 1 0/@rem;
-                &:focus {
-                  border-bottom: 1px solid #fdd110;
+            if (sessionStorage['bdmap']) {
+                this.mapInfo = JSON.parse(sessionStorage['bdmap']);
+                // console.log(this.mapInfo)
+            }
+            this.smsCount()
+        },
+        methods: {
+            //短信发送次数判断
+            smsCount() {
+                this.Util.get({
+                    url: this.loginApi.smsCount,
+                    data: {
+                        ticket: ''
+                    },
+                    success: res => {
+                        // console.log(res)
+                        if (res.State == 1) {
+                            this.smsShow = res.Body.sendCounts;
+                            this.ticket = res.Body.ticket;
+                            if (res.Body.sendCounts >= 4) { //图片验证码认证
+                                this.ATSCaptcha()
+                            }
+                        }
+                    },
+                    error: err => {}
+                })
+            },
+            //图片验证码
+            ATSCaptcha() {
+                this.Util.get({
+                    url: this.loginApi.ATSCaptcha,
+                    params: {
+                        mobile: '',
+                        ticket: this.ticket
+                    },
+                    success: res => {
+                        this.imgSrc = `${this.loginApi.ATSCaptcha}?ticket=${this.ticket}&r=${Math.round(Math.random()*100)}`;
+                    },
+                    error: err => {}
+                })
+            },
+            //发送验证码
+            sendSms() {
+                if (this.phone(this.tel)) { //匹配手机号
+                    this.Util.post({
+                        url: this.loginApi.sendSms,
+                        data: {
+                            mobile: this.tel,
+                            validatetype: 2,
+                            bizcode: 3,
+                            ticket: this.ticket,
+                            photocode: this.imgCode || ''
+                        },
+                        success: res => {
+                            if (res.State == 1) {
+                                this.smsInfo = res.Msg;
+                                this.send = false;
+                                //显示初始时间
+                                this.timer = setInterval(_ => {
+                                    this.time--;
+                                    if (this.time === 0) {
+                                        //清理定时器，恢复时间
+                                        clearInterval(this.timer);
+                                        this.time = 60;
+                                        this.send = true;
+                                    }
+                                }, 1000)
+                            } else {
+                                this.imgInfo = res.Msg;
+                            }
+                        },
+                        error: err => {}
+                    })
                 }
-              }
-              input::-webkit-input-placeholder {
-                font-size: 28/@rem;
-              }
+            },
+            //检测手机号
+            phone(tel) {
+                let reg = /^[1][3,4,5,6,7,8,9]\d{9}$/;
+                if (reg.test(tel)) {
+                    this.info = '';
+                    return true;
+                } else {
+                    if (tel != '') {
+                        this.info = '请输入正确的手机号';
+                    } else {
+                        this.info = '请输入手机号';
+                    }
+                    return false;
+                }
+            },
+            smsCoding(val) { //短信4位
+                let reg = /^\d{4}$/;
+                if (reg.test(val)) {
+                    this.smsInfo = '';
+                    return true;
+                } else {
+                    if (val != '') {
+                        this.smsInfo = '请输入完整的短信验证码';
+                    } else {
+                        this.smsInfo = '请输入短信验证码';
+                    }
+                    return false;
+                }
+            },
+            imgCoding(val) { //图片6位
+                let reg = /^\d{6}$/;
+                if (reg.test(val)) {
+                    this.imgInfo = '';
+                    return true;
+                } else {
+                    if (val != '') {
+                        this.imgInfo = '请输入完整的图片验证码';
+                    } else {
+                        this.imgInfo = '请输入图片验证码';
+                    }
+                    return false;
+                }
+            },
+            login() {
+                if (this.smsShow >= 4) {
+                    this.phone(this.tel)
+                    this.imgCoding(this.imgCode)
+                    this.smsCoding(this.smsCode)
+                    if (this.phone(this.tel) && this.imgCoding(this.imgCode) && this.smsCoding(this.smsCode)) {
+                        this.userLogin()
+                    }
+                } else {
+                    this.phone(this.tel)
+                    this.smsCoding(this.smsCode)
+                    if (this.phone(this.tel) && this.smsCoding(this.smsCode)) {
+                        this.userLogin()
+                    }
+                }
+            },
+            Bdmap() {
+                let _this = this;
+                let map = new BMap.Map("allmap");
+                let point = new BMap.Point(116.331398, 39.897445);
+                map.centerAndZoom(point, 12);
+                let geolocation = new BMap.Geolocation();
+                geolocation.getCurrentPosition(function(r) {
+                    if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+                        let mk = new BMap.Marker(r.point);
+                        map.addOverlay(mk);
+                        map.panTo(r.point);
+                        // console.log(r)
+                        let obj = {
+                            city: r.address.city, //城市
+                            lang: r.longitude, //经度
+                            lat: r.latitude //纬度
+                        }
+                        // console.log(obj)
+                        sessionStorage.setItem('bdmap', JSON.stringify(obj))
+                    } else {
+                        console.log(this.getStatus());
+                    }
+                }, {
+                    enableHighAccuracy: true
+                })
+            },
+            //登录注册
+            userLogin() {
+                //获取地址栏参数
+                this.urlData = this.Util.getUrlData()
+                // console.log(this.urlObj)
+                if (this.urlData != 'nodata') { //url有数据的时候才执行
+                    for (var e in this.urlData) {
+                        this.urlData[e] = this.urlData[e].replace(/#\/$/g, '')
+                    }
+                }
+                // console.log(this.urlData)
+                this.mapInfo = JSON.parse(sessionStorage['bdmap']);
+                // console.log(this.mapInfo)
+                this.Util.post({
+                    url: this.loginApi.userLogin,
+                    data: {
+                        mobile: this.tel,
+                        photocode: this.imgCode || '',
+                        smscode: this.smsCode,
+                        locationx: this.mapInfo.lat || '',
+                        locationy: this.mapInfo.lang || '',
+                        cityname: decodeURI(this.mapInfo.city) || '',
+                        openid: this.urlData.openid || '',
+                        ticket: this.ticket
+                    },
+                    success: res => {
+                        if (res.State == 0) {
+                            // console.log('登录成功')
+                            this.token = res.Body.t;
+                            let lg = {
+                                token: this.token,
+                                success: true
+                            }
+                            this.$emit('log-in', lg)
+                            sessionStorage.setItem('loginok', JSON.stringify({
+                                loginok: true
+                            }))
+                            this.$refs['login'].style.cssText = `display:none;`;
+                        } else {
+                            this.imgInfo = res.Msg;
+                        }
+                    },
+                    error: err => {}
+                })
             }
-          }
         }
-      }
-      .register {
-        position: absolute;
-        top: 400/@rem;
-        left: 46/@rem;
-        right: 46/@rem;
-        bottom: 0;
-        background: #fff;
-        z-index: 1000;
-        .closeImg{
-          position: absolute;
-          right: -10/@rem;
-          top:-360/@rem;
-        }
-        .forms {
-          .topBox {
-            font-size: 28/@rem;
-            .info {
-              margin: 5/@rem 0 0 10/@rem;
-            }
-          }
-          .secIpt {
-            height: 85/@rem;
-            border: 1px solid #bbbbc7;
-            line-height: 85/@rem;
-            margin: 25/@rem 0;
-            border-radius: 8/@rem;
-            font-size: 28/@rem;
-            input {
-              height: 100%;
-              width: 100%;
-              text-align: left;
-              padding-left: 10/@rem;
-              
-            }
-            input::-webkit-input-placeholder {
-              font-size: 28/@rem;
-            }
-          }
-        }
-        .registerBtn {
-          margin: 35/@rem auto;
-          width: 100%;
-          outline: none;
-          border: none;
-          height: 90/@rem;
-          font-size: 28/@rem;
-          border-radius: 10/@rem;
-          &.active {
-            background: #000;
-            color: #fdd110;
-          }
-        }
-      }
-      .btnBox {
-        padding: 65/@rem 50/@rem 0;
-        .btn {
-          width: 100%;
-          border-radius: 8/@rem;
-          border: none;
-          outline: none;
-          height: 80/@rem;
-          line-height: 80/@rem;
-          text-align: center;
-          font-size: 32/@rem;
-          background: #000;
-          color: #fdd110;
-        }
-      }
-      .reigstCode {
-        padding: 0 50/@rem;
-        height: 100/@rem;
-        line-height: 100/@rem;
-        h3 {
-          padding: 0!important;
-          float: right;
-          font-size: 28/@rem;
-          padding: 0 50/@rem;
-          color: #666;
-        }
-      }
     }
-    .popBox {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: rgba(0, 0, 0, .4);
-      .main {
-        background: #fff;
-        padding: 38/@rem 50/@rem 58/@rem;
+</script>
+<style lang="less">
+    @rem: 75rem;
+    input::-webkit-input-placeholder {
+        color: #999;
+    }
+    input {
+        text-align: left;
+    }
+    .login {
+        width: 100%;
+        height: 100%;
         position: absolute;
-        top: 25%;
-        left: 10%;
-        right: 10%;
-        border-radius: 8/@rem;
-        z-index: 100;
-        .tip {
-          justify-content: space-between;
-          .font {
-            font-size: 30/@rem;
-            font-weight: bold;
-            margin: 0 auto;
-            padding-top: 55/@rem;
-          }
-          .close {
-            width: 25/@rem;
-            margin-top: -45/@rem;
-            img {
-              width: 100%;
-            }
-          }
+        background: rgba(0, 0, 0, .6);
+    }
+    .login_enter {
+        position: absolute;
+        width: 500/@rem;
+        left: 50%;
+        top: 40%;
+        background: #fff;
+        transform: translate(-50%, -50%);
+        border-radius: 10/@rem;
+        z-index: 10;
+        padding: 50/@rem;
+        .img_block {
+            height: 130/@rem;
         }
-        .code {
-          padding: 60/@rem 0 15/@rem;
+        p {
+            color: #ff8b03;
+            font-size: 24/@rem;
+            height: 50/@rem;
+            line-height: 50/@rem;
+            text-indent: 20/@rem;
         }
-        .box {
-          width: 100%;
-          input {
-            width: 96%;
-            height: 75/@rem;
-            border-bottom: 1px solid #bbbbc7;
-            margin: 35/@rem 0;
-            text-align: left;
+        input {
+            height: 80/@rem;
+            border: 1px solid #dbdbdb;
             font-size: 28/@rem;
-            padding: 0 10/@rem;
-            &:focus {
-              border-bottom: 1px solid #fdd110;
-            }
-          }
+            color: #000;
+            outline: none;
+            padding: 0 3%;
+            box-sizing: border-box;
         }
-        .btns {
-          margin-top: 45/@rem;
-          .bigBtn {
+        input:focus {
+            border: 1px solid #ff8b03;
+        }
+        .tel_enter {
             width: 100%;
+        }
+        .sms {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .sms_enter {
+                width: 55%;
+            }
+            .sms_click {
+                width: 40%;
+                height: 80/@rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 1px solid #ddd;
+                box-sizing: border-box;
+                span {
+                    color: #333;
+                }
+                .second {
+                    color: #999;
+                }
+            }
+            img {
+                width: 40%;
+                height: 80/@rem;
+                display: block;
+            }
+        }
+        button {
+            width: 100%;
+            height: 80/@rem;
             background: #ff8b03;
             color: #fff;
-            text-align: center;
-            margin: 0 auto;
-            border: none;
+            font-size: 28/@rem;
             outline: none;
-            height: 90/@rem;
-            line-height: 90/@rem;
-            font-size: 30/@rem;
-            border-radius: 45/@rem;
-          }
+            box-sizing: content-box;
+            border: 0;
         }
-      }
     }
-    .animate {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: rgba(255, 255, 255, 1);
-      .ani {
-        position: absolute;
-        top: 40%;
-        left: 0;
-        width: 130/@rem;
-        animation: myfirst 4s linear .5s 1 normal forwards;
-        opacity: 0;
-        img {
-          width: 100%;
-        }
-      }
-    } // @-webkit-keyframes myfirst {
-    //   0% {
-    //     position: absolute;
-    //     top: 40%;
-    //     left: 0%;
-    //     opacity: .1;
-    //   }
-    //   25% {
-    //     position: absolute;
-    //     top: 20%;
-    //     left: 13%;
-    //     opacity: .3;
-    //   }
-    //   50% {
-    //     position: absolute;
-    //     top: 40%;
-    //     left: 28%;
-    //     opacity: .5;
-    //   }
-    //   70% {
-    //     position: absolute;
-    //     top: 20%;
-    //     left: 38%;
-    //     opacity: .8;
-    //   }  
-    //   100% {
-    //     border-radius: 0;
-    //     position: absolute;
-    //     top: 40%;
-    //     left: 43%;
-    //     opacity: 1;
-    //   }
-    // }
-    .emp {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: transparent;
-      z-index: 10;
-    }
-    .cube-popup-center .cube-popup-content {
-      background: #121214;
-      color: #fff;
-      padding: 50/@rem 70/@rem;
-      border-radius: 8/@rem;
-      font-size: 30/@rem;
-      z-index: 1000;
-      top: -60%;
-    }
-    .cube-popup {
-      z-index: 2000;
-    }
-  }
-}
 </style>
