@@ -11,6 +11,7 @@
                 <div class="lottery">
                     <img :src="lottery" alt="" class="lottery_bg">
                     <img :src="num>0?getprize1:getprize2" alt="" class="start" @click="start">
+                    <img :src="touch" alt="" class="touch">
                     <div class="claw" :class="{clawMove:aniMove,paused:aniHead,running:!aniHead}">
                         <img :src="line" alt="" class="line">
                         <img :src="down" alt="" class="down" :class="aniOnoff?'middle_run':''">
@@ -97,6 +98,7 @@
                 lottery: require('../static/img1/wrap.png'), //娃娃机图片
                 getprize1: require('../static/img1/getprize.png'), //有抽奖次数图片
                 getprize2: require('../static/img1/getprize_gray.png'), //无抽奖次数图片
+                touch: require('../static/img1/click.png'), //提示用户抽奖箭头
                 viewTop: require('../static/img1/list_bg.jpg'), //中奖页面顶部图片
                 line: require('../static/img1/line.png'), //娃娃机顶部图片
                 down: require('../static/img1/down.png'), //娃娃机中轴图片
@@ -361,6 +363,45 @@
             right: 90/@rem;
             width: 280/@rem;
             height: 180/@rem;
+        }
+        @-webkit-keyframes touchstart {
+            0% {
+                bottom: 200/@rem;
+            }
+            50% {
+                bottom: 180/@rem;
+            }
+            to {
+                bottom: 200/@rem;
+            }
+        }
+        @keyframes touchstart {
+            0% {
+                bottom: 200/@rem;
+            }
+            50% {
+                bottom: 180/@rem;
+            }
+            to {
+                bottom: 200/@rem;
+            }
+        }
+        .touch {
+            position: absolute;
+            bottom: 200/@rem;
+            right: 180/@rem;
+            width: 100/@rem;
+            height: 180/@rem;
+            -webkit-animation-name: touchstart;
+            animation-name: touchstart;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-timing-function: linear;
+            animation-timing-function: linear;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
         }
         .claw {
             position: absolute;
@@ -964,7 +1005,7 @@
         animation-iteration-count: infinite;
     }
     .winning-enter,
-    .winning-leave-active {
+    .winning-leave-to {
         -webkit-transform: translate(100%, 0);
         -ms-transform: translate(100%, 0);
         transform: translate(100%, 0);
@@ -978,7 +1019,7 @@
         transition: transform .4s ease, -webkit-transform .4s ease;
     }
     .regulation-enter,
-    .regulation-leave-active {
+    .regulation-leave-to {
         -webkit-transform: translate(0, 100%);
         -ms-transform: translate(0, 100%);
         transform: translate(0, 100%);
