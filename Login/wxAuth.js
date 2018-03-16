@@ -1,5 +1,5 @@
 const querystring=require('querystring');
-export let aiats = {
+export let wxAuth = {
     //地址栏参数获取1
     getUrl() {
         let urlHref = window.location.href;
