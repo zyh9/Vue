@@ -1638,14 +1638,14 @@
 		connect() {
 			console.log('socket已连接')
 		},
-		getPrizeLog(val) {//接收消息
+		getInfo(val) {//接收消息
 			console.log('接收到服务端消息', val)
 		}
 	},
 	methods: {
 		addSocket() {
 			//向服务端发送消息
-			this.$socket.emit('commitLog', '我收到消息了');
+			this.$socket.emit('commitInfo', '我收到消息了');
 		}
 	}
 ```
