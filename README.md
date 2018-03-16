@@ -51,7 +51,6 @@
 
 ### 常用指令
 
-```javascript
 		v-model		双向数据绑定（一般用于表单元素）
 		
 		v-for		循环		:key='index'提高循环性能
@@ -66,11 +65,9 @@
 		v-on:click/dblclick/mouseover/mouseout...
 			简写：
 				v-on:	=>	@
-```
 
 ### 事件
 
-```javascript
 		事件对象
 			
 			@click="show($event)"
@@ -117,11 +114,9 @@
 					@keyup/keydown.left
 					
 					@keyup/keydown.right
-```
 
 ### 属性
 
-```javascript
 		v-bind:src=""
 		
 			简写:
@@ -130,11 +125,9 @@
 		<img src="{{url}}" alt="">	效果能出来，会报错
 		
 		<img v-bind:src="url" alt="">	效果可以出来，不会报错
-```
 
 ### class和style
 
-```javascript
 		:class=""		v-bind:class=""
 		
 			1)
@@ -192,21 +185,17 @@
 							backgroundColor:'gray'
 						}
 					}
-```
 
 ### 模板
 
-```javascript
 		{{msg}}		数据更新模板变化
 		
 		{{*msg}}	数据只绑定一次
 		
 		{{{msg}}}	HTML转义输出（可识别html标签）	**注意{{{ }}}在Vue2.0被废弃**
-```
 
 ### 过滤器（过滤模板数据）
 
-```javascript
 		系统提供一些过滤器:
 		
 		{{msg| filterA}}
@@ -225,11 +214,9 @@
 		currency		货币
 			
 			{{msg| currency '参数'}}
-```
 
 ### 数据交互
 
-```javascript
 		引入: vue-resouce
 		
 		get:
@@ -278,11 +265,9 @@
 			},err=>{
 			    alert(err.status);
 			});
-```
 
 ### vue生命周期
 
-```javascript
 		created	->	实例已经创建
 		
 		beforeCompile	->	编译之前
@@ -294,21 +279,17 @@
 		beforeDestroy	->	销毁之前
 		
 		destroyed	->	销毁之后
-```
 
 ### v-cloak
 
-```javascript
 		v-cloak		防止闪烁
 		
 		<span>{{msg}}</span>		->		v-text
 		
 		{{{msg}}}		->		v-html		**注意{{{ }}}在Vue2.0被废弃**
-```
 
 ### 计算属性的使用
 
-```javascript
 		computed:{
 			b(){	//默认调用get
 				return 值
@@ -323,11 +304,9 @@
 		}
 		
 		* computed里面可以放置一些业务逻辑代码，一定记得return
-```
 
 ### vue实例简单方法
 
-```javascript
 		vm.$el	->	就是元素
 		
 		vm.$data	->	就是data
@@ -339,21 +318,17 @@
 		vm.$destroy	->	销毁对象
 		
 		vm.$log()	->	查看现在数据的状态
-```
 
 ### 循环
 
-```javascript
 		v-for="(value,index) in data"
 		
 		出现重复数据：
 		
 			track-by='$index'	提高循环性能		**track-by='$index'在Vue2.0被废弃**
-```
 
 ### 过滤器
 
-```javascript
 		vue提供过滤器
 		
 			capitalize	uppercase	currency...
@@ -372,21 +347,17 @@
 			orderBy 排序
 				1  -> 正序
 				-1  -> 倒序
-```
 
 ### 自定义过滤器
 
-```javascript
 		model ->过滤 -> view
 		
 		Vue.filter(name,function(input){
 			return 代码...
 		});
-```
 
 ### 自定义指令
 
-```javascript
 		Vue.directive('指令名称',function(参数){
 			this.el	-> 原生DOM元素
 		});
@@ -396,11 +367,9 @@
 		指令名称: 	v-red	->	red
 		
 		* 注意: 必须以 v-开头
-```
 
 ### 自定义键盘信息
 
-```javascript
 		获取键值
 		
 			document.onkeydown=function(ev){
@@ -415,11 +384,9 @@
 			Vue.directive('on').keyCodes.ctrl=17;
 			
 			@keyup.ctrl		=>		自定义的ctrl就可以使用了
-```
 
 ### 监听数据变化
 
-```javascript
 		vm.$watch(name,callback);	//浅度监视
 		
 		vm.$watch(name,callback,{deep:true});	//深度监视
@@ -430,11 +397,9 @@
 		    },
 		    deep:true
 		}
-```
 
 ### bower
 
-```javascript
 		（前端）包管理器
 			npm install bower -g
 			验证: bower --version
@@ -442,7 +407,6 @@
 		bower install 插件名字
 		bower uninstall 插件名字
 		bower info 插件名字	=>查看版本信息
-```
 
 ### vue过渡(动画)
 
@@ -507,7 +471,6 @@
 
 ### 定义一个组件
 
-```javascript
 		1.全局组件
 			var Aaa=Vue.extend({
 				template:'<h3>我是标题</h3>'
@@ -606,11 +569,9 @@
 					}
 				});
 			</script>
-```
 
 ### 组件数据传递
 
-```javascript
 		1. 子组件就想获取父组件data
 		
 			调用子组件：
@@ -635,11 +596,9 @@
 			vm.$broadcast(事件名,数据)	父级向子级广播数据	**在Vue2.0被废弃**
 			
 				配合: event:{}
-```
 
 ### slot
 
-```javascript
 		位置、槽口
 		
 		作用: 占个位置
@@ -680,11 +639,9 @@
 				}
 			});
 		</script>
-```
 
 ### vue-router(路由)
 
-```javascript
 		根据不同url地址，出现不同效果		**注意这是Vue1.0版本**
 		
 		主页		home
@@ -731,11 +688,9 @@
 			router.redirect({
 				'/':'home'
 			});
-```
 
 ### 路由嵌套(多层路由)
 
-```javascript
 		主页		home
 			登录		home/login
 			注册		home/reg
@@ -753,11 +708,9 @@
 				}
 			}
 		}
-```
 
 ### 路由其他信息
 
-```javascript
 		/detail/:id/age/:age
 		
 		{{$route.path}}		->  当前路径
@@ -765,20 +718,16 @@
 		{{$route.params | json}}	->	当前参数
 		
 		{{$route.query | json}}		->  数据
-```
 
 ### ES6: 模块化开发
 
-```javascript
 		导出模块：
 			export default {}
 		引入模块:
 			import 模块名 from '地址'
-```
 
 ###	脚手架
 
-```javascript
 		vue-cli——vue脚手架
 		
 			帮你提供好基本项目结构
@@ -804,11 +753,9 @@
 			npm install
 			
 		4. npm run dev
-```
 
 ### webpack路由配置
 
-```javascript
 		vue-router		**注意这是Vue1.0版本**
 		
 		如何查看版本:
@@ -831,7 +778,6 @@
 				})
 			5. 开启
 				router.start(App,'#app');
-```
 
 ## 到了2.0以后，有哪些变化?
 
