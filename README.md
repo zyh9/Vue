@@ -24,6 +24,7 @@
 
 ### Vue基本雏形
 
+```javascript
 		angular
 		
 			var app=angular.module('app',[]);
@@ -46,6 +47,7 @@
 			
 			html:
 				<div id="box">{{msg}}</div>
+```
 
 ### 常用指令
 
@@ -822,23 +824,39 @@
 ### 生命周期
 
 		之前:
+		
 			created		实例已经创建
+			
 			beforeCompile	编译之前
+			
 			compiled	编译之后
+			
 			ready		插入到文档中	=>	mounted
+			
 			beforeDestroy	销毁之前
+			
 			destroyed	销毁之后
 			
 		现在:
+		
 			beforeCreate	组件实例刚刚被创建，属性都没有
+			
 			created		实例已经创建完成，属性已经绑定
+			
 			beforeMount	模板编译之前
+			
 			mounted		模板编译之后，代替之前ready	**
+			
 			beforeUpdate	组件更新之前
+			
 			updated		组件更新完毕	**
+			
 			activated	组件被激活时调用（keep-alive）
+			
 			deactivated	组件被移除时调用（keep-alive）
+			
 			beforeDestroy	组件销毁前
+			
 			destroyed	组件销毁后
 
 ### 循环
