@@ -31,9 +31,7 @@ export let wxAuth = {
                 urlObj[e] = urlObj[e].replace(/#\/$/g, '')
             }
             return urlObj;
-        }else{
-            return 'nodata'
-        }
+        }else return 'nodata';
     },
     //演示 && 正式
     isShow(){
