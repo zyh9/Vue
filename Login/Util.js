@@ -1,5 +1,5 @@
 const querystring=require('querystring');
-export let wxAuth = {
+export let aiatsUtil = {
     //地址栏参数获取1
     getUrl() {
         let urlHref = window.location.href;
@@ -64,6 +64,6 @@ export let wxAuth = {
                 */
                 return navigator.userAgent.indexOf('MicroMessenger') > -1?obj=='nodata'?'paramErr':!(['openid'] in obj)&&auth?['token'] in obj && obj.token!='{$token}'?true:'noToken':'openId':'browser';
             }
-        }else return 'app';//app端活动   
+        }else return 'app';//app端活动
     }
 }

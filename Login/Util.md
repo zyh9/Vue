@@ -112,3 +112,30 @@
         }
     }
 ```
+
+> 引入之后的用法
+
+```javascript
+    // 地址栏参数获取
+    let urlData = aiatsUtil.isShow();
+    if (urlData == 'isShowErr') {//无参数
+        console.log('无参数')
+    } else if (urlData.isShow == 'show') {//走演示
+        console.log('走演示')
+    } else if (urlData.isShow == 'formal') {//走正式
+        console.log('走正式')
+    }
+    // 微信授权
+    let wxData = aiatsUtil.scenes(1,true);
+    if(wxData=='browser'){
+        console.log('浏览器打开')
+    }else if(wxData=='paramErr'){
+        console.log('地址栏无参数')
+    }else if(wxData=='openid'){
+        console.log('openid存在，显示登录框')
+    }else if(wxData=='noToken'){
+        console.log('token不存在，显示登录框')
+    }else if(wxData){
+        console.log('token存在，可直接参与活动')
+    }
+```
