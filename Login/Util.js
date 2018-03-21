@@ -52,6 +52,7 @@ export let aiatsUtil = {
         if(platform==1){//微信端活动
             if(!auth){
                 wxData()
+                return "auth";
             }else{//授权成功之后
                 let obj = this.filter();
                 /**
