@@ -1,7 +1,7 @@
 <template>
     <div class="login" v-cloak ref="login" v-if="!loginok">
         <div class="login_enter">
-            <input type="text" :placeholder="public==0?'请输入手机号码':'请输入手机号码'" class="tel_enter" maxlength='11' v-model="tel" @blur="phone(tel)">
+            <input type="text" placeholder="请输入手机号码" class="tel_enter" maxlength='11' v-model="tel" @blur="phone(tel)">
             <p>{{info}}</p>
             <div v-if="smsShow>3" class="img_block">
                 <div class="sms">
@@ -23,7 +23,7 @@
     </div>
 </template>
 <script>
-    const baseTest = 'http://192.168.6.168:9309';
+    const baseTest = 'http://192.168.6.3:9207';
     export default {
         data() {
             return {
@@ -51,14 +51,8 @@
                 loginok: false
             }
         },
-        props: {
-            public: {
-                type: Number,
-                default: _ => 0
-            }
-        },
         mounted() {
-            // console.log(this)
+            this.smsCount()
             this.Bdmap()
             if (sessionStorage['loginok']) {
                 this.loginok = JSON.parse(sessionStorage['loginok']).loginok;
@@ -67,14 +61,13 @@
                 this.mapInfo = JSON.parse(sessionStorage['bdmap']);
                 // console.log(this.mapInfo)
             }
-            this.smsCount()
         },
         methods: {
             //短信发送次数判断
             smsCount() {
                 this.Util.get({
                     url: this.loginApi.smsCount,
-                    data: {
+                    params: {
                         ticket: ''
                     },
                     success: res => {
@@ -284,6 +277,7 @@
         height: 100%;
         position: absolute;
         background: rgba(0, 0, 0, .6);
+        z-index: 100;
     }
     .login_enter {
         position: absolute;
