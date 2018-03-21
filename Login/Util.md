@@ -126,8 +126,8 @@
         console.log('走正式')
     }
     //微信授权
-    console.log(this.client, this.isSq, this.wxData)
-    let wx = aiatsUtil.scenes(this.client, this.isSq);
+    console.log(aiatsUtil.scenes(1, false,this.wxData))
+    let wx = aiatsUtil.scenes(1, false,this.wxData);
     this.tipText = wx;
     if (wx == 'app') {
         console.log('app端活动')
@@ -139,7 +139,7 @@
         console.log('openid存在，显示登录框')
     } else if (wx == 'noToken') {
         console.log('token不存在，显示登录框')
-    } else if (wx) {
+    } else if (wx==true) {
         console.log('token存在，可直接参与活动')
     }
 ```
