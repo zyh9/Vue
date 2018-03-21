@@ -126,19 +126,20 @@
         console.log('走正式')
     }
     //微信授权
-    let wxData = aiatsUtil.scenes(1, true);
-    this.tipText = wxData;
-    if (wxData == 'app') {
+    console.log(this.client, this.isSq, this.wxData)
+    let wx = aiatsUtil.scenes(this.client, this.isSq);
+    this.tipText = wx;
+    if (wx == 'app') {
         console.log('app端活动')
-    } else if (wxData == 'browser') {
+    } else if (wx == 'browser') {
         console.log('浏览器打开')
-    } else if (wxData == 'paramErr') {
+    } else if (wx == 'paramErr') {
         console.log('地址栏无参数')
-    } else if (wxData == 'openid') {
+    } else if (wx == 'openid') {
         console.log('openid存在，显示登录框')
-    } else if (wxData == 'noToken') {
+    } else if (wx == 'noToken') {
         console.log('token不存在，显示登录框')
-    } else if (wxData) {
+    } else if (wx) {
         console.log('token存在，可直接参与活动')
     }
 ```
