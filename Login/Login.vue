@@ -24,6 +24,9 @@
 </template>
 <script>
     const baseTest = 'http://192.168.6.3:9207';
+    import {
+        mUtil
+    } from './mUtil.js';
     export default {
         data() {
             return {
@@ -219,13 +222,7 @@
             //登录注册
             userLogin() {
                 //获取地址栏参数
-                this.urlData = this.Util.getUrlData()
-                // console.log(this.urlObj)
-                if (this.urlData != 'nodata') { //url有数据的时候才执行
-                    for (var e in this.urlData) {
-                        this.urlData[e] = this.urlData[e].replace(/#\/$/g, '')
-                    }
-                }
+                this.urlData = mUtil.filter()
                 // console.log(this.urlData)
                 this.mapInfo = JSON.parse(sessionStorage['bdmap']);
                 // console.log(this.mapInfo)

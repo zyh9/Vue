@@ -1,5 +1,5 @@
 const querystring=require('querystring');
-export let aiatsUtil = {
+export let mUtil = {
     //地址栏参数获取1
     getUrl() {
         let urlHref = window.location.href;
