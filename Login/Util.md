@@ -43,7 +43,7 @@
 
 ```javascript
     const querystring=require('querystring');
-    export let wxAuth = {
+    export let Util = {
         //地址栏参数获取1
         getUrl() {
             let urlHref = window.location.href;
