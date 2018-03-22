@@ -96,6 +96,7 @@
             if(platform==1){//微信端活动
                 if(!auth){
                     wxData()
+                    return "auth";
                 }else{//授权成功之后
                     let obj = this.filter();
                     /**
@@ -106,9 +107,9 @@
                      * @return 'noToken' //token不存在，显示登录框
                      * @return true //可直接参与活动，调用用户信息
                     */
-                    return navigator.userAgent.indexOf('MicroMessenger') > -1?obj=='nodata'?'paramErr':!(['openid'] in obj)&&auth?['token'] in obj && obj.token!='{$token}'?true:'noToken':'openId':'browser';
+                    return navigator.userAgent.indexOf('MicroMessenger') > -1?obj=='nodata'?'paramErr':!(['openid'] in obj)&&auth?['token'] in obj && obj.token!=`${encodeURI('{$token}')}`?true:'noToken':'openId':'browser';
                 }
-            }else return 'app';//app端活动   
+            }else return 'app';//app端活动
         }
     }
 ```
@@ -128,7 +129,6 @@
     //微信授权
     console.log(aiatsUtil.scenes(1, false,this.wxData))
     let wx = aiatsUtil.scenes(1, false,this.wxData);
-    this.tipText = wx;
     if (wx == 'app') {
         console.log('app端活动')
     } else if (wx == 'browser') {

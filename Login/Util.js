@@ -1,5 +1,5 @@
 const querystring=require('querystring');
-export let mUtil = {
+export let Util = {
     //地址栏参数获取1
     getUrl() {
         let urlHref = window.location.href;
@@ -63,7 +63,7 @@ export let mUtil = {
                  * @return 'noToken' //token不存在，显示登录框
                  * @return true //可直接参与活动，调用用户信息
                 */
-                return navigator.userAgent.indexOf('MicroMessenger') > -1?obj=='nodata'?'paramErr':!(['openid'] in obj)&&auth?['token'] in obj && obj.token!='{$token}'?true:'noToken':'openId':'browser';
+                return navigator.userAgent.indexOf('MicroMessenger') > -1?obj=='nodata'?'paramErr':!(['openid'] in obj)&&auth?['token'] in obj && obj.token!=`${encodeURI('{$token}')}`?true:'noToken':'openId':'browser';
             }
         }else return 'app';//app端活动
     }
