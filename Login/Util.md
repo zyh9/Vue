@@ -135,7 +135,7 @@
         console.log('浏览器打开')
     } else if (wx == 'paramErr') {
         console.log('地址栏无参数')
-    } else if (wx == 'openid') {
+    } else if (wx == 'openId') {
         console.log('openid存在，显示登录框')
     } else if (wx == 'noToken') {
         console.log('token不存在，显示登录框')
