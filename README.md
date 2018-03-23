@@ -1647,3 +1647,34 @@
 		}
 	}
 ```
+
+### 移动端老虎机
+
+		接到这个h5活动的时候，第一时间上了github搜了一下，demo还挺多的，但是和公司的模板系统确实有一些不太相符，一时间陷入了沉思
+		
+		怎么搞，怎么搞，怎么搞，重要的事情说三遍，转念一想，既然奖品是服务端返回的确定的结果，前端为何不根据结果来进行操作
+		
+		那这样有奖无奖就可操控了，然后加上过渡效果以及前端对有奖无奖的操控，一个简单到不能再简单的动效就这样产生了
+		
+		总的来说是利用了transition的运动曲线以及过渡延时来解决的
+
+> 放上有奖无奖的操控代码demo
+
+```javascript
+	if (this.winning) {
+        this.pos = Math.round(Math.random() * (this.prize.length - 1));
+        console.log(this.pos)
+        let m_l = (this.prize.length * this.height * 2 + this.pos * this.height) / this.fz;
+        this.move_l = this.move_c = this.move_r = `${-m_l}rem`;
+        console.log(this.move_l)
+    } else {
+        this.pos = Math.round(Math.random() * (this.prize.length - 1));
+        console.log(this.pos)
+        let m_l = (this.prize.length * this.height * 2 + this.pos * this.height) / this.fz;
+        this.move_l = `${-m_l}rem`;
+        let m_c = (this.prize.length * this.height * 2 + ((this.pos + 1) % this.prize.length) * this.height) / this.fz;
+        this.move_c = `${-m_c}rem`;
+        let m_r = (this.prize.length * this.height * 2 + ((this.pos + 2) % this.prize.length) * this.height) / this.fz;
+        this.move_r = `${-m_r}rem`;
+    }
+```
