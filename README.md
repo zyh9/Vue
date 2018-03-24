@@ -1661,30 +1661,116 @@
 > 放上有奖无奖的操控代码demo
 
 ```javascript
-	if (this.winning) {
-        this.pos = Math.round(Math.random() * (this.prize.length - 1));
-        console.log(this.pos)
-        let m_l = (this.prize.length * this.height * 2 + this.pos * this.height) / this.fz;
-        this.move_l = this.move_c = this.move_r = `${-m_l}rem`;
-        console.log(this.move_l)
-        setTimeout(_ => {
-            this.mask = true;
-            this.text1 = '中奖了';
-            this.text2 = '快去查看吧';
-        }, (this.time * 1000 + 2000))
-    } else {
-        this.pos = Math.round(Math.random() * (this.prize.length - 1));
-        console.log(this.pos)
-        let m_l = (this.prize.length * this.height * 2 + this.pos * this.height) / this.fz;
-        this.move_l = `${-m_l}rem`;
-        let m_c = (this.prize.length * this.height * 2 + ((this.pos + 1) % this.prize.length) * this.height) / this.fz;
-        this.move_c = `${-m_c}rem`;
-        let m_r = (this.prize.length * this.height * 2 + ((this.pos + 2) % this.prize.length) * this.height) / this.fz;
-        this.move_r = `${-m_r}rem`;
-        setTimeout(_ => {
-            this.mask = true;
-            this.text1 = '未中奖';
-            this.text2 = '再接再厉';
-        }, (this.time * 1000 + 2000))
+	export default {
+        data() {
+            return {
+                prize: [{
+                        img: require('../static/img1/coupon.png'),
+                        info: '5元优惠券'
+                    },
+                    {
+                        img: require('../static/img1/gold.png'),
+                        info: '5枚U币'
+                    },
+                    {
+                        img: require('../static/img1/redCard.png'),
+                        info: '现金红包'
+                    },
+                    {
+                        img: require('../static/img1/thankYou.png'),
+                        info: '谢谢参与'
+                    }
+                ],
+                mask: false, //遮罩开关
+                text1: '', //奖品页面文字1
+                text2: '', //奖品页面文字2\
+                maskBg: require('../static/img1/mask.png'),
+                maskTop: '', //遮罩顶部图片
+                maskImg: require('../static/img1/thankYou.png'),
+                height: null, //单个奖品高度
+                pos: null, //奖品索引
+                move_l: null, //左侧Y轴位移
+                move_c: null, //中间Y轴位移
+                move_r: null, //右侧Y轴位移
+                fz: null, //根节点字体大小
+                winning: false, //是否有奖
+                forNum: 4, //奖品循环次数
+                time: 2, //过渡时间
+                sport: true, //运动开关
+                blur_l: false, //左侧毛玻璃开关
+                blur_c: false, //中间毛玻璃开关
+                blur_r: false, //右侧毛玻璃开关
+                delay_c: 0.5, //中间过渡延迟时间
+                delay_r: 1, //右侧过渡延迟时间
+                blurTime: 200 //开启毛玻璃样式时间
+            }
+        },
+        mounted() {
+            this.maskTop = `url(${this.maskBg})`;
+            this.height = this.$refs['left_h'].getBoundingClientRect().height;
+            // console.log(this.height)
+            this.fz = parseFloat(document.getElementsByTagName('html')[0].style.fontSize);
+            // console.log(this.fz)
+        },
+        methods: {
+            start() {
+                this.sport = true;
+                this.blurStart()
+                if (this.winning) {
+                    this.pos = Math.round(Math.random() * (this.prize.length - 1));
+                    console.log(this.pos)
+                    let m_l = (this.prize.length * this.height * (this.forNum - 1) + this.pos * this.height) / this.fz;
+                    this.move_l = this.move_c = this.move_r = `${-m_l}rem`;
+                    // console.log(this.move_l)
+                    this.blurDelay()
+                    setTimeout(_ => {
+                        this.mask = true;
+                        this.text1 = '中奖了';
+                        this.text2 = '快去查看吧';
+                    }, (this.time * 1000 + this.delay_r * 1000 + this.blurTime))
+                } else {
+                    this.pos = Math.round(Math.random() * (this.prize.length - 1));
+                    console.log(this.pos)
+                    let m_l = (this.prize.length * this.height * (this.forNum - 1) + this.pos * this.height) / this.fz;
+                    this.move_l = `${-m_l}rem`;
+                    let m_c = (this.prize.length * this.height * (this.forNum - 1) + ((this.pos + 1) % this.prize.length) * this.height) / this.fz;
+                    this.move_c = `${-m_c}rem`;
+                    let m_r = (this.prize.length * this.height * (this.forNum - 1) + ((this.pos + 2) % this.prize.length) * this.height) / this.fz;
+                    this.move_r = `${-m_r}rem`;
+                    this.blurDelay()
+                    setTimeout(_ => {
+                        this.mask = true;
+                        this.text1 = '未中奖';
+                        this.text2 = '再接再厉';
+                    }, (this.time * 1000 + this.delay_r * 1000 + this.blurTime))
+                }
+            },
+            okClick() {
+                this.mask = this.sport = false;
+            },
+            blurDelay() {
+                setTimeout(_ => {
+                    this.blur_l = false;
+                }, (this.time * 1000 - this.blurTime))
+                setTimeout(_ => {
+                    this.blur_c = false;
+                }, (this.time * 1000 + this.delay_c * 1000 - this.blurTime))
+                setTimeout(_ => {
+                    this.blur_r = false;
+                }, (this.time * 1000 + this.delay_r * 1000 - this.blurTime))
+            },
+            blurStart() {
+                setTimeout(_ => {
+                    this.blur_l = true;
+                }, this.blurTime)
+                setTimeout(_ => {
+                    this.blur_c = true;
+                }, (this.delay_c * 1000 + this.blurTime))
+                setTimeout(_ => {
+                    this.blur_r = true;
+                }, (this.delay_r * 1000 + this.blurTime))
+            }
+        },
+        components: {}
     }
 ```
