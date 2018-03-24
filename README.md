@@ -1667,6 +1667,11 @@
         let m_l = (this.prize.length * this.height * 2 + this.pos * this.height) / this.fz;
         this.move_l = this.move_c = this.move_r = `${-m_l}rem`;
         console.log(this.move_l)
+        setTimeout(_ => {
+            this.mask = true;
+            this.text1 = '中奖了';
+            this.text2 = '快去查看吧';
+        }, (this.time * 1000 + 2000))
     } else {
         this.pos = Math.round(Math.random() * (this.prize.length - 1));
         console.log(this.pos)
@@ -1676,5 +1681,10 @@
         this.move_c = `${-m_c}rem`;
         let m_r = (this.prize.length * this.height * 2 + ((this.pos + 2) % this.prize.length) * this.height) / this.fz;
         this.move_r = `${-m_r}rem`;
+        setTimeout(_ => {
+            this.mask = true;
+            this.text1 = '未中奖';
+            this.text2 = '再接再厉';
+        }, (this.time * 1000 + 2000))
     }
 ```
