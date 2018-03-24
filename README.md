@@ -1667,7 +1667,10 @@
 > 放上demo，仅供参考
 
 ```javascript
-	export default {
+	import {
+        Move
+    } from './Mtween.js';
+    export default {
         data() {
             return {
                 prize: [{
@@ -1687,6 +1690,7 @@
                         info: '谢谢参与'
                     }
                 ],
+                onoff: true,
                 mask: false, //遮罩开关
                 text1: '', //奖品页面文字1
                 text2: '', //奖品页面文字2\
@@ -1701,13 +1705,13 @@
                 fz: null, //根节点字体大小
                 winning: false, //是否有奖
                 forNum: 4, //奖品循环次数
-                time: 2, //过渡时间
+                time: 2.4, //过渡时间
                 sport: true, //运动开关
                 blur_l: false, //左侧毛玻璃开关
                 blur_c: false, //中间毛玻璃开关
                 blur_r: false, //右侧毛玻璃开关
-                delay_c: 0.5, //中间过渡延迟时间
-                delay_r: 1, //右侧过渡延迟时间
+                delay_c: 0.8, //中间过渡延迟时间
+                delay_r: 1.6, //右侧过渡延迟时间
                 blurTime: 200 //开启毛玻璃样式时间
             }
         },
@@ -1720,36 +1724,47 @@
         },
         methods: {
             start() {
-                this.sport = true;
-                this.blurStart()
-                if (this.winning) {
-                    this.pos = Math.round(Math.random() * (this.prize.length - 1));
-                    console.log(this.pos)
-                    let m_l = (this.prize.length * this.height * (this.forNum - 1) + this.pos * this.height) / this.fz;
-                    this.move_l = this.move_c = this.move_r = `${-m_l}rem`;
-                    // console.log(this.move_l)
-                    this.blurDelay()
-                    setTimeout(_ => {
-                        this.mask = true;
-                        this.text1 = '中奖了';
-                        this.text2 = '快去查看吧';
-                    }, (this.time * 1000 + this.delay_r * 1000 + this.blurTime))
-                } else {
-                    this.pos = Math.round(Math.random() * (this.prize.length - 1));
-                    console.log(this.pos)
-                    let m_l = (this.prize.length * this.height * (this.forNum - 1) + this.pos * this.height) / this.fz;
-                    this.move_l = `${-m_l}rem`;
-                    let m_c = (this.prize.length * this.height * (this.forNum - 1) + ((this.pos + 1) % this.prize.length) * this.height) / this.fz;
-                    this.move_c = `${-m_c}rem`;
-                    let m_r = (this.prize.length * this.height * (this.forNum - 1) + ((this.pos + 2) % this.prize.length) * this.height) / this.fz;
-                    this.move_r = `${-m_r}rem`;
-                    this.blurDelay()
-                    setTimeout(_ => {
-                        this.mask = true;
-                        this.text1 = '未中奖';
-                        this.text2 = '再接再厉';
-                    }, (this.time * 1000 + this.delay_r * 1000 + this.blurTime))
+                if (this.onoff) {
+                    this.onoff = false;
+                    this.sport = true;
+                    this.blurStart()
+                    if (this.winning) { //有奖
+                        this.award()
+                    } else { //无奖
+                        this.noPrize()
+                    }
                 }
+            },
+            award() {
+                this.pos = Math.round(Math.random() * (this.prize.length - 1));
+                console.log(this.pos)
+                let m_l = (this.prize.length * this.height * (this.forNum - 1) + this.pos * this.height) / this.fz;
+                this.move_l = this.move_c = this.move_r = `${-m_l}rem`;
+                // console.log(this.move_l)
+                this.blurDelay()
+                setTimeout(_ => {
+                    this.mask = true;
+                    this.onoff = true;
+                    this.text1 = '中奖了';
+                    this.text2 = '快去查看吧';
+                }, (this.time * 1000 + this.delay_r * 1000 + this.blurTime * 3))
+            },
+            noPrize() {
+                this.pos = Math.round(Math.random() * (this.prize.length - 1));
+                console.log(this.pos)
+                let m_l = (this.prize.length * this.height * (this.forNum - 1) + this.pos * this.height) / this.fz;
+                this.move_l = `${-m_l}rem`;
+                let m_c = (this.prize.length * this.height * (this.forNum - 1) + ((this.pos + 1) % this.prize.length) * this.height) / this.fz;
+                this.move_c = `${-m_c}rem`;
+                let m_r = (this.prize.length * this.height * (this.forNum - 1) + ((this.pos + 2) % this.prize.length) * this.height) / this.fz;
+                this.move_r = `${-m_r}rem`;
+                this.blurDelay()
+                setTimeout(_ => {
+                    this.mask = true;
+                    this.onoff = true;
+                    this.text1 = '未中奖';
+                    this.text2 = '再接再厉';
+                }, (this.time * 1000 + this.delay_r * 1000 + this.blurTime * 3))
             },
             okClick() {
                 this.mask = this.sport = false;
@@ -1757,12 +1772,15 @@
             blurDelay() {
                 setTimeout(_ => {
                     this.blur_l = false;
+                    Move.shake(this.$refs['con1'], 'top')
                 }, (this.time * 1000 - this.blurTime))
                 setTimeout(_ => {
                     this.blur_c = false;
+                    Move.shake(this.$refs['con2'], 'top')
                 }, (this.time * 1000 + this.delay_c * 1000 - this.blurTime))
                 setTimeout(_ => {
                     this.blur_r = false;
+                    Move.shake(this.$refs['con3'], 'top')
                 }, (this.time * 1000 + this.delay_r * 1000 - this.blurTime))
             },
             blurStart() {
