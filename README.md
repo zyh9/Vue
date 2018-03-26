@@ -1665,3 +1665,28 @@
 		总的来说是利用了transition的运动曲线以及过渡延时来解决的
 
 [示例demo，请戳我](https://github.com/zyh19941109/Vue/tree/master/Tiger)
+
+### 致懵逼的我
+
+		今天在整理公司uuteam每组的积分累计情况遇到了问题
+		
+		初始值是0分，有加有减，但每条记录还要记录加减之后的分值情况
+		
+		wtf？？？有意思吗！脑子瞬间短路了
+		
+		但后续想想其实没那么难，啥也不说了，上代码
+
+```javascript
+	let n = 0;//初始值
+	res.data.forEach(e => {
+		if (e.type == 1) {//加分
+			e.sum = n + Number(e.score);
+			n += Number(e.score);
+		} else {//减分
+			e.sum = n - Number(e.score);
+			n -= Number(e.score);
+		}
+	})
+	res.data.sort((a, b) => b.id = a.id)
+	this.list = res.data;
+```
