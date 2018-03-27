@@ -1407,7 +1407,7 @@
 		
 		后续根据请求的皮肤和奖品数据再进行赋值操作渲染即可
 
-[点此查看示例Demo](https://github.com/zyh19941109/Vue.js/tree/master/Jiugongge)
+[点此查看示例Demo](https://github.com/zyh19941109/Vue/tree/master/Lottery)
 
 ### div模拟textarea文本域实现高度自适应以及输入纯文本
 
