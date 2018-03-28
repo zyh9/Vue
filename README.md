@@ -920,6 +920,10 @@
 		
 			var Event=new Vue(); // 准备一个空的实例对象
 			
+				import Vue from 'vue';
+				
+				export default new Vue;
+			
 			Event.$emit(事件名称, 数据)
 			
 			Event.$on(事件名称,function(data){
@@ -1689,4 +1693,24 @@
 	})
 	res.data.sort((a, b) => b.id = a.id)
 	this.list = res.data;
+```
+
+		还有每个队伍的排行，从高到低依次排序
+		
+		就用sort()加去重做了排序
+
+```
+	obj.sort((a, b) => b.team_score - a.team_score)
+    let array = [];
+    obj.forEach(e => {
+        array.push(e.team_score)
+    })
+    let set = [...new Set(array)];
+    obj.forEach(e => {
+        e.value = set.indexOf(e.team_score);
+    })
+    obj.forEach((e, i) => {
+        e.img = this.ranking[e.value].img;
+    });
+    this.teamList = obj;
 ```
