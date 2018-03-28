@@ -1407,7 +1407,7 @@
 		
 		后续根据请求的皮肤和奖品数据再进行赋值操作渲染即可
 
-[点此查看示例Demo](https://github.com/zyh19941109/Vue/tree/master/Lottery)
+[点此查看示例Demo](https://github.com/zyh9/Vue/tree/master/Lottery)
 
 ### div模拟textarea文本域实现高度自适应以及输入纯文本
 
@@ -1476,7 +1476,7 @@
 			
 			2.图片服务端设置允许跨域（返回CORS头）
 
-[点此查看示例Demo](https://github.com/zyh19941109/Vue/tree/master/Question)
+[点此查看示例Demo](https://github.com/zyh9/Vue/tree/master/Question)
 
 ### keymirror插件的使用
 
@@ -1566,7 +1566,7 @@
 |--|--|--|
 |this.Client|this.Putil|this.Mutil|
 
-[点此查看示例Demo](https://github.com/zyh19941109/Vue/tree/master/libs)
+[点此查看示例Demo](https://github.com/zyh9/Vue/tree/master/libs)
 
 ### 滚动Demo
 
@@ -1576,7 +1576,7 @@
 		
 		.fade-leave-active{}	//变成成什么样	->	当元素离开(消失)
 
-[点此查看示例Demo](https://github.com/zyh19941109/Vue/tree/master/scroll)
+[点此查看示例Demo](https://github.com/zyh9/Vue/tree/master/scroll)
 
 ### state状态存储插件
 
@@ -1618,7 +1618,7 @@
 		
 		结合vue的transition来达到页面切换的过渡效果，给人一种app式的操作体验
 
-[点此查看示例Demo](https://github.com/zyh19941109/Vue/tree/master/Grasp)
+[点此查看示例Demo](https://github.com/zyh9/Vue/tree/master/Grasp)
 
 ### Vue-Socket.io插件的使用
 
@@ -1664,7 +1664,7 @@
 		
 		总的来说是利用了transition的运动曲线以及过渡延时来解决的
 
-[示例demo，请戳我](https://github.com/zyh19941109/Vue/tree/master/Tiger)
+[示例demo，请戳我](https://github.com/zyh9/Vue/tree/master/Tiger)
 
 ### 致懵逼的我
 
