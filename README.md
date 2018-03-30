@@ -1699,7 +1699,7 @@
 		
 		就用sort()加去重做了排序
 
-```
+```javascript
 	obj.sort((a, b) => b.team_score - a.team_score)
     let array = [];
     obj.forEach(e => {
