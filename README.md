@@ -1701,16 +1701,16 @@
 
 ```javascript
 	obj.sort((a, b) => b.team_score - a.team_score)
-    let array = [];
-    obj.forEach(e => {
-        array.push(e.team_score)
-    })
-    let set = [...new Set(array)];
-    obj.forEach(e => {
-        e.value = set.indexOf(e.team_score);
-    })
-    obj.forEach((e, i) => {
-        e.img = this.ranking[e.value].img;
-    });
-    this.teamList = obj;
+	let array = [];
+	obj.forEach(e => {
+		array.push(e.team_score)
+	})
+	let set = [...new Set(array)];
+	obj.forEach(e => {
+		e.value = set.indexOf(e.team_score);
+	})
+	obj.forEach((e, i) => {
+		e.img = this.ranking[e.value].img;
+	});
+	this.teamList = obj;
 ```
