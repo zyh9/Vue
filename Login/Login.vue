@@ -1,5 +1,5 @@
 <template>
-    <div class="login" v-cloak ref="login" v-if="!loginok">
+    <div class="login" v-cloak>
         <div class="login_enter">
             <input type="text" placeholder="请输入手机号码" class="tel_enter" maxlength='11' v-model="tel" @blur="phone(tel)">
             <p>{{info}}</p>
@@ -25,8 +25,8 @@
 <script>
     const baseTest = 'http://192.168.6.3:9207';
     import {
-        mUtil
-    } from './mUtil.js';
+        filter
+    } from '../util/Autil.js';
     export default {
         data() {
             return {
@@ -50,16 +50,12 @@
                 ticket: '',
                 mapInfo: {},
                 urlData: {},
-                token: null,
-                loginok: false
+                token: null
             }
         },
         mounted() {
             this.smsCount()
             this.Bdmap()
-            if (sessionStorage['loginok']) {
-                this.loginok = JSON.parse(sessionStorage['loginok']).loginok;
-            }
             if (sessionStorage['bdmap']) {
                 this.mapInfo = JSON.parse(sessionStorage['bdmap']);
                 // console.log(this.mapInfo)
@@ -222,7 +218,7 @@
             //登录注册
             userLogin() {
                 //获取地址栏参数
-                this.urlData = mUtil.filter()
+                this.urlData = filter()
                 // console.log(this.urlData)
                 this.mapInfo = JSON.parse(sessionStorage['bdmap']);
                 // console.log(this.mapInfo)
@@ -247,10 +243,6 @@
                                 success: true
                             }
                             this.$emit('log-in', lg)
-                            sessionStorage.setItem('loginok', JSON.stringify({
-                                loginok: true
-                            }))
-                            this.$refs['login'].style.cssText = `display:none;`;
                         } else {
                             this.imgInfo = res.Msg;
                         }
@@ -272,6 +264,8 @@
     .login {
         width: 100%;
         height: 100%;
+        top: 0;
+        left: 0;
         position: absolute;
         background: rgba(0, 0, 0, .6);
         z-index: 100;
