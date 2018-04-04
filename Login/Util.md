@@ -18,10 +18,8 @@
     /**
      * @param   @log-in="logInSuccess"  接收子级信息
      * 
-     * @param   :public="public"  预留参数，针对大众及非大众用户
-     * 
      * @example
-     * <login v-if="loginMask" @log-in="logInSuccess" :public="public"></login>
+     * <login v-if="loginMask" @log-in="logInSuccess"></login>
     */
 ```
 
