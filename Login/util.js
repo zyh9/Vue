@@ -55,7 +55,7 @@ function auth() {
     */
     return navigator.userAgent.indexOf('MicroMessenger') > -1 ? obj == 'nodata' ? 'paramErr' : !(['openid'] in obj) ? ['token'] in obj && obj.token != `${encodeURI('{$token}')}` ? true : 'noToken' : 'openId' : 'browser';
 }
-//最小宽度处理
+//设备最小宽度处理
 function device() {
     let html = document.getElementsByTagName('html')[0];
     if (html.getBoundingClientRect().width >= 1250) {
