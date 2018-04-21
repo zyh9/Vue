@@ -1729,23 +1729,23 @@
 
 ```javascript
 	this.time = new Date(res.Body.EndTime) - new Date();
-    this.timer = setInterval(_ => {
-        this.time--;
-        if (this.time === 0) {
-            clearInterval(this.timer)
-        }
-    }, 1000)
-    
-    
+	this.timer = setInterval(_ => {
+		this.time--;
+		if (this.time === 0) {
+			clearInterval(this.timer)
+		}
+	}, 1000)
+	
+	
 	computed: {
-        getTime: function() {
-            function two(n) {
-                return n < 10 ? '0' + n : '' + n;
-            }
-            let h = two(Math.floor(this.time % 86400 / 3600))
-            let s = two(Math.floor(this.time % 3600 / 60))
-            let m = two(Math.floor(this.time % 60))
-            return this.time == null ? `正在计算时间...` : this.time > 0 ? `结束倒计时：${h}时${s}分${m}秒` : `活动已结束`;
-        }
-    }
+		getTime: function() {
+			function two(n) {
+				return n < 10 ? '0' + n : '' + n;
+			}
+			let h = two(Math.floor(this.time % 86400 / 3600))
+			let s = two(Math.floor(this.time % 3600 / 60))
+			let m = two(Math.floor(this.time % 60))
+			return this.time == null ? `正在计算时间...` : this.time > 0 ? `结束倒计时：${h}时${s}分${m}秒` : `活动已结束`;
+		}
+	}
 ```
