@@ -1727,7 +1727,7 @@
 
 ### 倒计时方法（此处略坑）
 
-		工作中想实现一个倒计时，但是移动端貌似有时区这个东西（我们是在东八区），Google Chrome模拟移动端的时间一直是好好地
+		工作中想实现一个倒计时，但是移动端貌似有时区这个东西（我们是在东八区），Chrome模拟移动端的时间一直是好好地
 		
 		到了真机实测中遇到了一个问题，移动端时间整整多了八个小时，无奈只好做了设备的判断
 
@@ -1761,7 +1761,8 @@
 			let s = two(Math.floor(this.time % 3600 / 60))
 			let m = two(Math.floor(this.time % 60))
 			// console.log(d + '天' + h + '时' + s + '分' + m + '秒')
-			return this.time == null ? `正在计算时间...` : this.time > 0 ? `结束倒计时：${h}时${s}分${m}秒` : `活动已结束`;
+			return this.time == null ? `正在计算时间...` 
+			: this.time > 0 ? `结束倒计时：${h}时${s}分${m}秒` : `活动已结束`;
 		},
 	}
 ```
@@ -1772,16 +1773,16 @@
 		var u = navigator.userAgent,
 			app = navigator.appVersion;
 		return {
-			trident: u.indexOf('Trident') > -1, //IE内核                
-			presto: u.indexOf('Presto') > -1, //opera内核                
-			webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核                
-			gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核                
-			mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端                
-			ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端                
-			android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器                
-			iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器                
-			iPad: u.indexOf('iPad') > -1, //是否iPad                
-			webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部      
+			trident: u.indexOf('Trident') > -1, //IE内核
+			presto: u.indexOf('Presto') > -1, //opera内核
+			webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+			gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+			mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端 
+			ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+			android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+			iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
+			iPad: u.indexOf('iPad') > -1, //是否iPad
+			webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
 			weiXin: u.indexOf('MicroMessenger') > -1 //是否是微信
 		}
 	},
