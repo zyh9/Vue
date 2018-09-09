@@ -1395,26 +1395,6 @@
 		//将swiper挂载到Vue的原型上，后续直接使用this.swiper可以了
 		Vue.prototype.Swiper = Swiper;
 
-### vue实现九宫格转盘
-
-		利用延时和重复定时器来控制抽奖速度的变化，虽说方法有些差强人意，但还是实现了最基本的功能
-		
-		结构使用浮动的方式来解决，因为涉及到中间有一个元素为其添加了点击事件，所以将数据做分割处理
-		
-		抽奖的数据均是模拟数据，可以自定义快速和慢速的时间以及速度切换的位置
-		
-		皮肤的切换也是根据数据的索引来切换，达到一套代码适应多个模板
-		
-		九宫格高亮的顺序根据自定义索引来控制，let arr = [0,1,2,7,3,6,5,4];
-		
-		先拟定一个空数组，根据arr提供的索引将获取到的数据重新排序
-		
-		再将arr的数组每项插入每个奖品的对象中，根据插入的索引来进行高亮显示
-		
-		后续根据请求的皮肤和奖品数据再进行赋值操作渲染即可
-
-[点此查看示例Demo](https://github.com/zyh9/Vue/tree/master/Lottery)
-
 ### div模拟textarea文本域实现高度自适应以及输入纯文本
 
 		<div contenteditable="true"></div>
@@ -1440,49 +1420,6 @@
 		oninput事件类似于 onchange事件
 		
 		不同之处在于oninput事件在元素值发生变化是立即触发，onchange在元素失去焦点时触发
-
-### 问卷and答题
-
-```javascript
-		//是否是微信
-		let u = navigator.userAgent;
-		if (u.indexOf('MicroMessenger') != -1) {
-			this.weiXin = true;
-		} else {
-			this.weiXin = false;
-		}
-```
-		地址栏参数localhost:8888/?id=0&skinId=0
-		
-		问卷为0，答题为1，皮肤1-4可供选择
-		
-		答题采用单选和倒计时相结合，问卷采用单选和纯文本输入，答题和问卷的答案利用vuex来做存储
-		
-		每一个问题的切换利用css3来实现，单独引用一个切换组件，利用v-if判断其显示隐藏
-		
-		因为切换的同时还涉及到答题每一题倒计时的开启和无操作自动跳转下一题
-		
-		所以在切换的时候加入延时定时器来解决每道题倒计时对时间把控的准确性
-		
-		尾页的卡片成绩展示利用html2canvas将需要转化为图片的结构先转化为canvas
-		
-		然后利用canvas.toDataURL("image/png")将canvas转化为base64位编码
-		
-		最后将base64位编码赋值给img的src，来达到微信端的长按保存图片
-		
-		小问题：
-		
-			可以在canvas中绘制跨域的图片，但此时的canvas处于被‘污染’的状态
-			
-			而污染状态的canvas使用 toDataUrl()等API是会出现问题的
-		
-		所以，现在我们需要做两件事：
-		
-			1.给img元素设置crossorigin属性，值为anonymous
-			
-			2.图片服务端设置允许跨域（返回CORS头）
-
-[点此查看示例Demo](https://github.com/zyh9/Vue/tree/master/Question)
 
 ### keymirror插件的使用
 
@@ -1543,37 +1480,6 @@
 	}
 ```
 
-### 公用方法
-
-```javascript
-    // main.js文件
-    
-	    // 引入axios
-	    import Ajax from "axios";
-	    
-	    // 接口访问地址
-	    Ajax.baseURL='http://localhost:8080';
-	    
-	    // 引入公共方法
-	    import {Client,Putil,Mutil} from 'libs';
-	    
-	    // 挂载到Vue原型上
-	    Vue.prototype.Client = Client;
-	    
-	    Vue.prototype.Putil = Putil;
-	    
-	    Vue.prototype.Mutil = Mutil;
-	    
-	    // 也可以在组件中直接引用
-	    import {Client,Putil,Mutil} from 'libs';
-```
-
-|客户端方法|PC端方法|移动端方法|
-|--|--|--|
-|this.Client|this.Putil|this.Mutil|
-
-[点此查看示例Demo](https://github.com/zyh9/Vue/tree/master/libs)
-
 ### 滚动Demo
 
 		利用vue的transition-group来实现动画
@@ -1618,14 +1524,6 @@
 	})
 ```
 
-### 抓娃娃机
-
-		抓娃娃机的抓手动效依靠css3的动画来完成，减少js的dom操作，提高页面在移动端运行的性能
-		
-		结合vue的transition来达到页面切换的过渡效果，给人一种app式的操作体验
-
-[点此查看示例Demo](https://github.com/zyh9/Vue/tree/master/Grasp)
-
 ### Vue-Socket.io插件的使用
 
 		安装
@@ -1654,65 +1552,21 @@
 	}
 ```
 
-### 移动端老虎机
-
-		接到这个h5活动的时候，第一时间上了github搜了一下，demo还挺多的
-		
-		但是和公司的模板系统确实有一些不太相符，一时间陷入了沉思
-		
-		怎么搞，怎么搞，怎么搞，重要的事情说三遍
-		
-		转念一想，既然奖品是服务端返回的确定的结果，前端为何不根据结果来进行操作
-		
-		一个简单到不能再简单的动效就这样产生了（看起来是比较low）
-		
-		总的来说是利用了transition的运动曲线以及过渡延时来解决的
-
-[示例demo，请戳我](https://github.com/zyh9/Vue/tree/master/Tiger)
-
-### 致懵逼的我
-
-		今天在整理公司uuteam每组的积分累计情况遇到了问题
-		
-		每队初始值是0分，有加、减分记录，但每队的每条分值还要记录加减之后的分值情况
-		
-		wtf？？？什么鬼！脑子瞬间短路了...
-		
-		但后续想想其实没那么难，啥也不说了，上代码
+### 加减分实践
 
 ```javascript
 	let n = 0;//初始值
 	res.data.forEach(e => {
 		if (e.type == 1) {//加分
-			e.sum = n + Number(e.score);
-			n += Number(e.score);
+			e.sum = n + Number(e.num);
+			n += Number(e.num);
 		} else {//减分
-			e.sum = n - Number(e.score);
-			n -= Number(e.score);
+			e.sum = n - Number(e.num);
+			n -= Number(e.num);
 		}
 	})
 	res.data.sort((a, b) => b.id = a.id)
 	this.list = res.data;
-```
-
-		还有每个队伍的排行，从高到低依次排序
-		
-		就用sort()加去重做了排序
-
-```javascript
-	obj.sort((a, b) => b.team_score - a.team_score)
-	let array = [];
-	obj.forEach(e => {
-		array.push(e.team_score)
-	})
-	let set = [...new Set(array)];
-	obj.forEach(e => {
-		e.value = set.indexOf(e.team_score);
-	})
-	obj.forEach((e, i) => {
-		e.img = this.ranking[e.value].img;
-	});
-	this.teamList = obj;
 ```
 
 ### $set的使用
@@ -1766,6 +1620,8 @@
 		},
 	}
 ```
+
+### 设备判断
 
 ```javascript
 	//获取浏览器版本
