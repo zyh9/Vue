@@ -1643,3 +1643,38 @@
 		}
 	},
 ```
+
+### 使用vue-router设置每个页面的title
+
+```javascript
+	routes: [
+		{
+			path: '/',
+			name: 'Index',
+			component: Index,
+			meta: {
+				title: '首页'
+			}
+		},
+		{
+			path: '/user',
+			name: 'User',
+			component: User,
+			meta: {
+				title: '我的'
+			}
+		}
+	]
+```
+
+> 在每一个meta里面设置页面的title名字
+
+```javascript
+	router.beforeEach((to, from, next) => {
+		/* 路由发生变化修改页面title */
+		if (to.meta.title) {
+			document.title = to.meta.title
+		}
+		next()
+	})
+```
