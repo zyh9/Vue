@@ -1579,23 +1579,10 @@
 
 		按 es6 的规范 import * as obj from "xxx" 会将 "xxx" 中所有 export 导出的内容组合成一个对象返回
 
-### 倒计时方法（此处略坑）
-
-		工作中想实现一个倒计时，但是移动端貌似有时区这个东西（我们是在东八区），Chrome模拟移动端的时间一直是好好地
-		
-		到了真机实测中遇到了一个问题，移动端时间整整多了八个小时，无奈只好做了设备的判断
+### 倒计时方法
 
 ```javascript
-	let {
-		android,
-		ios
-	} = this.Util.Versions()
-	if (android || ios) {
-		let iniTime = (new Date(res.Body.EndTime) - new Date()) / 1000;
-		this.time = Math.floor(iniTime-60**2*8)
-	} else {
-		this.time = Math.floor((new Date(res.Body.EndTime) - new Date()) / 1000);
-	}
+	this.time = Math.floor((new Date(res.Body.EndTime) - new Date()) / 1000);
 	// console.log(this.time)
 	this.timer = setInterval(_ => {
 		this.time--;
@@ -1603,8 +1590,6 @@
 			clearInterval(this.timer)
 		}
 	}, 1000)
-	
-	
 	computed: {
 		getTime: function() {
 			function two(n) {
