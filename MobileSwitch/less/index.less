@@ -1,0 +1,64 @@
+.z-cell {
+	position: relative;
+	overflow: hidden;
+	background: #fff;
+	.z-cell-inner {
+		display: flex;
+		align-items: center;
+		padding: 0 15px;
+		font-size: 15px;
+		min-height: 52px;
+		line-height: 28px;
+		.z-cell-body {
+			display: flex;
+			flex: 1;
+		}
+	}
+	.z-cell-footer {
+		color: #909090;
+		.z-switch-input {
+			position: relative;
+			width: 53px;
+			height: 32px;
+			border: 1px solid #e5e5e5;
+			border-radius: 15.5px;
+			margin: 0;
+			padding: 0;
+			background-color: #fff;
+			outline: 0;
+			transition: background-color .1s, border .1s;
+			-webkit-appearance: none;
+			&:after {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 30px;
+				border-radius: 14.5px;
+				background-color: #fff;
+			}
+			&:after {
+				width: 30px;
+				box-shadow: -1px 2px 2px 0 rgba(0, 0, 0, .1), 0 2px 11.5px 0 rgba(0, 0, 0, .08),
+					0 0 2px 0 rgba(0, 0, 0, .2);
+				transition: transform .35s cubic-bezier(.4, .4, .25, 1.35);
+			}
+			&:checked:after {
+				transform: translateX(21px);
+				box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .2);
+			}
+		}
+		.z-switch .z-switch-input:checked {
+			border-color: #e6e6e6;
+			background-color: #e6e6e6;
+		}
+		.z-switch.theme-primary .z-switch-input:checked {
+			border-color: #12c287;
+			background-color: #12c287;
+		}
+		.z-switch.disabled {
+			cursor: not-allowed;
+			opacity: .5;
+		}
+	}
+}

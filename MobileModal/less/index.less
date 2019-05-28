@@ -1,0 +1,128 @@
+.z-modal {
+	position: relative;
+	.z-mask {
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, .5);
+		z-index: 1000;
+		display: flex;
+	}
+	.z-modal-con {
+		width: 70%;
+		background-color: #fff;
+		margin: auto;
+		box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+		overflow: hidden;
+		.z-modal-header {
+			position: relative;
+			padding: 20px 15px 0;
+			text-align: center;
+			font-size: 18px;
+			color: #333;
+		}
+		.z-modal-body {
+			font-size: 15px;
+			color: #999;
+			padding: 15px;
+		}
+		.z-modal-footer {
+			display: flex;
+			width: 100%;
+			position: relative;
+			&:after {
+				content: '';
+				display: block;
+				width: 100%;
+				height: 0;
+				border-top: 1px solid #ebebeb;
+				position: absolute;
+				left: 0;
+				top: 0;
+				transform: scaleY(0.5);
+				transform-origin: 0 0;
+				z-index: 3;
+			}
+			.z-button {
+				flex: 1;
+				height: 50px;
+				line-height: 50px;
+				font-size: 16px;
+				position: relative;
+			}
+			.z-button.z-close {
+				background-color: #fff;
+				color: #464646;
+				&:after {
+					content: '';
+					display: block;
+					width: 0;
+					height: 100%;
+					border-right: 1px solid #ebebeb;
+					position: absolute;
+					right: 0;
+					top: 0;
+					transform: scaleX(0.5);
+					transform-origin: 0 0;
+					z-index: 3;
+				}
+			}
+			.z-button.z-ok {
+				background-color: #fff;
+				color: #12c287;
+			}
+		}
+	}
+	@keyframes fade-enter {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+	.fade-enter {
+		animation: fade-enter 0.2s both ease-in;
+		.z-modal-con{
+			animation: zoom-enter 0.2s both cubic-bezier(.4, 0, 0, 1.5);
+		}
+	}
+	@keyframes fade-leave {
+		0% {
+			opacity: 1;
+		}
+		100% {
+			opacity: 0;
+		}
+	}
+	.fade-leave {
+		animation: fade-leave 0.2s both ease-in;
+		.z-modal-con{
+			animation: zoom-leave 0.2s both cubic-bezier(.4, 0, 0, 1.5);
+		}
+	}
+	@keyframes zoom-enter {
+		0% {
+			transform: scale3d(.3, .3, .3);
+		}
+		100% {
+			transform: scaleX(1);
+		}
+	}
+	.zoom-enter {
+		animation: zoom-enter 0.2s both cubic-bezier(.4, 0, 0, 1.5);
+	}
+	@keyframes zoom-leave {
+		0% {
+			transform: scaleX(1);
+		}
+		100% {
+			transform: scale3d(.3, .3, .3);
+		}
+	}
+	.zoom-leave {
+		animation: zoom-leave 0.2s both cubic-bezier(.4, 0, 0, 1.5);
+	}
+}

@@ -1,0 +1,143 @@
+.modal {
+	position: fixed;
+	z-index: 999;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+}
+.modal_container {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: auto;
+	background: #fff;
+}
+.modal_header {
+	height: 70px;
+	padding: 20px 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	.cancel {
+		line-height: 70px;
+		padding: 0 20px;
+		font-size: 34px;
+		color: #666;
+	}
+	.ok {
+		line-height: 70px;
+		padding: 0 20px;
+		color: #ff4d3a;
+		font-size: 34px;
+	}
+	.header_center {
+		text-align: center;
+		font-size: 30px;
+		.header_tip {
+			position: relative;
+			font-size: 22px;
+			color: #999;
+		}
+	}
+}
+.time {
+	background: #f7f7f7;
+	text-align: center;
+	font-size: 26px;
+	.time_scroll {
+		white-space: nowrap;
+		width: 100%;
+		height: 100px;
+		line-height: 50px;
+		overflow-y: hidden;
+		overflow-x: scroll;
+		&::-webkit-scrollbar{
+			display: none;
+		}
+		.scroll_item {
+			display: inline-block;
+			padding: 0 24px;
+			height: 100px;
+			box-sizing: border-box;
+		}
+		.time_active {
+			color: #ff4d3a;
+			border-bottom: 4px solid #ff4d3a;
+		}
+	}
+}
+.hour {
+	padding: 20px 0 0 20px;
+	.hour_item {
+		width: 22%;
+		box-sizing: border-box;
+		height: 70px;
+		line-height: 70px;
+		border-radius: 10px;
+		text-align: center;
+		float: left;
+		border: 2px solid #eee;
+		font-size: 26px;
+		margin-right: 3%;
+		margin-bottom: 20px;
+	}
+	.hour_active {
+		background: #ff4d3a;
+		color: #fff;
+		border: 2px solid #ff4d3a;
+	}
+	.hour_unactive {
+		color: #999;
+	}
+}
+@keyframes fade-enter {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+.fade-enter {
+	animation: fade-enter 0.2s both ease-in;
+	.modal_container {
+		animation: translate-enter 0.2s both cubic-bezier(.4, 0, 0, 1.5);
+	}
+}
+@keyframes fade-leave {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+.fade-leave {
+	animation: fade-leave 0.2s both ease-in;
+	.modal_container {
+		animation: translate-leave 0.2s both cubic-bezier(.4, 0, 0, 1.5);
+	}
+}
+@keyframes translate-enter {
+	0% {
+		transform: translateY(100%);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+.translate-enter {
+	animation: translate-enter 0.2s both cubic-bezier(.4, 0, 0, 1.5);
+}
+@keyframes translate-leave {
+	0% {
+		transform: translateY(0);
+	}
+	100% {
+		transform: translateY(100%);
+	}
+}
+.translate-leave {
+	animation: translate-leave 0.2s both cubic-bezier(.4, 0, 0, 1.5);
+}

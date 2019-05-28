@@ -1,0 +1,115 @@
+.z-action {
+	position: relative;
+	.z-mask {
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, .5);
+		z-index: 1000;
+	}
+	.z-popup-bottom {
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		transform: translateY(0);
+		z-index: 1500;
+		transition-duration: 0.2s;
+		.z-actionsheet {
+			margin: 0 10px 10px;
+			.z-actionsheet-actions {
+				overflow: hidden;
+				border-radius: 4px;
+				background-color: #fff;
+				position: relative;
+				.z-actionsheet-item {
+					&:after {
+						content: '';
+						display: block;
+						width: 100%;
+						height: 0;
+						border-top: 1px solid #ebebeb;
+						position: absolute;
+						left: 0;
+						top: 0;
+						transform: scaleY(0.5);
+						transform-origin: 0 0;
+						z-index: 3;
+					}
+					&:first-child:after {
+						display: none;
+					}
+				}
+			}
+			.za-actionsheet-cancel {
+				border-radius: 4px;
+				background-color: #fff;
+				margin-top: 8px;
+			}
+			.z-actionsheet-item {
+				display: block;
+				height: 50px;
+				line-height: 50px;
+				font-size: 16px;
+				position: relative;
+				padding: 0;
+				font-weight: 400;
+				text-align: center;
+				overflow: hidden;
+				color: #464646;
+			}
+		}
+	}
+	@keyframes fade-enter {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+	.fade-enter {
+		animation: fade-enter 0.2s both ease-in;
+		.z-popup-bottom {
+			animation: translate-enter 0.2s both cubic-bezier(.4, 0, 0, 1.5);
+		}
+	}
+	@keyframes fade-leave {
+		0% {
+			opacity: 1;
+		}
+		100% {
+			opacity: 0;
+		}
+	}
+	.fade-leave {
+		animation: fade-leave 0.2s both ease-in;
+		.z-popup-bottom {
+			animation: translate-leave 0.2s both cubic-bezier(.4, 0, 0, 1.5);
+		}
+	}
+	@keyframes translate-enter {
+		0% {
+			transform: translateY(100%);
+		}
+		100% {
+			transform: translateY(0);
+		}
+	}
+	.translate-enter {
+		animation: translate-enter 0.2s both cubic-bezier(.4, 0, 0, 1.5);
+	}
+	@keyframes translate-leave {
+		0% {
+			transform: translateY(0);
+		}
+		100% {
+			transform: translateY(100%);
+		}
+	}
+	.translate-leave {
+		animation: translate-leave 0.2s both cubic-bezier(.4, 0, 0, 1.5);
+	}
+}
