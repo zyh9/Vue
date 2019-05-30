@@ -1658,3 +1658,127 @@
 		next()
 	})
 ```
+
+### vue项目做seo
+对于vue、react这类项目而言，它们的开发思想使得我们能真正做到前后端分离、解耦。单页面的使用给用户带来了更好体验，但是存在首屏加载慢、白屏以及SEO等问题。那么该如何解决这些问题？
+
+```
+1.SSR 注：不是酸酸乳啦，而是Server-side rendering（服务端渲染）
+2.Prerendering
+```
+
+#### **1.SSR服务端渲染**
+
+这似乎又回到了之前的开发模式，前端和后端还是紧密联系在一起了，给维护和迭代带来的不便。至于优点，请参考  [服务端渲染（SSR)，可点击](https://juejin.im/post/5c068fd8f265da61524d2abc)
+
+#### **2.Prerendering**
+
+可以利用第三方插件prerender-spa-plugin，在客户端实现渲染。prerender-spa-plugin 是webpack的插件，它可以编译应用中的所有静态页面，轻而易举的建立对应的索引路径。怎样使用呢？（以vue-cli3为例）
+
+1).安装
+
+```
+npm install prerender-spa-plugin -D
+```
+
+2).使用
+
+```
+//vue.config.js文件
+const PrerenderSPAPlugin = require('prerender-spa-plugin');
+const Renderer = PrerenderSPAPlugin.PuppeteerRenderer;
+
+if(process.env.NODE_ENV === 'production'){
+  plugins.push(
+    new PrerenderSPAPlugin({
+      // 这个目录只能有一级，如果目录层次大于一级，在生成的时候不会有任何错误提示
+      staticDir: path.join(__dirname, process.env.VUE_APP_OUTPUT_DIR),
+      // 对应自己的路由文件，比如index有参数，就需要写成 /index/param1
+      routes: ['/', '/home','/about'],
+      // html文件压缩
+      minify: {
+        minifyCSS: true,// css压缩
+        removeComments: true// 移除注释
+      },
+      // 如果没有配置这段，也不会进行预编译
+      renderer: new Renderer({
+        // 不打开chromium浏览器
+        headless: false,
+        // 在main.js中配置document.dispatchEvent(new Event('render-event'))
+        renderAfterDocumentEvent: 'render-event'
+      })
+    })
+  )
+}
+```
+
+在vue.config.js文件配置之后，还需要在main.js文件中添加以下代码：
+
+```
+// ./src/main.js文件
+new Vue({
+  router,
+  render: h => h(App),
+  mounted () {
+    // 你需要这个用于 renderAfterDocumentEvent
+    document.dispatchEvent(new Event('render-event'))
+  }
+}).$mount('#app');
+```
+
+prerender-spa-plugin插件是需要依赖puppeteer的，也就是谷歌出品的无头浏览器插件，这个插件会下载最新版的chromium(大约200M+），如果不能科学上网，就会报错。
+
+执行 npm run build 就会生成预渲染的html，至于具体的配置项，可移步至 github仓库[https://github.com/chrisvfritz/prerender-spa-plugin](https://github.com/chrisvfritz/prerender-spa-plugin)
+
+注意：预渲染要求是histroy模式，否则生成的页面都是同一个html
+
+```
+// .src/router/index.js文件
+export default new vueRouter({
+  mode:"history", // history模式
+  routes
+})
+```
+
+#### 3.在vue中使用 vue-meta-info
+
+1).安装
+
+```
+npm install vue-meta-info -D
+```
+
+2).引入
+
+```
+// ./src/main.js文件
+import MetaInfo from 'vue-meta-info'
+Vue.use(MetaInfo)
+```
+
+3).使用
+
+```
+// ./src/xx/xx.vue文件
+export default {
+    metaInfo: {
+        title: 'uufe',
+        meta: [
+            {
+                name: 'keywords',
+                content: '有温度,有速度,有态度,有深度'
+            },
+            {
+                name: 'description',
+                content: '为用户创造极致体验'
+            }
+        ]
+    }
+}
+```
+
+参考文档：
+
+1.[vue项目做seo（prerender-spa-plugin预渲染）](https://blog.csdn.net/yftk765768540/article/details/81047145)
+
+2.[利用prerender-spa-plugin提升单页面应用的体验](https://juejin.im/post/5bc00c1cf265da0aeb71283b)
