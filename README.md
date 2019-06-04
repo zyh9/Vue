@@ -1673,7 +1673,7 @@
 
 #### **2.Prerendering**
 
-可以利用第三方插件prerender-spa-plugin，在客户端实现渲染。prerender-spa-plugin 是webpack的插件，它可以编译应用中的所有静态页面，轻而易举的建立对应的索引路径。怎样使用呢？（以vue-cli3为例）
+预渲染相对于SSR比较简单，且预渲染可以极大的提高网页访问速度。可以利用第三方插件prerender-spa-plugin，在客户端实现渲染。prerender-spa-plugin 是webpack的插件，它可以编译应用中的所有静态页面，轻而易举的建立对应的索引路径。怎样使用呢？（以vue-cli3为例，适用于页面较少的项目）
 
 1).安装
 
@@ -1762,15 +1762,15 @@ Vue.use(MetaInfo)
 // ./src/xx/xx.vue文件
 export default {
     metaInfo: {
-        title: 'uufe',
+        title: '我是title',
         meta: [
             {
                 name: 'keywords',
-                content: '有温度,有速度,有态度,有深度'
+                content: '好嗨呦'
             },
             {
                 name: 'description',
-                content: '为用户创造极致体验'
+                content: '太阳好圆啊
             }
         ]
     }
