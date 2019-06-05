@@ -1662,10 +1662,8 @@
 ### vue项目做seo
 对于vue、react这类项目而言，它们的开发思想使得我们能真正做到前后端分离、解耦。单页面的使用给用户带来了更好体验，但是存在首屏加载慢、白屏以及SEO等问题。那么该如何解决这些问题？
 
-```javascript
-	1.SSR 注：不是酸酸乳啦，而是Server-side rendering（服务端渲染）
-	2.Prerendering
-```
+> 1.SSR 注：不是酸酸乳啦，而是Server-side rendering（服务端渲染）
+2.Prerendering
 
 #### **1.SSR服务端渲染**
 
