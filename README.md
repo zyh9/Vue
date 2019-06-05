@@ -1662,9 +1662,9 @@
 ### vue项目做seo
 对于vue、react这类项目而言，它们的开发思想使得我们能真正做到前后端分离、解耦。单页面的使用给用户带来了更好体验，但是存在首屏加载慢、白屏以及SEO等问题。那么该如何解决这些问题？
 
-```
-1.SSR 注：不是酸酸乳啦，而是Server-side rendering（服务端渲染）
-2.Prerendering
+```javascript
+	1.SSR 注：不是酸酸乳啦，而是Server-side rendering（服务端渲染）
+	2.Prerendering
 ```
 
 #### **1.SSR服务端渲染**
@@ -1677,13 +1677,13 @@
 
 1).安装
 
-```
+```javascript
 npm install prerender-spa-plugin -D
 ```
 
 2).使用
 
-```
+```javascript
 //vue.config.js文件
 const PrerenderSPAPlugin = require('prerender-spa-plugin');
 const Renderer = PrerenderSPAPlugin.PuppeteerRenderer;
@@ -1714,7 +1714,7 @@ if(process.env.NODE_ENV === 'production'){
 
 在vue.config.js文件配置之后，还需要在main.js文件中添加以下代码：
 
-```
+```javascript
 // ./src/main.js文件
 new Vue({
   router,
@@ -1732,7 +1732,7 @@ prerender-spa-plugin插件是需要依赖puppeteer的，也就是谷歌出品的
 
 注意：预渲染要求是histroy模式，否则生成的页面都是同一个html
 
-```
+```javascript
 // .src/router/index.js文件
 export default new vueRouter({
   mode:"history", // history模式
@@ -1744,13 +1744,13 @@ export default new vueRouter({
 
 1).安装
 
-```
+```javascript
 npm install vue-meta-info -D
 ```
 
 2).引入
 
-```
+```javascript
 // ./src/main.js文件
 import MetaInfo from 'vue-meta-info'
 Vue.use(MetaInfo)
@@ -1758,7 +1758,7 @@ Vue.use(MetaInfo)
 
 3).使用
 
-```
+```javascript
 // ./src/xx/xx.vue文件
 export default {
     metaInfo: {
