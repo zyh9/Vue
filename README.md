@@ -1781,3 +1781,142 @@ export default {
 1.[vue项目做seo（prerender-spa-plugin预渲染）](https://blog.csdn.net/yftk765768540/article/details/81047145)
 
 2.[利用prerender-spa-plugin提升单页面应用的体验](https://juejin.im/post/5bc00c1cf265da0aeb71283b)
+
+### CDN可配置
+
+```javascript
+//vue.config.js文件
+// 打包排除某些依赖
+const externals = {
+  vue: 'Vue',
+  axios: 'axios'
+}
+
+// cdn资源
+const cdn = {
+  // 开发环境
+  dev: {
+    css: [
+      'https://uufe-web.oss-cn-beijing.aliyuncs.com/CDN/css/normalize.css'
+    ],
+    js: []
+  },
+  // 生产环境
+  build: {
+    css: [
+      'https://uufe-web.oss-cn-beijing.aliyuncs.com/CDN/css/normalize.css'
+    ],
+    js: [
+      'https://uufe-web.oss-cn-beijing.aliyuncs.com/CDN/js/vue.min.js',
+      'https://uufe-web.oss-cn-beijing.aliyuncs.com/CDN/js/axios.js'
+    ]
+  }
+}
+```
+
+> 怎么用？
+
+```javascript
+  //vue.config.js文件
+  chainWebpack: config =>  {
+    // 添加CDN参数到htmlWebpackPlugin配置中，详见public/index.html修改
+    // 参考链接https://cli.vuejs.org/zh/guide/webpack.html#修改插件选项
+    config.plugin('html').tap(args => {
+      args[0].cdn = process.env.NODE_ENV === 'production'? cdn.build : cdn.dev;
+      return args
+    })
+  },
+  configureWebpack: config => {
+    if (process.env.NODE_ENV === 'production') {
+      // externals里的模块不打包
+      Object.assign(config, {externals})
+    }  else  {
+      // 开发环境配置...
+    }
+  },
+```
+
+> 然后呢？
+
+```html
+<!DOCTYPE html>
+<html lang="en">  
+  <head>
+    <meta http-equiv="Content-Type"  content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible"  content="IE=edge" />
+    <!-- dns预解析 -->
+    <link rel="dns-prefetch"  href="//<%= VUE_APP_PROJECT_URL %>" />
+    <meta name="format-detection"  content="telephone=no" />
+    <meta name="format-detection"  content="email=no" />
+    <meta name="apple-mobile-web-app-capable"  content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+    <meta name="full-screen"  content="yes">
+    <meta name="browsermode"  content="application">
+    <meta name="x5-orientation"  content="portrait">
+    <meta name="x5-fullscreen"  content="true">
+    <meta name="x5-page-mode"  content="app">
+    <meta name="viewport"  content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui">
+    <link rel="icon"  href="<%= BASE_URL %>favicon.ico" />
+    <!-- 使用CDN加速的CSS文件，配置在vue.config.js下 -->
+    <% for (var i in htmlWebpackPlugin.options.cdn&&htmlWebpackPlugin.options.cdn.css) { %>
+      <link href="<%= htmlWebpackPlugin.options.cdn.css[i] %>"  rel="preload"  as="style" />
+      <link href="<%= htmlWebpackPlugin.options.cdn.css[i] %>"  rel="stylesheet" />
+    <% } %>
+    <title>vue-cli3</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- 使用CDN加速的JS文件，配置在vue.config.js下 -->
+    <% for (var i in htmlWebpackPlugin.options.cdn&&htmlWebpackPlugin.options.cdn.js) { %>
+      <script src="<%= htmlWebpackPlugin.options.cdn.js[i] %>"></script>
+    <% } %>
+  </body>
+</html>
+```
+
+### 移动端开发环境加入vConsole
+
+```javascript
+  configureWebpack: config => {
+    if (process.env.NODE_ENV === 'production') {
+      // 生产环境配置...
+      if (process.env.npm_config_report) {
+        // 打包后模块大小分析 npm run build --report
+        const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+        config.plugins.push(new BundleAnalyzerPlugin())
+      }
+    } else {
+      // 开发环境配置...
+      // https://github.com/diamont1001/vconsole-webpack-plugin
+      config.plugins.push(
+        new vConsolePlugin({
+          filter: [], // 需要过滤的入口文件
+          enable: true // 发布代码前记得改回 false
+        })
+      )
+    }
+  },
+```
+
+> 这样就可以愉快的在开发环境使用`vConsole`了
+
+### 生产环境去除hash
+
+```javascript
+  configureWebpack: config => {
+    if (process.env.NODE_ENV === 'production') {
+      //生产环境去除hash
+      Object.assign(config.output, {
+        filename: 'js/[name].js',
+        chunkFilename: 'js/[name].js'
+      })
+    } else {
+      // 开发环境配置...
+    }
+  },
+```
+
+### 参考链接
+
+1.[DNS 预读取](https://developer.mozilla.org/zh-CN/docs/Controlling_DNS_prefetching)
+2.[JSP示例文档](http://www.easywayserver.com/jsp/JSP-example.htm)
