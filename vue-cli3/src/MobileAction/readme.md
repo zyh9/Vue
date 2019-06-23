@@ -59,3 +59,5 @@
     import Actions from './MobileAction/index';
     Vue.use(Actions);
 ```
+
+![截图](https://uufe-web.oss-cn-beijing.aliyuncs.com/PicLib/bomb/images/1543993282979.gif)
