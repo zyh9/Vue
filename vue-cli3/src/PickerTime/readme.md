@@ -62,5 +62,3 @@
     import PickerTime from './PickerTime/index';
     Vue.use(PickerTime);
 ```
-
-![截图](https://uufe-web.oss-cn-beijing.aliyuncs.com/PicLib/bomb/images/PickerTime_1559095098287.gif)

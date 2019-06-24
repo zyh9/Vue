@@ -44,5 +44,3 @@
     import Switchs from './MobileSwitch/index';
     Vue.use(Switchs);
 ```
-
-![截图](https://uufe-web.oss-cn-beijing.aliyuncs.com/PicLib/bomb/images/1543993317845.gif)

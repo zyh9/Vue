@@ -54,5 +54,3 @@
     import Modal from './MobileModal/index';
     Vue.use(Modal);
 ```
-
-![截图](https://uufe-web.oss-cn-beijing.aliyuncs.com/PicLib/bomb/images/1543993303337.gif)
