@@ -1921,3 +1921,8 @@ const cdn = {
 1.[DNS 预读取](https://developer.mozilla.org/zh-CN/docs/Controlling_DNS_prefetching)
 
 2.[JSP示例文档](http://www.easywayserver.com/jsp/JSP-example.htm)
+
+### vue-cli3执行dev打开两次浏览器问题
+
+		应该是官方脚手架的问题，将vue.config.js文件里devServer配置的open选项注释掉，
+		package.json里面dev命令改为："dev": "vue-cli-service serve --open"即可解决
