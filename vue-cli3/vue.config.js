@@ -2,9 +2,9 @@ const os = require('os');
 const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const vConsolePlugin = require('vconsole-webpack-plugin'); // 引入移动端模拟开发者工具插件
-//prerender-spa-plugin
-const PrerenderSPAPlugin = require('prerender-spa-plugin');
-const Renderer = PrerenderSPAPlugin.PuppeteerRenderer;
+// prerender-spa-plugin
+// const PrerenderSPAPlugin = require('prerender-spa-plugin');
+// const Renderer = PrerenderSPAPlugin.PuppeteerRenderer;
 
 function resolve(dir) {
 	return path.join(__dirname, dir);
