@@ -1659,6 +1659,10 @@
 	})
 ```
 
+> vue-wechat-title(解决Vuejs 单页应用在iOS系统下部分APP的webview中 标题不能通过 document.title = xxx 的方式修改)
+
+[使用方法参考链接](https://www.npmjs.com/package/vue-wechat-title)
+
 ### vue项目做seo
 对于vue、react这类项目而言，它们的开发思想使得我们能真正做到前后端分离、解耦。单页面的使用给用户带来了更好体验，但是存在首屏加载慢、白屏以及SEO等问题。那么该如何解决这些问题？
 
