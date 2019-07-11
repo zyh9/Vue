@@ -1800,19 +1800,15 @@ const externals = {
 const cdn = {
   // 开发环境
   dev: {
-    css: [
-      'https://uufe-web.oss-cn-beijing.aliyuncs.com/CDN/css/normalize.css'
-    ],
+    css: [],
     js: []
   },
   // 生产环境
   build: {
-    css: [
-      'https://uufe-web.oss-cn-beijing.aliyuncs.com/CDN/css/normalize.css'
-    ],
+    css: [],
     js: [
-      'https://uufe-web.oss-cn-beijing.aliyuncs.com/CDN/js/vue.min.js',
-      'https://uufe-web.oss-cn-beijing.aliyuncs.com/CDN/js/axios.js'
+		'https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js',
+		'https://cdn.jsdelivr.net/npm/axios@0.19.0/dist/axios.min.js'
     ]
   }
 }
