@@ -19,7 +19,7 @@ module.exports = {
       autoprefixer: false,
       "postcss-zindex": false
     },
-    // "autoprefixer": { browsers: ["> 1%", "ie > 8", 'last 5 version'] },
+    // "autoprefixer": {},
     //移动端项目开启此插件  将px转为rem
     // "postcss-px2rem":{
     //     remUnit:'75'

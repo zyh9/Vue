@@ -45,7 +45,10 @@ const cdn = {
 	// 生产环境
 	build: {
 		css: [],
-		js: []
+		js: [
+			'https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js',
+			'https://cdn.jsdelivr.net/npm/axios@0.19.0/dist/axios.min.js'
+		]
 	}
 }
 
@@ -67,7 +70,7 @@ module.exports = {
 		})
 		// 设置目录别名alias
 		config.resolve.alias
-			.set('plugin', resolve('src/plugin'));
+			.set('@', resolve('src'));
 	},
 	//css相关配置
 	css: {
