@@ -145,12 +145,14 @@ module.exports = {
 			})
 		} else { // 开发环境配置
 			// https://github.com/diamont1001/vconsole-webpack-plugin
-			config.plugins.push(
-				new vConsolePlugin({
-					filter: [], // 需要过滤的入口文件
-					enable: true // 发布代码前记得改回 false
-				})
-			)
+			// config.plugins.push(
+			// 	new vConsolePlugin({
+			// 		filter: [], // 需要过滤的入口文件
+			// 		enable: true // 发布代码前记得改回 false
+			// 	})
+			// )
+			// 在 Chrome Devtools 中展示源代码
+			config['devtool'] = 'source-map';
 		}
 	},
 	//devserver服务
