@@ -1926,3 +1926,13 @@ const cdn = {
 
 		应该是官方脚手架的问题，将vue.config.js文件里devServer配置的open选项注释掉，
 		package.json里面dev命令改为："dev": "vue-cli-service serve --open"即可解决
+
+### 在 Chrome Devtools 中展示源代码
+
+```javascript
+	configureWebpack: {
+		devtool: 'source-map'
+	}
+```
+
+[webpack的devtool文档，请戳我](https://webpack.js.org/configuration/devtool/#production)
