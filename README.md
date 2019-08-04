@@ -1933,6 +1933,13 @@ const cdn = {
 	configureWebpack: {
 		devtool: 'source-map'
 	}
+	//vue cli3
+	configureWebpack: config => {
+		if (process.env.NODE_ENV === 'production') {
+		}else{
+			config['devtool'] = 'source-map';
+		}
+	}
 ```
 
 [webpack的devtool文档，请戳我](https://webpack.js.org/configuration/devtool/#production)
