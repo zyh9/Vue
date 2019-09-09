@@ -1747,9 +1747,7 @@ export default new vueRouter({
 
 1).安装
 
-```javascript
-npm install vue-meta-info -D
-```
+> npm install vue-meta-info -D
 
 2).引入
 
@@ -1773,7 +1771,7 @@ export default {
             },
             {
                 name: 'description',
-                content: '太阳好圆啊
+                content: '太阳好圆啊'
             }
         ]
     }
