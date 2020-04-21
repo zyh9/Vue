@@ -24,7 +24,7 @@
                 </div>
                 <!-- 时间段 -->
                 <div class='hour'>
-                    <div class="hour_item" :class="{hour_active:yyTime=='立即配送'||reserveTime=='立即配送'}" v-if="currentTab==0" @click="hourClick(-1,1)">立即配送</div>
+                    <div class="hour_item" :class="{hour_active:hourIndex==-1||yyTime==''}" v-if="currentTab==0" @click="hourClick(-1,1)">立即配送</div>
                     <div class="hour_item" :class="{hour_unactive:!item.isShow,hour_active:hourIndex==index}" v-for="(item,index) in hourList" :key="index" @click="hourClick(index,0)">{{item.hour}}</div>
                 </div>
             </div>
@@ -33,204 +33,75 @@
 </template>
 
 <script>
+    import {
+        FmtTime,
+        pickerData
+    } from '../utils/index'
     export default {
         name: "PickerTime",
         data() {
             return {
-                //日期
+                //日期列表
                 timeList: [],
-                //可预约天数
-                yyDay: 30,
                 //预约时间段
-                hourList: [{
-                        hour: "08:00",
-                        n: 8,
-                        isShow: true
-                    },
-                    {
-                        hour: "09:00",
-                        n: 9,
-                        isShow: true
-                    },
-                    {
-                        hour: "10:00",
-                        n: 10,
-                        isShow: true
-                    },
-                    {
-                        hour: "11:00",
-                        n: 11,
-                        isShow: true
-                    },
-                    {
-                        hour: "12:00",
-                        n: 12,
-                        isShow: true
-                    },
-                    {
-                        hour: "13:00",
-                        n: 13,
-                        isShow: true
-                    },
-                    {
-                        hour: "14:00",
-                        n: 14,
-                        isShow: true
-                    },
-                    {
-                        hour: "15:00",
-                        n: 15,
-                        isShow: true
-                    },
-                    {
-                        hour: "16:00",
-                        n: 16,
-                        isShow: true
-                    },
-                    {
-                        hour: "17:00",
-                        n: 17,
-                        isShow: true
-                    },
-                    {
-                        hour: "18:00",
-                        n: 18,
-                        isShow: true
-                    },
-                    {
-                        hour: "19:00",
-                        n: 19,
-                        isShow: true
-                    },
-                    {
-                        hour: "20:00",
-                        n: 20,
-                        isShow: true
-                    },
-                    {
-                        hour: "21:00",
-                        n: 21,
-                        isShow: true
-                    },
-                    {
-                        hour: "22:00",
-                        n: 22,
-                        isShow: true
-                    }
-                ],
+                hourList: [],
                 //是否显示
                 timeShow: false,
-                currentTab: 0,
                 //选择时间
                 chooseHour: "",
                 //选择日期
                 chooseTime: "",
+                //日期选中项
+                currentTab: 0,
+                //时间选中项
                 hourIndex: -1,
                 //预约时间
                 yyTime: '',
+                //当前时间
+                nowDate: FmtTime(new Date(), 'yyyy/MM/dd'),
             }
         },
         props: {
-            reserveTime: {
+            yyDay: {
+                type: Number,
+                default: 7
+            },
+            startHour: {
+                type: Number,
+                default: 8
+            },
+            endHour: {
+                type: Number,
+                default: 22
+            },
+            startTime: {
                 type: String,
-                default: '立即配送'
+                default: '2000-01-01'
             }
         },
         mounted() {
-            Date.prototype.Format = function(format) {
-                var o = {
-                    "M+": this.getMonth() + 1, //month
-                    "d+": this.getDate(), //day
-                    "h+": this.getHours(), //hour
-                    "m+": this.getMinutes(), //minute
-                    "s+": this.getSeconds(), //second
-                    "q+": Math.floor((this.getMonth() + 3) / 3), //quarter
-                    "S": this.getMilliseconds() //millisecond
-                }
-                if (/(y+)/.test(format)) {
-                    format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-                }
-                for (var k in o) {
-                    if (new RegExp("(" + k + ")").test(format)) {
-                        format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
-                    }
-                }
-                return format;
-            }
-            Date.prototype.DateAdd = function(interval, number) {
-                number = parseInt(number);
-                var date = new Date(this.getTime());
-                switch (interval) {
-                    case "y":
-                        date.setFullYear(this.getFullYear() + number);
-                        break;
-                    case "m":
-                        date.setMonth(this.getMonth() + number);
-                        break;
-                    case "d":
-                        date.setDate(this.getDate() + number);
-                        break;
-                    case "w":
-                        date.setDate(this.getDate() + 7 * number);
-                        break;
-                    case "h":
-                        date.setHours(this.getHours() + number);
-                        break;
-                    case "n":
-                        date.setMinutes(this.getMinutes() + number);
-                        break;
-                    case "s":
-                        date.setSeconds(this.getSeconds() + number);
-                        break;
-                    case "l":
-                        date.setMilliseconds(this.getMilliseconds() + number);
-                        break;
-                }
-                return date;
-            }
-            var dateList = [];
-            var now = new Date();
-            for (var i = 0; i < this.yyDay; i++) {
-                var d = {};
-                var day = new Date().DateAdd('d', i).getDay();
-                if (day == 1) {
-                    var w = "周一"
-                }
-                if (day == 2) {
-                    var w = "周二"
-                }
-                if (day == 3) {
-                    var w = "周三"
-                }
-                if (day == 4) {
-                    var w = "周四"
-                }
-                if (day == 5) {
-                    var w = "周五"
-                }
-                if (day == 6) {
-                    var w = "周六"
-                }
-                if (day == 0) {
-                    var w = "周日"
-                }
-                d.name = w;
-                d.date = new Date().DateAdd('d', i).Format("MM-dd");
-                dateList.push(d)
-            }
-            this.timeList = dateList;
-            //初始化判断 当前时间
-            var hour = new Date().getHours();
-            for (var i = 0; i < this.hourList.length; i++) {
-                var list = this.hourList;
-                //过时不可选
-                if (this.hourList[i].n <= hour) {
-                    list[i].isShow = false;
-                    this.hourList = list;
-                }
-            }
+            this.handleTime()
         },
         methods: {
+            handleTime(selectIndex = 0) {
+                //时间原型处理
+                let timeList = pickerData(7, this.startTime)
+                let hourList = [];
+                //当前时间
+                let hour = new Date().getHours();
+                //判断时间节点
+                for (let i = this.startHour; i <= this.endHour; i++) {
+                    let index = i;
+                    hourList.push({ //过时不可选
+                        n: i,
+                        isShow: timeList[selectIndex].time == this.nowDate ? (i <= hour ? false : true) : timeList[selectIndex].time < this.nowDate ? false : true,
+                        hour: `${index >= 10 ? index : '0' + index}:00-${++index >= 10 ? index > 23 ? 23 : index : '0' + index}:${index > 23 ? '59' : '00'}`
+                    })
+                }
+                this.timeList = timeList;
+                this.hourList = hourList;
+                // console.log(this.timeList, this.hourList)
+            },
             //弹出按钮
             showTimeModel() {
                 this.timeShow = true;
@@ -242,7 +113,7 @@
                 this.chooseTime = this.timeList[0].date;
             },
             handleOk() {
-                if (this.currentTab == 0 && this.reserveTime == '立即配送') { //当天未选择时间
+                if (this.currentTab == 0 && this.yyTime == '') { //当天未选择时间
                     this.$emit("handleOk", {
                         title: '确认',
                         value: '立即配送'
@@ -266,24 +137,7 @@
             },
             //日期选择
             timeClick(index) {
-                //非今天-不判断超过当前时间点(所有时间点都可选择)
-                if (index != 0) {
-                    var list = this.hourList;
-                    for (var i = 0; i < list.length; i++) {
-                        list[i].isShow = true;
-                    }
-                    this.hourList = list;
-                } else {
-                    //今天-过时不可预约
-                    var hour = new Date().getHours();
-                    for (var i = 0; i < this.hourList.length; i++) {
-                        var list = this.hourList;
-                        if (this.hourList[i].n <= hour) {
-                            list[i].isShow = false;
-                            this.hourList = list;
-                        }
-                    }
-                }
+                this.handleTime(index)
                 this.currentTab = index;
                 this.chooseTime = this.timeList[index].date;
                 this.yyTime = '';
@@ -305,13 +159,10 @@
                     }
                     this.hourIndex = index;
                     this.chooseHour = this.hourList[index].hour;
-                    let chooseTime = new Date().getFullYear() + "-" + this.chooseTime + " " + this.chooseHour + ':00';
+                    let chooseTime = new Date(this.timeList[this.currentTab].time).getFullYear() + "-" + this.chooseTime + " " + this.chooseHour;
                     this.yyTime = chooseTime;
+                    console.log(this.yyTime)
                 }
-                this.$emit("changeTime", {
-                    title: '选择时间',
-                    value: this.yyTime
-                })
             },
         },
         components: {}

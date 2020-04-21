@@ -1,6 +1,7 @@
 <template>
   <div class="z-modal">
-    <transition enter-active-class="fade-enter" leave-active-class="fade-leave">
+    <!-- <transition enter-active-class="fade-enter" leave-active-class="fade-leave"> -->
+    <transition enter-active-class="fade-enter">
       <div class="z-mask" @click.self="cancelModal" v-if="modalBlock">
         <div class="z-modal-con">
           <div class="z-modal-header">{{title}}</div>

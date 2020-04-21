@@ -1,10 +1,12 @@
 ### PickerTime组件
 
 ```html
-    <PickerTime ref="PickerTime"
-        :reserveTime="reserveTime" 
-        @changeTime="changeTime" 
-        @handleOk="handleOk" 
+    <PickerTime ref="PickerTime" 
+        :yyDay="7" 
+        :startHour="7"
+        :endHour="22"
+        startTime="2020-04-20"
+        @handleOk="handleOk"
         @handleCancel="handleCancel"
     ></PickerTime>
 ```
@@ -21,20 +23,11 @@
         onReserve() {
             this.$refs.PickerTime.showTimeModel()
         },
-        //更改时间
-        changeTime(val) {
-            console.log(val)
-            let {
-            value
-            } = val;
-            this.reserveTime = value;
-        },
-        //确认
         handleOk(val) {
             console.log(val)
+            this.reserveTime = val.value;
             this.$refs.PickerTime.modelCancel()
         },
-        //取消
         handleCancel(val) {
             console.log(val)
             this.$refs.PickerTime.modelCancel()
@@ -45,9 +38,10 @@
 
 > 参数说明
 
-| 属性    | 类型            | 默认值 | 说明     |
-| ------- | --------------- | ------ | -------- |
-| reserveTime | string | '立即配送'    | 预约时间 |
+| 属性      | 类型   | 默认值     | 说明     |
+| --------- | ------ | ---------- | -------- |
+| startTime | string | 2000-01-01 | 预约时间 |
+| yyDay     | number | 7          | 预约天数 |
 
 >使用方法
 
