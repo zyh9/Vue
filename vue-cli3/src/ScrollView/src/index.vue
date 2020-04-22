@@ -7,7 +7,9 @@
                 </div>
             </div>
         </div>
-        <div class="scroll-view-options"></div>
+        <div class="scroll-view-options">
+            <div class="options—item" v-for="(v,i) in 10" :key="i" @click="handleSelect(i)" :class="{'active':selectIndex==i}">选项{{i}}</div>
+        </div>
     </div>
 </template>
 

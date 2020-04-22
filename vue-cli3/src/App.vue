@@ -1,16 +1,16 @@
 <template>
   <div id="app">
     <!-- <div id="nav">
-                                                  <router-link to="/">Home</router-link> |
-                                                  <router-link to="/about">About</router-link>
-                                                </div> -->
+                                                      <router-link to="/">Home</router-link> |
+                                                      <router-link to="/about">About</router-link>
+                                                    </div> -->
     <!-- <router-view></router-view> -->
     <h3 @click="modal">模态框</h3>
     <h3 @click="action">动作面板</h3>
     <Modal ref="Modal" title="确认信息" message="你确定要这样做吗？" @z-modal-cancel="handleModalCancel" @z-modal-ok="handleModalOk"></Modal>
     <Actions ref="Action" :actions="actions" @z-action-cancel="handleActionCancel" @z-action-ok="handleActionOk"></Actions>
     <h3 @click="onReserve">预约时间:{{reserveTime}}</h3>
-    <PickerTime ref="PickerTime" :yyDay="7" :startHour="7" :endHour="22" startTime="2020-04-20" @handleOk="handleOk" @handleCancel="handleCancel"></PickerTime>
+    <PickerTime ref="PickerTime" :yyDay="7" :startHour="8" :endHour="22" startTime="2020-04-20" @handleOk="handleOk" @handleCancel="handleCancel"></PickerTime>
     <Switchs title="switch开关" :defaultChecked="false" :disabled="false" @z-switch="handleSwitch"></Switchs>
     <Options></Options>
     <ScrollView></ScrollView>
@@ -98,7 +98,6 @@
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-align: center;
     color: #2c3e50;
   }
   #nav {
@@ -115,5 +114,6 @@
     font-size: 26px;
     color: #333;
     margin-top: 30px;
+    text-align: center;
   }
 </style>
