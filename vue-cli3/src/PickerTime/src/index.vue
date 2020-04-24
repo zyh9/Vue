@@ -15,10 +15,12 @@
                 </div>
                 <!-- 日期 -->
                 <div class="time">
-                    <div class="time_scroll" scroll-x="true">
-                        <div class="scroll_item" :class="{time_active:currentTab==index}" v-for="(item,index) in timeList" :key="index" @click="timeClick(index)">
-                            <p>{{item.name}}</p>
-                            <p>{{item.date}}</p>
+                    <div class="time_scroll">
+                        <div class="list">
+                            <div class="scroll_item" :class="{time_active:currentTab==index}" v-for="(item,index) in timeList" :key="index" @click="timeClick(index)">
+                                <p>{{item.name}}</p>
+                                <p>{{item.date}}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -80,7 +82,9 @@
             }
         },
         mounted() {
-            this.handleTime()
+            this.$nextTick(() => {
+                this.handleTime()
+            })
         },
         methods: {
             handleTime(selectIndex = 0) {
@@ -165,7 +169,7 @@
                 }
             },
         },
-        components: {}
+        components: {},
     }
 </script>
 

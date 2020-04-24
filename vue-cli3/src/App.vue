@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <!-- <div id="nav">
-                                                      <router-link to="/">Home</router-link> |
-                                                      <router-link to="/about">About</router-link>
-                                                    </div> -->
+                                                              <router-link to="/">Home</router-link> |
+                                                              <router-link to="/about">About</router-link>
+                                                            </div> -->
     <!-- <router-view></router-view> -->
     <h3 @click="modal">模态框</h3>
     <h3 @click="action">动作面板</h3>
@@ -12,8 +12,8 @@
     <h3 @click="onReserve">预约时间:{{reserveTime}}</h3>
     <PickerTime ref="PickerTime" :yyDay="7" :startHour="8" :endHour="22" startTime="2020-04-20" @handleOk="handleOk" @handleCancel="handleCancel"></PickerTime>
     <Switchs title="switch开关" :defaultChecked="false" :disabled="false" @z-switch="handleSwitch"></Switchs>
-    <Options></Options>
-    <ScrollView></ScrollView>
+    <Options :optionsList="optionsList"></Options>
+    <ScrollView :scrollList="scrollList" @handleSelect="handleSelect"></ScrollView>
   </div>
 </template>
 <script>
@@ -34,6 +34,17 @@
           text: '操作三'
         }],
         reserveTime: '立即配送', //默认方式
+        scrollList: ['选项1', '选项2', '选项3', '选项4', '选项5', '选项6', '选项7', '选项8'],
+        optionsList: [{
+          // iconClass: 'z-icon-default',
+          text: '111'
+        }, {
+          iconClass: 'z-icon-default',
+          text: '222'
+        }, {
+          iconClass: 'z-icon-default',
+          text: '333'
+        }]
       }
     },
     created() {},
@@ -76,6 +87,9 @@
         console.log(val)
         this.$refs.PickerTime.modelCancel()
       },
+      handleSelect(val) {
+        console.log(val)
+      }
     },
     components: {
       Modal,

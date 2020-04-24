@@ -3,13 +3,11 @@
     height: 100px;
     line-height: 80px;
     overflow: hidden;
+    position: relative;
+    box-shadow: 0 6px 8px 0px #eee;
 
     .scroll_list {
-        // width: 100%;
-        // height: 100%;
-        // overflow-y: hidden;
-        // overflow-x: scroll;
-        // white-space: nowrap;
+        padding-right: 60px;
     }
 
     .scroll_item {
@@ -39,6 +37,35 @@
             }
         }
     }
+
+    .other-option {
+        width: 60px;
+        height: 100px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        background-color: #fff;
+        box-shadow: -6px 0 8px 0px #eee;
+        display: flex;
+
+        .icon-bot {
+            width: 25px;
+            height: 25px;
+            background-image: url('../icon/icon-bot.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            display: block;
+            transition: all 0.3s;
+            transform: rotate(0deg);
+            margin: auto;
+        }
+
+        &.rotate {
+            .icon-bot {
+                transform: rotate(180deg);
+            }
+        }
+    }
 }
 
 .scroll-view-options {
@@ -46,10 +73,11 @@
     max-height: 300px;
     overflow-x: hidden;
     overflow-y: scroll;
-    padding-top: 20px;
+    padding: 20px 0 0 20px;
     box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
+    box-shadow: 0 6px 8px 0px #eee;
 
     .options—item {
         height: 60px;
@@ -61,20 +89,20 @@
         border: 1px solid #12c287;
         border-radius: 6px;
         padding: 0 16px;
-        margin: 0 10px;
+        margin-right: 16px;
         overflow: hidden;
 
         &.active {
             &::after {
                 content: '';
                 display: block;
-                width: 16px;
-                height: 16px;
+                width: 20px;
+                height: 20px;
                 background-color: #12c287;
                 position: absolute;
                 top: 0;
                 right: 0;
-                border-radius: 0 0 0 16px;
+                border-radius: 0 0 0 20px;
             }
         }
     }

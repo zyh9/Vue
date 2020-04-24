@@ -1,9 +1,9 @@
 <template>
     <div class="z-option">
-        <div class="z-option-item" v-for="(v,i) in 6" :key="i">
+        <div class="z-option-item" v-for="(v,i) in optionsList" :key="i" @click="handleClick(v,i)">
             <div class="z-item-left">
-                <img src="" alt="">
-                <p>选项{{i}}</p>
+                <i class="icon" :class="v.iconClass" v-if="v.iconClass"></i>
+                <p>{{v.text}}</p>
             </div>
             <i class="z-icon"></i>
         </div>
@@ -17,26 +17,15 @@
             return {};
         },
         props: {
+            optionsList: {
+                type: Array,
+                default: []
+            }
         },
         mounted() {},
         methods: {
-            showAction() {
-                this.actionBlock = true;
-            },
-            hideAction() {
-                this.actionBlock = false;
-            },
-            cancelAction() {
-                this.$emit("z-action-cancel", {
-                    title: "取消",
-                    Boolean: false
-                });
-            },
-            actionItem(v, i) {
-                this.$emit("z-action-ok", {
-                    text: v.text,
-                    index: i
-                });
+            handleClick(v, i) {
+                console.log(v,i)
             }
         },
         components: {},
