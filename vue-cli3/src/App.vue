@@ -14,6 +14,9 @@
     <Switchs title="switch开关" :defaultChecked="false" :disabled="false" @z-switch="handleSwitch"></Switchs>
     <Options :optionsList="optionsList"></Options>
     <ScrollView :scrollList="scrollList" @handleSelect="handleSelect"></ScrollView>
+    <Suspend @handleClick="handleClick">
+      <img src="./assets/logo.png" alt="">
+    </Suspend>
   </div>
 </template>
 <script>
@@ -23,6 +26,7 @@
   import PickerTime from './PickerTime/index';
   import Options from './Options/index';
   import ScrollView from './ScrollView/index';
+  import Suspend from './Suspend/index'
   export default {
     data() {
       return {
@@ -89,6 +93,9 @@
       },
       handleSelect(val) {
         console.log(val)
+      },
+      handleClick(){
+        alert('hello')
       }
     },
     components: {
@@ -98,6 +105,7 @@
       PickerTime,
       Options,
       ScrollView,
+      Suspend,
     },
     computed: {},
     watch: {}
