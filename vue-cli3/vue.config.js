@@ -163,7 +163,8 @@ module.exports = {
 		//代理服务
 		proxy: {
 			'/api': {
-				target: '<url>',
+				// https://cli.vuejs.org/zh/guide/mode-and-env.html#在客户端侧代码中使用环境变量
+				target: process.env.VUE_APP_BASE_URL,
 				ws: true,
 				changeOrigin: true
 			}
