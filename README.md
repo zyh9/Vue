@@ -1449,8 +1449,8 @@
 
 ```javascript
 	//地址栏参数获取1
-	getUrl:function() {
-	    let urlHref = window.location.href;
+	getUrlData:function(name){
+        let urlHref = window.location.href;
 	    let urlObj = {};
 	    if (urlHref.indexOf('?')!=-1) {
 	        let getArr = urlHref.split('?')[1].split('&');
@@ -1458,20 +1458,26 @@
 	            if (!(e.split('=')[0] in urlObj)) {
 	                urlObj[e.split('=')[0]] = e.split('=')[1];
 	            }
-	        })
-	        return urlObj;
-	    }else return 'nodata';
+            })
+            for(var key of Object.keys(urlObj)){
+                urlObj[key] = decodeURIComponent(urlObj[key].replace(/#\//,''))
+            }
+	        return urlObj[name];
+	    }else return null;
 	}
 
 	//地址栏参数获取2
 	const querystring=require('querystring');//引入node系统模块
-	getUrlData:function(){
+	getUrlData:function(name){
 	    let urlHref = window.location.href;
 	    if (urlHref.indexOf('?')!=-1) {
 	        let getStr = urlHref.split('?')[1];
 	        let urlObj = querystring.parse(getStr);
-	        return urlObj;
-	    }else return 'nodata'; 
+	        for(var key of Object.keys(urlObj)){
+                urlObj[key] = decodeURIComponent(urlObj[key].replace(/#\//,''))
+            }
+	        return urlObj[name];
+	    }else return null;
 	}
 ```
 
