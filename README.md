@@ -1460,7 +1460,7 @@
 	            }
             })
             for(var key of Object.keys(urlObj)){
-                urlObj[key] = decodeURIComponent(urlObj[key].replace(/#\//,''))
+                urlObj[key] && (urlObj[key] = decodeURIComponent(urlObj[key].replace(/#\//,'')))
             }
 	        return urlObj[name];
 	    }else return null;
@@ -1474,7 +1474,7 @@
 	        let getStr = urlHref.split('?')[1];
 	        let urlObj = querystring.parse(getStr);
 	        for(var key of Object.keys(urlObj)){
-                urlObj[key] = decodeURIComponent(urlObj[key].replace(/#\//,''))
+                urlObj[key] && (urlObj[key] = decodeURIComponent(urlObj[key].replace(/#\//,'')))
             }
 	        return urlObj[name];
 	    }else return null;
