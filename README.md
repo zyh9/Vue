@@ -1316,70 +1316,20 @@
 
 ### 本地IP调起浏览器
 
-		找到 config 文件夹里的 index.js
-		
-		const os = require('os');
-		
-		//node.js 的一个方法，os.networkInterfaces()返回一个对象，包含只有被赋予网络地址的网络接口
-		//根据对象里面的信息来获取 IP 地址
-		const obj = os.networkInterfaces();
-		console.log(obj);
-		
-		//定义一个变量
-		let ip;
-		
-		//得到如下信息:
-		
-			{ WLAN:
-		      [ { address: 'fe80::e113:47e3:b04b:70cd',
-		          netmask: 'ffff:ffff:ffff:ffff::',
-		          family: 'IPv6',
-		          mac: '68:07:15:9d:fe:9a',
-		          scopeid: 10,
-		          internal: false },
-		        { address: '192.168.1.101',
-		          netmask: '255.255.255.0',
-		          family: 'IPv4',
-		          mac: '68:07:15:9d:fe:9a',
-		          internal: false } ],
-		      'Loopback Pseudo-Interface 1':
-		      [ { address: '::1',
-		          netmask: 'ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff',
-		          family: 'IPv6',
-		          mac: '00:00:00:00:00:00',
-		          scopeid: 0,
-		          internal: true },
-		        { address: '127.0.0.1',
-		          netmask: '255.0.0.0',
-		          family: 'IPv4',
-		          mac: '00:00:00:00:00:00',
-		          internal: true } ] }
-		
-			/*
-				以Win10系统为例，系统之间可能存在差异，WLAN连接的时候获取到的对象第一个key为WLAN，
-				宽带连接的时候获取到的对象第一个key为宽带连接，本地连接的时候获取到的对象第一个key为以太网，
-				因系统之间存在差异，故不能一味根据对象提供的值来一级一级向下找
-			*/
-			
-			/*
-				先循环此对象，来获取到两个数组，然后遍历这两个数组，拿到e.family=="IPv4"的对象
-				最后通过字符串的方法（没找到返回-1），来获取到最终想要的对象的e.address赋值给ip
-			*/
-		
-			for(let value in obj){
-				obj[value].forEach(e => {
-					if(e.family=="IPv4"){
-						if(e.address.indexOf('127.0.0.1')==-1){
-							ip = e.address;
-						}
-					}
-				})
-			}
-	    
-		//此常量（ip）就是电脑的IP地址
-		将 host: 'localhost', 修改为 host: ip,
-		
-		至于Mac的系统针对网络的配置，我就不知道了，我是真的穷...
+```javascript
+// 先循环此对象，来获取到两个数组，然后遍历这两个数组，拿到e.family=="IPv4"的对象
+// 最后通过字符串的方法（没找到返回-1），来获取到最终想要的对象的e.address赋值给ip
+const getIp = (() => {
+	// node.js 的一个方法，os.networkInterfaces()返回一个对象，包含只有被赋予网络地址的网络接口
+	const os = require('os');
+	const obj = os.networkInterfaces();
+	for (let value in obj) {
+		let filterList = obj[value].filter(e => e.family == "IPv4" && e.address.indexOf('192') > -1);
+		return filterList[0].address;
+	}
+})()
+// 将 host: 'localhost', 修改为 host: getIp,
+```
 
 ### 安装swiper
 
@@ -1449,7 +1399,7 @@
 
 ```javascript
 	//地址栏参数获取1
-	getUrlData:function(name){
+	getUrlData(name){
         let urlHref = window.location.href;
 	    let urlObj = {};
 	    if (urlHref.indexOf('?')!=-1) {
@@ -1468,7 +1418,7 @@
 
 	//地址栏参数获取2
 	const querystring=require('querystring');//引入node系统模块
-	getUrlData:function(name){
+	getUrlData(name){
 	    let urlHref = window.location.href;
 	    if (urlHref.indexOf('?')!=-1) {
 	        let getStr = urlHref.split('?')[1];
@@ -1479,6 +1429,14 @@
 	        return urlObj[name];
 	    }else return null;
 	}
+
+	//地址栏参数获取3
+	getQuery (name) {
+        var reg = new RegExp("([&,?])" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.match(reg) || window.location.hash.match(reg);
+        if (r != null) return decodeURIComponent(r[2]);
+        return null;
+    }
 ```
 
 ### 滚动Demo
