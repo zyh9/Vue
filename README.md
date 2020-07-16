@@ -1409,7 +1409,7 @@ const getIp = (() => {
 	                urlObj[e.split('=')[0]] = e.split('=')[1];
 	            }
             })
-            for(var key of Object.keys(urlObj)){
+            for(let key of Object.keys(urlObj)){
                 urlObj[key] && (urlObj[key] = decodeURIComponent(urlObj[key].replace(/#\//,'')))
             }
 	        return urlObj[name];
@@ -1423,7 +1423,7 @@ const getIp = (() => {
 	    if (urlHref.indexOf('?')!=-1) {
 	        let getStr = urlHref.split('?')[1];
 	        let urlObj = querystring.parse(getStr);
-	        for(var key of Object.keys(urlObj)){
+	        for(let key of Object.keys(urlObj)){
                 urlObj[key] && (urlObj[key] = decodeURIComponent(urlObj[key].replace(/#\//,'')))
             }
 	        return urlObj[name];
@@ -1432,8 +1432,8 @@ const getIp = (() => {
 
 	//地址栏参数获取3
 	getQuery (name) {
-        var reg = new RegExp("([&,?])" + name + "=([^&]*)(&|$)", "i");
-        var r = window.location.search.match(reg) || window.location.hash.match(reg);
+        let reg = new RegExp("([&,?])" + name + "=([^&]*)(&|$)", "i");
+        let r = window.location.search.match(reg) || window.location.hash.match(reg);
         if (r != null) return decodeURIComponent(r[2]);
         return null;
     }
