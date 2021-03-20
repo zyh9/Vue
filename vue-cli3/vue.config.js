@@ -1,4 +1,3 @@
-const os = require("os");
 const path = require("path");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const vConsolePlugin = require("vconsole-webpack-plugin"); // 引入移动端模拟开发者工具插件
