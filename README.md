@@ -1314,21 +1314,24 @@
 		
 		将 autoOpenBrowser: false, 修改为 autoOpenBrowser: true,
 
-### 本地IP调起浏览器
+### node获取本机ip
 
 ```javascript
-// 先循环此对象，来获取到两个数组，然后遍历这两个数组，拿到e.family=="IPv4"的对象
-// 最后通过字符串的方法（没找到返回-1），来获取到最终想要的对象的e.address赋值给ip
-const getIp = (() => {
-	// node.js 的一个方法，os.networkInterfaces()返回一个对象，包含只有被赋予网络地址的网络接口
-	const os = require('os');
-	const obj = os.networkInterfaces();
-	for (let value in obj) {
-		let filterList = obj[value].filter(e => e.family == "IPv4" && e.address.indexOf('192') > -1);
-		return filterList[0].address;
-	}
-})()
-// 将 host: 'localhost', 修改为 host: getIp,
+// https://stackoverflow.com/questions/3653065/get-local-ip-address-in-node-js
+function getIPAddress() {
+  var interfaces = require("os").networkInterfaces();
+  for (var devName in interfaces) {
+    var iface = interfaces[devName];
+
+    for (var i = 0; i < iface.length; i++) {
+      var alias = iface[i];
+      if (alias.family === "IPv4" && alias.address !== "127.0.0.1" && !alias.internal) {
+        return alias.address;
+      }
+    }
+  }
+  return "0.0.0.0";
+}
 ```
 
 ### 安装swiper

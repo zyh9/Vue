@@ -14,7 +14,7 @@ const packageInfo = require("./package.json");
 
 //压缩打包文件
 gulp.task('zip', _ => gulp.src(path.resolve(distFile + '/**'))
-    .pipe(zip('uufe' + packageInfo.version + '-' + dayjs().format('YYYY-MM-DD HH-mm-ss') + '.zip'))
+    .pipe(zip('name' + packageInfo.version + '-' + dayjs().format('YYYY-MM-DD HH-mm-ss') + '.zip'))
     .pipe(gulp.dest('./')))
 
 gulp.task('test', _ => {//上传生产目录到测试环境

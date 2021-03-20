@@ -1,10 +1,7 @@
 //  基于axios 封装的http请求插件
 const axios = require('axios');
 
-/**
- * 以下这种方式需要调用Vue.use方法 调用的时候调用 this.$fetch, this.$post, this.$axios, this.$put, this.$del 方法
- * 开发文档介绍：http://uunote.mit.cn/uunote/#/index/largeDoc/677
- */
+// 以下这种方式需要调用Vue.use方法 调用的时候调用 this.$fetch, this.$post, this.$axios, this.$put, this.$del 方法
 const http = {
   install(Vue, Option) {
     if (Option) {
@@ -25,7 +22,7 @@ const http = {
      * @param  {string} url
      * @param  {object} params={}  参数可以根据需要自行处理
      */
-    const fetch = (url, params = {}) => {
+    const get = (url, params = {}) => {
       const str = Object.keys(params).map(item => {
         return item + '=' + params[item];
       }).join('&');
@@ -85,7 +82,7 @@ const http = {
         });
       });
     };
-    const data = { axios, fetch, post, put, del };
+    const data = { axios, get, post, put, del };
     Object.keys(data).map(item => Object.defineProperty(Vue.prototype, '$' + item, { value: data[item] }));
   }
 };
