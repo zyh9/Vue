@@ -1,5 +1,5 @@
 {
-  "name": "vue-cli4",
+  "name": "vue2",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -52,7 +52,6 @@
     "sass": "^1.32.13",
     "sass-loader": "^10.2.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "vconsole-webpack-plugin": "^1.5.2",
     "vue-template-compiler": "^2.6.12",
     "vue-wechat-title": "^2.0.7",
     "webpack-bundle-analyzer": "^4.4.1"

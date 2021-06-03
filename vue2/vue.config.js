@@ -1,9 +1,8 @@
 const path = require("path");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const vConsolePlugin = require("vconsole-webpack-plugin"); // 引入移动端模拟开发者工具插件
 
 function resolve(dir) {
-  return path.join(__dirname, dir);
+  return path.resolve(__dirname, dir);
 }
 
 // https://stackoverflow.com/questions/3653065/get-local-ip-address-in-node-js
@@ -25,7 +24,10 @@ function getIPAddress() {
 // 打包排除某些依赖
 const externals = {
   vue: "Vue",
+  vuex: "Vuex",
+  "vue-router": "VueRouter",
   axios: "axios",
+  vant: "vant",
 };
 
 // cdn资源
@@ -33,12 +35,18 @@ const cdn = {
   // 开发环境
   dev: {
     css: ["https://cdn.jsdelivr.net/npm/vant@2.12/lib/index.css"],
-    js: ["https://cdn.jsdelivr.net/npm/eruda@2.4.1/eruda.min.js"],
+    js: ["https://cdn.jsdelivr.net/npm/eruda@2.4/eruda.min.js"],
   },
   // 生产环境
   build: {
     css: ["https://cdn.jsdelivr.net/npm/vant@2.12/lib/index.css"],
-    js: ["https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js", "https://cdn.jsdelivr.net/npm/axios@0.19.0/dist/axios.min.js"],
+    js: [
+      "https://cdn.jsdelivr.net/npm/vue@2.6/dist/vue.min.js",
+      "https://cdn.jsdelivr.net/npm/vuex@3.6/dist/vuex.min.js",
+      "https://cdn.jsdelivr.net/npm/vue-router@3.5/dist/vue-router.min.js",
+      "https://cdn.jsdelivr.net/npm/axios@0.19/dist/axios.min.js",
+      "https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js",
+    ],
   },
 };
 
@@ -96,14 +104,6 @@ module.exports = {
         config.plugins.push(new BundleAnalyzerPlugin());
       }
     } else {
-      // 开发环境配置
-      // https://github.com/diamont1001/vconsole-webpack-plugin
-      // config.plugins.push(
-      //   new vConsolePlugin({
-      //     filter: [], // 需要过滤的入口文件
-      //     enable: true, // 发布代码前记得改回 false
-      //   })
-      // );
       // 在 Chrome Devtools 中展示源代码
       config["devtool"] = "source-map";
     }
@@ -112,7 +112,7 @@ module.exports = {
   devServer: {
     //是否自动打开浏览器
     // open: true,
-    host: getIPAddress(), // 暂时注释 运行后可在命令行工具中选择ip地址打开
+    host: getIPAddress(),
     //代理服务
     proxy: {
       "/api": {
